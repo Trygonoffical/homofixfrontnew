@@ -83,37 +83,12 @@ const ExclusiveOffer = (props) => {
     fetchData();
   }, [props.url]);
 
-  // Wait for offer data to be fetched before initializing the slider
-  // useEffect(() => {
-  //   if (sliderRef && !slider) {
-  //     sliderRef.current && sliderRef.current.refresh();
-  //   }
-    
-  // }, [sliderRef, slider]);
-
   return (
     <section className="container mx-auto py-10 md:mt-10">
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
       <div className="md:mt-9">
-        {/* {offer.length > 0 && sliderRef && (
-          <div ref={sliderRef} className="keen-slider">
-            {offer.map((cat, idx) => (
-              <div className="keen-slider__slide" key={idx}>
-                <Link href={cat.url}>
-                  <img
-                    src={cat.offer_pic}
-                    alt="Ac"
-                    width={285}
-                    className="mx-auto w-11/12 md:w-11/12"
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
-        )} */}
-     
            {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
@@ -130,7 +105,6 @@ const ExclusiveOffer = (props) => {
                 ))}
               </Slider>
            ) }
-          
       </div>
     </section>
   );

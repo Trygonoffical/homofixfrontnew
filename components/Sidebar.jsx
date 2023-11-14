@@ -33,9 +33,12 @@ const Sidebar = ({show, subcategories, onClose }) => {
             </div>
            {subcategories.map((sub,idx)=>
             {return <Link  href={`/category/${slugify(sub.name)}`} className="w-full flex justify-start border-b-2 py-3 pl-4 align-middle hover:bg-indigo-200 " key={idx}>
+
               <img src={sub.subcategory_image} width={40} className="mr-2" alt="" /> 
               <h2 className="pt-2 font-semibold">{sub.name}</h2> 
-            </Link>}
+
+            </Link>
+            }
            
            )}
         </div>

@@ -1,10 +1,12 @@
+'use client'
 import Script from "next/script";
+import crypto from 'crypto';
 import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import Link from "next/link";
-const Payment = ({amount , name , mobile , bookingID}) => {
+const Payment = ({amount , name , mobile , bookingID }) => {
     const [congBookingShow, setCongBookingShow] = useState(false);
-    
+    const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
     const handleOnlinePayment = async() => {
         const apiKey = 'rzp_test_C8XkYZBi6Tpn1G';
         const apiSecret = 'izRT1cAew7L1lfmQfbelyJZs';
@@ -24,44 +26,7 @@ const Payment = ({amount , name , mobile , bookingID}) => {
             'Authorization': `Basic ${authToken}`,
         },
         body: JSON.stringify(valord),
-        }).then((t) => t.json());
-    
-              const handlePaymentRep = (paymentID)=>{
-                const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
-                // url = 'https://support.homofixcompany.com/api/customer/payments/'
-                // console.log('PayID' , paymentID)
-                // console.log('bookingID' , localbookindID)
-                // console.log('PaymentAmount' , PaymentAmount)
-                let rept = {
-                    "payment_id": paymentID,
-                    "payment_mode": 'Online',
-                    "amount": amount,
-                    "booking_id": bookingID,
-                }
-                const postResp = async () => {
-                    try {
-                      const response = await fetch('https://support.homofixcompany.com/api/customer/payments/', {
-                        method: "POST",
-                        headers: {
-                          "Content-Type": "application/json",
-                          Authorization: `Bearer ${authToken}`,
-                        },
-                        body: JSON.stringify(rept),
-                      });
-                  
-                      if (response.ok) {
-                        const data = await response.json();
-                        // console.log(data);
-
-                      } else {
-                        console.error("Request failed with status:", response.status);
-                      }
-                    } catch (error) {
-                      console.error("An error occurred:", error);
-                    }
-                  }
-                  postResp()
-            }
+        }).then((t) => t.json());  
     
             //   console.log('data', data);
             const razorpayOptions = {
@@ -94,97 +59,110 @@ const Payment = ({amount , name , mobile , bookingID}) => {
             }
             // handlePaymentRep()
         }
-        // const handleCongsmsg = () =>{
-        //     setCongBookingShow(true)
-        // }
-        const handleOnlinePayment2 = async() => {
-          // console.log('teesting in the payment fun');
-          // const predata = {
-          //   'key': '',
-          //   'txnid' : bookingID,
-          //   'amount': amount,
-          //   'productinfo': '',
-          //   'firstname': '',
-          //   'phone': '',
-          //   'email': '',
-          //   'hash': '',
-          //   'surl': '',
-          //   'furl': ''
-          // }
-          const Mkey = '2PBP7IABZ2';
-          const predata = {
-                  'key': Mkey,
-                  'txnid' : 'test101',
-                  'amount': 100.0,
-                  'productinfo': 'testing',
-                  'firstname': 'vikas',
-                  'phone': '8989898989',
-                  'email': 'vikasgupta282@gmail.com',
-                  'hash': 'b1ee3658d3f5caab82d1e9abcafa5143df6c89ce5ba3c8db55a1c2b0f3dca6ed668e89bc4a57f65f4598f00107a2c031f63bde90e55e2b496286dd1cdea1477e',
-                  'surl': 'https://homofixcompany.com/about',
-                  'furl': 'https://homofixcompany.com/about'
+       
+
+        const handlePaymentRep = (paymentID)=>{
+          const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
+          
+          let rept = {
+              "payment_id": paymentID,
+              "payment_mode": 'Online',
+              "amount": amount,
+              "booking_id": bookingID,
+          }
+          const postResp = async () => {
+              try {
+                const response = await fetch('https://support.homofixcompany.com/api/customer/payments/', {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authToken}`,
+                  },
+                  body: JSON.stringify(rept),
+                });
+            
+                if (response.ok) {
+                  const data = await response.json();
+                  // console.log(data);
+
+                } else {
+                  console.error("Request failed with status:", response.status);
                 }
-          // const prereqst = async () => {
-          //   try {
-          //     const response = await fetch('https://testpay.easebuzz.in/payment/initiateLink', {
-          //       method: "POST",
-          //       headers: {
-          //         "Content-Type": "application/json",
-          //       },
-          //       body: JSON.stringify(predata),
-          //     });
-          
-          //     if (response.ok) {
-          //       const data = await response.json();
-          //       // console.log(data);
-          //     } else {
-          //       console.error("Request failed with status:", response.status);
-          //     }
-          //   } catch (error) {
-          //     console.error("An error occurred:", error);
-          //   }
-          // }
-          const prereqst = async () => {
-            try {
-              const response = await fetch('/api/hello', {
-                method: 'POST', // Adjust the method as needed
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(predata), // Adjust the request data as needed
-              });
-          
-              if (response.ok) {
-                const paymentData = await response.json();
-                console.log(paymentData);
-              } else {
-                console.error('Payment initiation request failed:', response.status);
+              } catch (error) {
+                console.error("An error occurred:", error);
               }
-            } catch (error) {
-              console.error('An error occurred:', error);
             }
+            postResp()
+      }
+
+        const HashDatafind = ()=>{
+          const uniqueID = `${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+          const concatenatedString = `${easebuzzkey}|bookingID_${uniqueID}|${amount}|Homofixcompany|${name}|info@homofixcompnay.com|||||||||||${easebuzzsalt}`;
+          // Generate the hash using SHA-256
+          const hash = crypto.createHash('sha512').update(concatenatedString).digest('hex');
+          console.log('Generated Hash:', hash);
+  
+          const pData = {
+              'key': easebuzzkey,
+              'txnid' : `bookingID_${uniqueID}`,
+              'amount': amount,
+              'productinfo': 'Homofixcompany',
+              'firstname': name,
+              'phone': '6202223861',
+              'email': 'info@homofixcompnay.com',
+              'hash': hash,
+              'surl': 'https://homofixcompany.com/account',
+              'furl': 'https://homofixcompany.com/account',
           };
+          console.log('pdata', pData)
+          return pData;
+      }
+      const handleOnlinePayment2 = async () => {
+        const SendData = HashDatafind();
+        const URL = '/api/test';
+        let access_key = '';
+        try {
+            const response = await fetch(URL, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(SendData),
+              });
+            const data = await response.json();
+            console.log(data);
+            // setAccess_key(data.data);
+            access_key = data.data;
+            // console.log(access_key);
+          } catch (error) {
+            console.error("An error occurred:", error);
+          }
+        console.log('testing here');
+        // console.log(SendData);
 
-
-         const reqacess =  prereqst();
-        //  const  access_key = reqacess.data ;
-        //   const easebuzzCheckout = new EasebuzzCheckout(key, access_key);
-        //   const options = {
-        //     access_key: access_key, // access key received via Initiate Payment
-        //     onResponse: (response) => {
-        //         console.log(response);
-        //     },
-        //     theme: "#123456" // color hex
-        // }
-        // easebuzzCheckout.initiatePayment(options);
+        const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
+        const options = {
+          access_key: access_key, // access key received via Initiate Payment
+          onResponse: (response) => {
+              console.log(response);
+              if(response.status == 'success'){
+                console.log('pay has been successfully done yo yo ');
+                handlePaymentRep(response.easepayid)
+                  setCongBookingShow(true)
+              }
+          },
+          theme: "#123456" // color hex
         }
+      easebuzzCheckout.initiatePayment(options);
+        
+    }
   return (
         <>
             {/* <Script
                 id="razorpay-checkout-js"
                 src="https://checkout.razorpay.com/v1/checkout.js"
             /> */}
-            <script src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js"></script>
+            {/* <script src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js"></script> */}
             <button className=' bg-basecolor text-white rounded text-sm py-2 px-3'
                 onClick={() => {
                 handleOnlinePayment2()

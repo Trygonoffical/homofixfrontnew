@@ -34,7 +34,7 @@ useEffect(() => {
     rootMargin: '0px',
     threshold: 0,
   };
-  console.log( 'useind useroute to check url = ' , currentlink);
+
 console.log('trigger in the useeffect')
   const observer = new IntersectionObserver(([entry]) => {
     setCartVisible(!entry.isIntersecting);
@@ -65,21 +65,22 @@ const userInfo = authContext.userInfo
 const handleCouponChange = (event) => {
   setCoupon(event.target.value);
   };
-  // setDiscount('100')
+
 const handleVerificationCoupon = async () => {
-  // useEffect( async () => {
-    // const url = 
-    // const fetchData = async ({url}) => {
+ 
     try {
-      const response = await fetch("https://support.homofixcompany.com/check-coupon-validity/" , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({code : coupon}),
-      });
+      // const response = await fetch("https://support.homofixcompany.com/check-coupon-validity/" , {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({code : coupon}),
+      // });
+      // const result = await response.json();
+      const cupurl = `/api/coupon/?code=${coupon}`;
+      const response = await fetch(cupurl)
       const result = await response.json();
-      
+
       if (response) {
         console.log('Response:', result);
         if(result.message){
@@ -105,7 +106,8 @@ const handleVerificationCoupon = async () => {
 
     useEffect(()=>{
         const fetchshare = async () => {
-            const res2 = await fetch('https://support.homofixcompany.com/api/Company-percentage/')
+            const res2 = await fetch('/api/percentage')
+            // const res2 = await fetch('https://support.homofixcompany.com/api/Company-percentage/')
             const res = await res2.json();
             setCustShare(res[0].percentage)
         }
@@ -119,7 +121,9 @@ const handleVerificationCoupon = async () => {
       console.log('params' , params)
       setLoading(true);
         const fetchData = async () => {
-            const res = await fetch(`https://support.homofixcompany.com/api/Subcategory-Get/${slugify(params.slug)}/`);
+            const suburl = `/api/subcat/?cat=${slugify(params.slug)}`;
+            // const res = await fetch(`https://support.homofixcompany.com/api/Subcategory-Get/${slugify(params.slug)}/`);
+            const res = await fetch(suburl);
             const subcat = await res.json();
             // console.log( 'subcat', subcat)
             setSubCat(subcat)
@@ -351,6 +355,7 @@ const handleVerificationCoupon = async () => {
              
               <Booking cnames={'text-white bg-gradient-to-r from-bgleft to-bgleft font-bold w-full py-2 px-4 mt-9'} title='Book Now' cartItems={cartItems.map(item => ({
                 product: item.id,
+                productName: item.name,
                 quantity: item.quantity
               }))} customer={userInfo.id} couponID={couponId} PaymentAmount={getNetAmount() + Number(getGSTAmount().toFixed(2))} />
              ):(
@@ -459,48 +464,3 @@ const slugify = (text) => {
 };
 
 export default SubcategoryPage;
-
-
-// "use client"
-// import { useEffect } from 'react';
-
-// // import { useEffect } from 'react';
-// import { useRouter } from 'next/router';
-// const SubcategoryPage = ({params}) => {
-//   const router = useRouter();
-//   console.log('params', params);
-//   export async function getServerSideProps(context) {
-//       const router = useRouter();
-//       // console.log(router.slug);
-
-// return {
-//   props:{
-//     linkurl : router.slug
-//   }
-// }
-//   }
-
-//  return(
-//   <h1>Hello there</h1>
-//  )
-// }
-// export async function getServerSideProps(context) {
-//   const { slug } = context.params;
-//   // Perform any necessary data fetching based on the slug
-//   // For example, fetch subcategory data from an API or database based on the slug
-//   console.log("in getserversude fun slug = " , slug);
-//   const response = await fetch(`https://support.homofixcompany.com/api/Subcategory-Get/${slugify(slug)}/`);
-//   const subcategoryData = await response.json();
-//   // Here, return the fetched data as props to be passed to the component
-//   return {
-//     props: {
-//       params: {
-//         subcategory: subcategoryData
-//         // The fetched data here, for example:
-//         // subcategory: { name: 'Some Subcategory', subcategory_image: 'image_url' }
-//       }
-//     }
-//   };
-// }
-
-// export default SubcategoryPage;

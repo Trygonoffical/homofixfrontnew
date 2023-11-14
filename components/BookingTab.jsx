@@ -101,6 +101,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
         setName(userProfileInfo.first_name || '');
         setMno(userProfileInfo.mobile || '');
     } 
+    console.log(bookings);
   }, [userProfileInfo]);
 
   function classNames(...classes) {
@@ -153,9 +154,9 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               <h3 className="text-sm font-medium leading-5">
                 Booking ID - {booking.id} 
                </h3> 
-               {booking.cash_on_service ==false && ( <>
+               {booking.cash_on_service == false && ( <>
                {booking.pay_amt > 0 &&(
-                <Payment amount={booking.pay_amt} name={userProfileInfo.first_name}  mobile={userProfileInfo.mobile}  bookingID={booking.id} />
+                <Payment amount={booking.pay_amt} name={userProfileInfo.first_name}   mobile={userProfileInfo.mobile}  bookingID={booking.id} />
                )}
                </>
                

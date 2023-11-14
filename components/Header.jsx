@@ -172,14 +172,22 @@ export default function Example() {
           {/* <ChevronDownIcon className="h-5 w-5 " aria-hidden="true" /> */}
         </button>
           <div ref={submenuRef} className={`${subMenu} origin-top-right absolute z-[1500] right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}>
-            <Link
+            {/* <Link
+              href="/account"
+              // className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              // onClick={handlesubchange}
+            > */}
+              <a 
               href="/account"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               onClick={handlesubchange}
-            >
+              >
               <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
               Account 
-            </Link>
+              </a>
+              {/* <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
+              Account  */}
+            {/* </Link> */}
             <button
               type="button"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
@@ -220,7 +228,7 @@ export default function Example() {
           <ChevronDownIcon className="h-5 w-5 ml-1" aria-hidden="true" />
         </button>
           <div ref={submenuRef} className={`${subMenu} origin-top-right absolute z-[1500] right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}>
-            <Link
+            {/* <Link
               href="/account"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               onClick={handlesubchange}
@@ -228,7 +236,14 @@ export default function Example() {
             >
               <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
               Account 
-            </Link>
+            </Link> */}
+            <a href="/account"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            onClick={handlesubchange}
+            >
+              <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
+              Account 
+            </a>
             <button
               type="button"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"

@@ -11,16 +11,16 @@ const nextConfig = {
       },
     ];
   },
-  async middleware() {
-    const { createProxyMiddleware } = require('http-proxy-middleware');
+  // async middleware() {
+  //   const { createProxyMiddleware } = require('http-proxy-middleware');
     
-    const proxyMiddleware = createProxyMiddleware({
-      target: 'https://testpay.easebuzz.in',
-      changeOrigin: true,
-    });
+  //   const proxyMiddleware = createProxyMiddleware({
+  //     target: 'https://testpay.easebuzz.in',
+  //     changeOrigin: true,
+  //   });
 
-    return [proxyMiddleware];
-  },
+  //   return [proxyMiddleware];
+  // },
 };
 
 module.exports = nextConfig;

@@ -116,6 +116,7 @@ const slugify = (text) => {
             sub.map((cat, idx) => 
               <div className="className='flex justify-center p-1 " key={idx} >
                 <Link href={`/category/${slugify(cat.name)}`} className=" p-0 " >
+                {/* <a href={`/category/${slugify(cat.name)}`} className=" p-0 "> */}
                 <img src={cat.subcategory_image}
                  width={0}
                  height={0}
@@ -124,6 +125,7 @@ const slugify = (text) => {
                   {/* <img src={cat.subcategory_image} alt="Ac" width={285} className='mx-auto min-w-[250px]'  /> */}
                   <h2 className='py-4 text-center text-sm md:text-base' >{cat.name}</h2>
                 </Link>
+                {/* </a> */}
               </div>
 
             )

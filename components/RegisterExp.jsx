@@ -67,14 +67,6 @@ const RegisterExp = () => {
         
             applyData.resume = selectedFile;
           }
-        // console.log('formApply', applyData);
-        // console.log('name', name);
-        // console.log('email', email);
-        // console.log('mobile', mno);
-        // console.log('resume', selectedFile);
-        // console.log('ex-', exType);
-        // console.log('add', address);
-        
      
     const postjob = async () => {
       const URL = 'https://support.homofixcompany.com/api/JobEnquiry/'

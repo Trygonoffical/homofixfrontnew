@@ -60,13 +60,14 @@ const AuthServices = ({cnames , title}) => {
   
       if (verificationCode == otpval){
         try {
-          const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ phone_number : phone }),
-          })
+          // const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
+          //   method: 'POST',
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: JSON.stringify({ phone_number : phone }),
+          // })
+          const response = await fetch( `/api/otp/?phone=${phone}`)
           
           if (response.ok) {
             const result = await response.json();
