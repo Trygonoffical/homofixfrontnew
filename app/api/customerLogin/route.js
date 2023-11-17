@@ -5,12 +5,12 @@ export async function GET(request) {
   const url = new URL(request.url);
   const phone = url.searchParams.get("phone");
   try {
-    const res = await fetch( 'https://support.homofixcompany.com/api/Send/Otp/'  , {
+    const res = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({phone_number : phone}),
+        body: JSON.stringify({ phone_number : phone }),
       })
 
     // Extract JSON data from the response

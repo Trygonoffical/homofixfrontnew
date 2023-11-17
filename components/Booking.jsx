@@ -72,8 +72,6 @@ const handlePaymentChange = (val) => {
     // console.log('zip - ', zip) 
   };
 useEffect(() => {
-  // console.log('testing')
-  // console.log('bID', bookingID)
   const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     const fetchUserProfile = async () => {
         const URL = 'https://support.homofixcompany.com/api/Customer/'

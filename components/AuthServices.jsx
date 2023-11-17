@@ -30,14 +30,16 @@ const AuthServices = ({cnames , title}) => {
     const handleSendOTP = async () => {
       // setshowLogin(false);
       try {
-        const url = "https://support.homofixcompany.com/api/Send/Otp/";
-        const response = await fetch(url , {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({phone_number : phone}),
-        });
+        // const url = "https://support.homofixcompany.com/api/Send/Otp/";
+        const url = `/api/otp/?phone=${phone}`;
+        const response = await fetch(url) ;
+        // const response = await fetch(url , {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({phone_number : phone}),
+        // });
         const result = await response.json();
         let otpSession = result.otp_session;
         // console.log(otpSession)
@@ -67,7 +69,7 @@ const AuthServices = ({cnames , title}) => {
           //   },
           //   body: JSON.stringify({ phone_number : phone }),
           // })
-          const response = await fetch( `/api/otp/?phone=${phone}`)
+          const response = await fetch( `/api/customerLogin/?phone=${phone}`)
           
           if (response.ok) {
             const result = await response.json();
