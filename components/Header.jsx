@@ -27,10 +27,13 @@ export default function Example() {
 
   useEffect(() => {
     // Function to handle clicks outside the UserCircleIcon submenu
+    console.log('userEffect fun called')
     const handleOutsideClick = (event) => {
-      if (submenuRef.current && !submenuRef.current.contains(event.target)) {
-        setSubMenu('hidden');
-      }
+      // if (submenuRef.current && !submenuRef.current.contains(event.target)) {
+      //   setSubMenu('hidden');
+      //   console.log('In > userEffect fun called')
+
+      // }
     };
 
     // Function to handle scroll events
@@ -50,11 +53,19 @@ export default function Example() {
   }, []);
 
   const handlesubchange = () =>{
+    // console.log('handlesubchange activated');
     if(subMenu == 'hidden'){
       setSubMenu('block')
+    // console.log('set submenu - block');
     }else{
       setSubMenu('hidden')
+    // console.log('set submenu - hidden');
+
     }
+  }
+  const handleaccount = () => {
+    // console.log('acount butn clicked');
+    setSubMenu('hidden')
   }
   const handlePhoneChange = (event) => {
   setPhone(event.target.value);
@@ -160,7 +171,8 @@ export default function Example() {
         {userInfo ? (
           <div className="relative">
           <button
-          type="button" onClick={handlesubchange}
+          type="button"
+          onClick={handlesubchange}
           className="flex text-sm font-semibold leading-6 text-gray-900 items-center"
         >
           <span>
@@ -177,14 +189,15 @@ export default function Example() {
               // className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               // onClick={handlesubchange}
             > */}
-              <a 
+              <Link 
               href="/account"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              onClick={handlesubchange}
+              onClick={() => handleaccount()}
+              // onClick={handlesubchange}
               >
               <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
-              Account 
-              </a>
+              Account 1
+              </Link>
               {/* <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
               Account  */}
             {/* </Link> */}
@@ -228,22 +241,15 @@ export default function Example() {
           <ChevronDownIcon className="h-5 w-5 ml-1" aria-hidden="true" />
         </button>
           <div ref={submenuRef} className={`${subMenu} origin-top-right absolute z-[1500] right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none`}>
-            {/* <Link
-              href="/account"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              onClick={handlesubchange}
-
-            >
-              <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
-              Account 
-            </Link> */}
-            <a href="/account"
+            
+            <Link href="/account"
             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            onClick={handlesubchange}
+            // onClick={handlesubchange}
+            onClick={() => handleaccount()}
             >
               <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
               Account 
-            </a>
+            </Link>
             <button
               type="button"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
