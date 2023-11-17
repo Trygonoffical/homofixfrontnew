@@ -196,7 +196,7 @@ export default function Example() {
               // onClick={handlesubchange}
               >
               <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
-              Account 1
+              Account
               </Link>
               {/* <UserIcon className="h-4 w-4 mr-1 inline-block" aria-hidden="true" />
               Account  */}
