@@ -152,7 +152,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
              >
               <div className=" flex justify-between">
               <h3 className="text-sm font-medium leading-5">
-                Booking ID - {booking.id} 
+                Booking ID: {booking.id} 
                </h3> 
                {booking.cash_on_service == false && ( <>
                {booking.pay_amt > 0 &&(
@@ -165,16 +165,16 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                 <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-4 py-2'>Invoice</a>
                )}
               </div>
-               <h5 className="text-sm font-medium leading-5">Order Id - {booking.order_id}</h5>
-               <h5>Amount - ₹{booking.final_amount}</h5>
-                <h5>Booking Details - </h5>
+               <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
+               <h5>Amount: ₹{booking.final_amount}</h5>
+                <h5>Booking Details: </h5>
                 {booking.booking_product.map((pros , idx)=>(
                     // w-fit mx-auto
                       <ul key={idx} className='bg-gray-300 px-2 py-1 my-2 text-sm'>
-                        <li className='flex justify-between'> <span className='p-2'><strong>Product Name </strong> - {pros.product.name} </span> <span className='p-2'>Price - ₹ {pros.product.selling_price}</span> <span className='p-2'>Qnt - {pros.quantity}</span></li>
+                        <li className='flex justify-between'> <span className='p-2'><strong>Product Name </strong>: {pros.product.name} </span> <span className='p-2'>Price: ₹ {pros.product.selling_price}</span> <span className='p-2'>Qnt: {pros.quantity}</span></li>
                         {pros.addon_set.map((addons, idx)=>(
                             <ul key={idx}>
-                                <li className='flex justify-between '> <span className='p-2'><strong>Spare Parts</strong>  -{addons.spare_part_name}</span>   <span className='p-2'>Price - ₹ {addons.spare_part_price}</span> <span className='p-2'>Qnt -  {addons.quantity}</span> </li>
+                                <li className='flex justify-between '> <span className='p-2'><strong>Spare Parts</strong>:  {addons.spare_part_name}</span>   <span className='p-2'>Price: ₹ {addons.spare_part_price}</span> <span className='p-2'>Qnt :  {addons.quantity}</span> </li>
                             </ul>
                             
                         ))}
