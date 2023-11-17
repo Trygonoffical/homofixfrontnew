@@ -26,7 +26,7 @@ const Sidebar = ({show, subcategories, onClose }) => {
   return (
     <>
     {show && ( // Only render the sidebar if `side` is true
-        <div className={`${styles.sidebar} w-full md:w-3/12 z-[1500]`}>
+        <div className={`${styles.sidebar} w-full md:w-3/12 md:h-full z-[1500]`}>
           {/* <button  className=""> */}
             <div onClick={handleClick} className="w-full py-4 flex justify-start px-5 border-b-2 cursor-pointer">
               <ArrowLeftIcon className="w-7 mr-5" /> Please Select
