@@ -5,7 +5,7 @@ export async function GET(request) {
   const url = new URL(request.url);
   const testValue = url.searchParams.get("test");
   try {
-    const res = await fetch(`https://support.homofixcompany.com/api/HomePageService/${testValue}/`, { cache: "no-store" });
+    const res = await fetch(`https://support.homofixcompany.com/api/HomePageService/${testValue}/`);
 
     // Extract JSON data from the response
     const responseData = await res.json();
