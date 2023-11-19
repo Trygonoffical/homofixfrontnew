@@ -616,7 +616,7 @@ easebuzzCheckout.initiatePayment(options);
           <div className="mb-6 flow-root items-center justify-center text-center px-2">
           <img src="/cracker.png" alt="congrats" width={120} className='mx-auto -mt-16' />
             <h2 className='text-3xl text-basecolor font-bold py-3'>Congratulation</h2>
-                <p className='text-sm text-gray-400'>You have successfully done the booking</p>
+                <p className='text-sm text-gray-800'>You have successfully done the booking</p>
                 <ul>
                     <li className='py-3 font-semibold text-lg'>Booking Date:Time - {handleDatetimeval(bookingDateTime) }</li>
                 </ul>
