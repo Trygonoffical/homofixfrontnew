@@ -31,6 +31,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [congBookingShow, setCongBookingShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
+  const [errormsg, setErrorMsg] = useState('');
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
@@ -291,11 +292,17 @@ const Congratsmesg = () => {
       return null;
 }
 const handleOfflinePayment = () => {
-  handleBookingDetails({ COS: 'True', OL: 'False' });
-  handleProfileDataUpdate();
-  setBookingCompleted(true);
-  Congratsmesg();
-  setCongBookingShow(true)
+  if(bookingDateTime == ''){
+    setErrorMsg('Please Select Date and Time');
+  }else{
+    setErrorMsg('');
+    handleBookingDetails({ COS: 'True', OL: 'False' });
+    handleProfileDataUpdate();
+    setBookingCompleted(true);
+    Congratsmesg();
+    setCongBookingShow(true)
+  }
+  
 
   }
   const handleBookingDetails = ({COS , OL}) =>{
@@ -449,46 +456,51 @@ const handleOfflinePayment = () => {
     return pData;
 }
 const handleOnlinePayment2 = async () => {
-  const SendData = HashDatafind();
-  const URL = '/api/test';
+  if(bookingDateTime == ''){
+    setErrorMsg('Please Select Date and Time');
+  }else{
+    setErrorMsg('');
+    const SendData = HashDatafind();
+    const URL = '/api/test';
+    
+    let access_key = '';
+    try {
+        const response = await fetch(URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(SendData),
+          });
+        const data = await response.json();
+        console.log(data);
+        // setAccess_key(data.data);
+        access_key = data.data;
+        // console.log(access_key);
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    console.log('testing here');
+    // console.log(SendData);
   
-  let access_key = '';
-  try {
-      const response = await fetch(URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(SendData),
-        });
-      const data = await response.json();
-      console.log(data);
-      // setAccess_key(data.data);
-      access_key = data.data;
-      // console.log(access_key);
-    } catch (error) {
-      console.error("An error occurred:", error);
+    const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
+    const options = {
+      access_key: access_key, // access key received via Initiate Payment
+      onResponse: (response) => {
+          console.log(response);
+          if(response.status == 'success'){
+            console.log('pay has been successfully done yo yo ');
+            handleBookingDetailsinner({ COS: 'False', OL: 'True' , PaymentID: response.easepayid})
+            handleProfileDataUpdate()
+            setBookingCompleted(true);
+            Congratsmesg();
+            setCongBookingShow(true);
+          }
+      },
+      theme: "#123456" // color hex
     }
-  console.log('testing here');
-  // console.log(SendData);
-
-  const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
-  const options = {
-    access_key: access_key, // access key received via Initiate Payment
-    onResponse: (response) => {
-        console.log(response);
-        if(response.status == 'success'){
-          console.log('pay has been successfully done yo yo ');
-          handleBookingDetailsinner({ COS: 'False', OL: 'True' , PaymentID: response.easepayid})
-          handleProfileDataUpdate()
-          setBookingCompleted(true);
-          Congratsmesg();
-          setCongBookingShow(true);
-        }
-    },
-    theme: "#123456" // color hex
+  easebuzzCheckout.initiatePayment(options);
   }
-easebuzzCheckout.initiatePayment(options);
   
 }
   
@@ -558,6 +570,7 @@ easebuzzCheckout.initiatePayment(options);
                   required
                 />
               </div>
+             <p className='text-[red] text-sm'>{errormsg}</p> 
               <div className='py-3'>
                 <h3>Payment Method</h3>
                 <div className='mt-2'>
