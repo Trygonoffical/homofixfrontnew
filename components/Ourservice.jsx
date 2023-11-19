@@ -12,8 +12,11 @@ const Service = ({url}) => {
   useEffect(()=>{
     setLoading(true);
     const fatchdata = async () =>{
-    const res = await fetch( url,{cache : 'no-store'})
-   
+    // const res = await fetch( url,{cache : 'no-store'})
+    const res = await fetch('https://support.homofixcompany.com/api/Category-Get/', { cache: "no-store" });
+    
+    // Extract JSON data from the response
+    // const responseData = await res.json();
     setCategory(await res.json())
     }
     fatchdata()
@@ -44,15 +47,7 @@ const Service = ({url}) => {
           </button>
         </div>
       ))}
-        {/* // {category.map((cat) => (
-        //   <div className='text-center' key={cat.id}> 
-        //     <button onClick={() => handleCategoryClick(cat)}>
-        //       <img src={cat.icon} alt="Ac" width={85} className='mx-auto w-10 md:w-20'  />
-        //       <h2 className='py-4 text-[10px] md:text-base'>{cat.category_name}</h2>
-        //     </button>
-        //   </div>
-          
-        // ))} */}
+        
         </div>
         {selectedCategory && (
         <Sidebar
