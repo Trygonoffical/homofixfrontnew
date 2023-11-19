@@ -523,21 +523,21 @@ easebuzzCheckout.initiatePayment(options);
               {/* <h2>Name</h2> */}
               <label htmlFor="State">Name</label>
 
-              <input type="text" value={name }  className="w-full py-2 my-2 border-indigo-800" onChange={handleNameChange} />
+              <input type="text" value={name }  className="w-full py-2 my-2 border-indigo-800" onChange={handleNameChange} required />
              
               <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />
              
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Address</label>
-                <input type="text" value={add } onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800" />
+                <input type="text" value={add } onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800" required />
                 <label htmlFor="Area">Area</label>
-                <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800" />
+                <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800" required />
                 <label htmlFor="city">City</label>
-                <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800" />
+                <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800" required />
                 <label htmlFor="State">State</label>
-                <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800" />
+                <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800" required />
                 <label htmlFor="Pincode">Pincode </label>
-                <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800" />
+                <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800" required />
               
 
                </>
@@ -555,6 +555,7 @@ easebuzzCheckout.initiatePayment(options);
                   value={bookingDateTime}
                   onChange={handleDateTimeChange}
                   className="w-full py-2 my-2 border-indigo-800"
+                  required
                 />
               </div>
               <div className='py-3'>
