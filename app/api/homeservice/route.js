@@ -3,7 +3,7 @@ export async function GET(request) {
   // const {key , txnid, amount , productinfo , firstname, phone, email, hash, surl, furl} = await request.json();
 //   const data = await request.json();
     try {
-        const res = await fetch('https://support.homofixcompany.com/api/HomePageService/5/');
+        const res = await fetch('https://support.homofixcompany.com/api/HomePageService/5/', { cache: "no-store" });
     
         // Extract JSON data from the response
         const responseData = await res.json();
