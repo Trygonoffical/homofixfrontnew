@@ -181,12 +181,14 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                          
                       </ul>
                     ))}
+                <div><span className='text-basecolor'>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
                 <div className="rating">
                     {booking.status == "Completed" && (
                        < Feedback bookingID={booking.id} />
                     )}
                         
                 </div>
+
              </li>
              
               ))}

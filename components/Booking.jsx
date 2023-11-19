@@ -620,7 +620,7 @@ easebuzzCheckout.initiatePayment(options);
                 <ul>
                     <li className='py-3 font-semibold text-lg'>Booking Date:Time - {handleDatetimeval(bookingDateTime) }</li>
                 </ul>
-                <Link href='/' className='px-4 py-2 bg-basecolor text-white'> Go to Home Page</Link>
+                <Link href='/account' className='px-4 py-2 bg-basecolor text-white'> Go to Account</Link>
           </div>
         </Dialog.Panel>
       </Dialog>
