@@ -38,7 +38,7 @@ const AddonPage = () => {
   return (
     <>
     <section className="container mx-auto my-10 px-4 md:px-0">
-        <h2 className="text-3xl text-center pb-6">Spaire  <strong>Parts</strong> Chart </h2>
+        <h2 className="text-3xl text-center pb-6">Spare  <strong>Parts</strong> Chart </h2>
         {/* <p className="text-center py-4 ">   </p> */}
         <div class="relative overflow-x-auto max-w-lg mx-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
