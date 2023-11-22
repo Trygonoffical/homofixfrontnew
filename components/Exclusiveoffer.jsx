@@ -89,7 +89,7 @@ const ExclusiveOffer = (props) => {
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
-      <div className="md:mt-9 overflow-hidden">
+      <div className="md:mt-9 ">
            {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
