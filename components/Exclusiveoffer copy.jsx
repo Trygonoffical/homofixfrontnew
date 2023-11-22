@@ -57,17 +57,17 @@ const ExclusiveOffer = (props) => {
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
-      <div className="md:mt-9 overflow-hidden">
+      <div className="md:mt-9 overflow-hidden outline-none">
         {offer.length > 0 && sliderRef && (
-          <div ref={sliderRef} className="keen-slider">
+          <div ref={sliderRef} className="keen-slider outline-none">
             {offer.map((cat, idx) => (
-              <div className="keen-slider__slide" key={idx}>
+              <div className="keen-slider__slide outline-none" key={idx}>
                 <Link href={cat.url}>
                   <img
                     src={cat.offer_pic}
                     alt="Ac"
                     width={285}
-                    className="mx-auto w-11/12 md:w-11/12"
+                    className="mx-auto w-11/12 md:w-11/12 outline-none"
                   />
                 </Link>
               </div>
