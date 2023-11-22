@@ -13,6 +13,7 @@ import Loading from './Loading';
 // import Easebuzz from "./Easebuzz";
 
 const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmount}) => {
+  const [minDateTime, setMinDateTime] = useState('');
   const [bookingShow, setBookingShow] = useState(false);
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
@@ -32,6 +33,8 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [loading, setLoading] = useState(false);
   const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
   const [errormsg, setErrorMsg] = useState('');
+  const [errormsgadd, setErrorMsgAdd] = useState('');
+  const [errormsgName, setErrorMsgName] = useState('');
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
@@ -111,6 +114,15 @@ useEffect(() => {
       }
 }, [URL]);
 
+useEffect(() => {
+  
+  const currentDateTime = new Date();
+  currentDateTime.setHours(currentDateTime.getHours() + 1); // Add 1 hour
+
+  // Format the date in the "yyyy-MM-ddThh:mm" format
+  const formattedMinDateTime = currentDateTime.toISOString().slice(0, 16);
+  setMinDateTime(formattedMinDateTime);
+}, []);
 const handleProfileDataUpdate = () =>{
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; // Replace with your actual authentication token
     const Burl = `https://support.homofixcompany.com/api/customer/profile/update/`;
@@ -294,13 +306,22 @@ const Congratsmesg = () => {
 const handleOfflinePayment = () => {
   if(bookingDateTime == ''){
     setErrorMsg('Please Select Date and Time');
-  }else{
+  }
+  if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
+    setErrorMsgAdd('Please Enter Full Address!!');
+  } 
+  if(name == ''){
+    setErrorMsgName('Please Enter Name');
+  }
+  if(bookingDateTime != '' && add != '' && area != '' || city != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
+    setErrorMsgName('');
+    setErrorMsgAdd('');
     handleBookingDetails({ COS: 'True', OL: 'False' });
     handleProfileDataUpdate();
     setBookingCompleted(true);
     Congratsmesg();
-    setCongBookingShow(true)
+    setCongBookingShow(true);
   }
   
 
@@ -458,8 +479,17 @@ const handleOfflinePayment = () => {
 const handleOnlinePayment2 = async () => {
   if(bookingDateTime == ''){
     setErrorMsg('Please Select Date and Time');
-  }else{
+  }
+  if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
+    setErrorMsgAdd('Please Enter Full Address!!');
+  } 
+  if(name == ''){
+    setErrorMsgName('Please Enter Name');
+  }
+  if(bookingDateTime != '' && add != '' && area != '' || city != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
+    setErrorMsgName('');
+    setErrorMsgAdd('');
     const SendData = HashDatafind();
     const URL = '/api/test';
     
@@ -536,22 +566,25 @@ const handleOnlinePayment2 = async () => {
               <label htmlFor="State">Name</label>
 
               <input type="text" value={name }  className="w-full py-2 my-2 border-indigo-800" onChange={handleNameChange} required />
-             
+              <p className='text-[red] text-sm'>{errormsgName}</p> 
               <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />
              
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Address</label>
-                <input type="text" value={add } onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800" required />
+                <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
+                
                 <label htmlFor="Area">Area</label>
-                <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800" required />
-                <label htmlFor="city">City</label>
-                <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800" required />
-                <label htmlFor="State">State</label>
-                <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800" required />
-                <label htmlFor="Pincode">Pincode </label>
-                <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800" required />
-              
+                <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
+                
 
+                <label htmlFor="city">City</label>
+                <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  />
+                <label htmlFor="State">State</label>
+                <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800"  />
+                <label htmlFor="Pincode">Pincode </label>
+                <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800"  />
+              
+                <p className='text-[red] text-sm'>{errormsgadd}</p> 
                </>
             }
                   
@@ -567,7 +600,7 @@ const handleOnlinePayment2 = async () => {
                   value={bookingDateTime}
                   onChange={handleDateTimeChange}
                   className="w-full py-2 my-2 border-indigo-800"
-                  required
+                  min={minDateTime}
                 />
               </div>
              <p className='text-[red] text-sm'>{errormsg}</p> 

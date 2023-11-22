@@ -100,3 +100,6 @@ body {
     padding-left: revert;
   }
 
+.slick-arrow{
+  display: none!important;
+}

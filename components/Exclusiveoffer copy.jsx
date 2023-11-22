@@ -57,7 +57,7 @@ const ExclusiveOffer = (props) => {
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
-      <div className="md:mt-9">
+      <div className="md:mt-9 overflow-hidden">
         {offer.length > 0 && sliderRef && (
           <div ref={sliderRef} className="keen-slider">
             {offer.map((cat, idx) => (
@@ -75,6 +75,12 @@ const ExclusiveOffer = (props) => {
           </div>
         )}
       </div>
+      {/* Add the CSS styling to hide navigation arrows */}
+      <style jsx>{`
+        .slick-arrow {
+          display: none!important;
+        }
+      `}</style>
     </section>
   );
 };
