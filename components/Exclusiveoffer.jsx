@@ -92,13 +92,13 @@ const ExclusiveOffer = (props) => {
            {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
-                  <div key={idx}>
-                    <Link href={cat.url}>
+                  <div key={idx} className="outline-none">
+                    <Link href={cat.url} className="outline-none">
                       <img
                         src={cat.offer_pic}
                         alt="Ac"
                         width={285}
-                        className="mx-auto w-11/12 md:w-11/12"
+                        className="mx-auto w-11/12 md:w-11/12 outline-none"
                       />
                     </Link>
                   </div>
@@ -106,6 +106,12 @@ const ExclusiveOffer = (props) => {
               </Slider>
            ) }
       </div>
+      {/* Add the CSS styling to remove outline when clicking */}
+      <style jsx>{`
+        .slick-slide {
+          outline: none;
+        }
+      `}</style>
     </section>
   );
 };

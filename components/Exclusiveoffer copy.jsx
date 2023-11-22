@@ -62,7 +62,7 @@ const ExclusiveOffer = (props) => {
           <div ref={sliderRef} className="keen-slider outline-none">
             {offer.map((cat, idx) => (
               <div className="keen-slider__slide outline-none" key={idx}>
-                <Link href={cat.url}>
+                <Link href={cat.url} className="outline-none">
                   <img
                     src={cat.offer_pic}
                     alt="Ac"
