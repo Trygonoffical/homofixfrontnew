@@ -108,11 +108,7 @@ const ExclusiveOffer = (props) => {
            ) }
       </div>
       {/* Add the CSS styling to remove outline when clicking */}
-      <style jsx>{`
-        .slick-slide {
-          outline: none;
-        }
-      `}</style>
+      
     </section>
   );
 };

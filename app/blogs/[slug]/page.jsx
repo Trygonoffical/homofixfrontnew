@@ -1,10 +1,11 @@
 "use client"
 import { useEffect, useState } from "react";
+import { initGA, logPageView } from '@/components/Analytics'
 
 const BlogPage = ({ params }) => {
   const [blog, setBlog] = useState(null); // Set initial state to null
   const [isLoading, setIsLoading] = useState(false); // Add loading state
-
+  
   useEffect(() => {
     setIsLoading(true); 
     const fetchData = async () => {
@@ -25,6 +26,8 @@ const BlogPage = ({ params }) => {
     };
 
     fetchData();
+    initGA(); // Initialize Google Analytics
+    logPageView();
   }, []);
 
 

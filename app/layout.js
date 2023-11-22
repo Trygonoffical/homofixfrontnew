@@ -11,7 +11,7 @@ import Head from 'next/head';
 import Script from 'next/script'
 import { useEffect } from 'react'
 const inter = Inter({ subsets: ['latin'] })
-
+import { initGA, logPageView } from '@/components/Analytics'
 // export const metadata = {
 //   title: 'Homofix Company',
 //   description: 'Repair, Cleaning, Grooming, Painting & More Services by Expert Professionals. One stop solution for your household needs. Get 100% safe service by verified partners.',
@@ -24,8 +24,10 @@ export default function RootLayout({ children }) {
     script.src = 'https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js'
     script.async = true
     document.body.appendChild(script)
-    
+    initGA(); // Initialize Google Analytics
+    logPageView();
   }, [])
+
   return (
   <>
   

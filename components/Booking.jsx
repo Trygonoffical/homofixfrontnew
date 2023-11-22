@@ -38,7 +38,17 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
+  useEffect(() => {
+  
+    const currentDateTime = new Date();
+    currentDateTime.setUTCHours(currentDateTime.getUTCHours() + 1); // Add 1 hour in UTC
 
+    // Format the date in the "yyyy-MM-ddThh:mm" format in UTC
+    const formattedMinDateTime = currentDateTime.toISOString().slice(0, 16);
+    
+    // Set the minimum date and time for the input
+    setMinDateTime(formattedMinDateTime);
+  }, []);
   const handleDateTimeChange = (event) => {
     setBookingDateTime(event.target.value);
   };
@@ -114,15 +124,7 @@ useEffect(() => {
       }
 }, [URL]);
 
-useEffect(() => {
-  
-  const currentDateTime = new Date();
-  currentDateTime.setHours(currentDateTime.getHours() + 1); // Add 1 hour
 
-  // Format the date in the "yyyy-MM-ddThh:mm" format
-  const formattedMinDateTime = currentDateTime.toISOString().slice(0, 16);
-  setMinDateTime(formattedMinDateTime);
-}, []);
 const handleProfileDataUpdate = () =>{
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; // Replace with your actual authentication token
     const Burl = `https://support.homofixcompany.com/api/customer/profile/update/`;

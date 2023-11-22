@@ -4,8 +4,15 @@ import Tophead from "@/components/Tophead"
 // import  Data from "./data"
 import LegalData from "@/components/LegalData"
 import Callbox from '@/components/Callbox'
+import { initGA, logPageView } from '@/components/Analytics'
+import { useEffect } from 'react';
+
 
 const blogs = () => {
+  useEffect(() => {
+    initGA(); // Initialize Google Analytics
+    logPageView();
+  }, []);
   return (
     <>
         <Tophead slug={'Terms & Conditions'} />

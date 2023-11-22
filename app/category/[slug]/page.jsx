@@ -14,6 +14,8 @@ import {Booking} from '@/components/Booking'
 import Faq from '@/components/Faq'
 import Loading from '@/components/Loading'
 
+import { initGA, logPageView } from '@/components/Analytics'
+
 const SubcategoryPage = ({ params } ) => {
 
 let [isOpenVDetails, setIsOpenVDetails] = useState(false)
@@ -29,6 +31,12 @@ const [loading, setLoading] = useState(false);
 const [cartVisible, setCartVisible] = useState(true);
 const cartRef = useRef(null);
 const currentlink = useRouter();
+
+useEffect(() => {
+  initGA(); // Initialize Google Analytics
+  logPageView();
+}, []);
+
 useEffect(() => {
   const options = {
     rootMargin: '0px',
