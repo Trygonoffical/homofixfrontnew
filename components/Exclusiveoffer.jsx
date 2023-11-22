@@ -42,6 +42,7 @@ const ExclusiveOffer = (props) => {
     infinite: true,
     slidesToScroll: 3,
     initialSlide: 0,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
@@ -88,7 +89,7 @@ const ExclusiveOffer = (props) => {
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
-      <div className="md:mt-9">
+      <div className="md:mt-9 overflow-hidden">
            {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
