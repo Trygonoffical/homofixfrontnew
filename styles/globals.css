@@ -106,3 +106,9 @@ body {
 .keen-slider {
   outline: none;
 }
+.keen-slider a{
+  outline: none;
+}
+.keen-slider__slide{
+  outline: none;
+}

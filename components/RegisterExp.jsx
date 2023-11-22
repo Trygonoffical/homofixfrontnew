@@ -15,6 +15,7 @@ const RegisterExp = () => {
     const [selectedFile , setSelectedFile] = useState(null)
     const [address , setAddress] = useState('')
     const [successMsg, setSuccessMsg] = useState('')
+    const [errorMsg, setErrorMsg] = useState('')
     const fileInputRef = useRef(null);
     const handleBlank = useCallback(()=>{
         console.log('blankfun')
@@ -49,6 +50,7 @@ const RegisterExp = () => {
     }, []);
 
     const handleSendformData = useCallback(() => {
+      if(name != '' || mno!=''|| exType!=''|| address!='' ){
         const applyData = new FormData();
         applyData.append('name', name);
         if(email){
@@ -79,7 +81,8 @@ const RegisterExp = () => {
           if (response.ok) {
             const FeedbackData = await response.json();
             console.log(FeedbackData);
-            setSuccessMsg('Form Has Been Submitted')
+            setSuccessMsg('Form Has Been Submitted');
+            setErrorMsg('');
             handleBlank();
           } else {
             console.error("Request failed with status:", response.status);
@@ -92,12 +95,16 @@ const RegisterExp = () => {
         }
       }
       postjob()
+      }else{
+        setErrorMsg('Please fill all the mandatory fields');
+      }
+        
       }, [exType, address, mno, name,selectedFile, email])
 
     const handleClick = useCallback(() => {
         setIsShow(false);
         setSuccessMsg('')
-
+        setErrorMsg('');
       }, [URL]);
   return (
     <>
@@ -117,7 +124,10 @@ const RegisterExp = () => {
                     </div>
                     <div className="mt-5 ">
                         {successMsg && (
-                          <p className="text-indigo-400 text-sm py-3 text-center">{successMsg}</p>
+                          <h2 className="text-indigo-400 text-lg py-3 text-center">{successMsg}</h2>
+                        )}
+                        {errorMsg && (
+                          <h2 className="text-red text-lg py-3 text-center">{errorMsg}</h2>
                         )}
                         <div className='flex flex-col px-6 pb-3'>
                             <label htmlFor="Name" className='pb-2 font-medium'>Name</label>
