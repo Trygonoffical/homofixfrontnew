@@ -24,9 +24,7 @@ export default function RootLayout({ children }) {
     script.src = 'https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js'
     script.async = true
     document.body.appendChild(script)
-    // return () => {
-    //   document.body.removeChild(script)
-    // }
+    
   }, [])
   return (
   <>

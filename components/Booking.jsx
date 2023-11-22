@@ -573,7 +573,7 @@ const handleOnlinePayment2 = async () => {
                <label htmlFor="Address">Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
                 
-                <label htmlFor="Area">Area</label>
+                <label htmlFor="Area">Near by</label>
                 <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
                 
 

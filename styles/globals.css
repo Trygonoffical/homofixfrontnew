@@ -103,3 +103,6 @@ body {
 .slick-arrow{
   display: none!important;
 }
+.keen-slider {
+  outline: none;
+}
