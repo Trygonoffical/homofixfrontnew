@@ -57,7 +57,7 @@ const Heroserc = ({url}) => {
             <Combobox.Options className="bg-white shadow-md p-2 border-2 rounded pt-10 -mt-8">
               {filteredService.map((subcategory, idx) => (
                 <Combobox.Option key={idx} value={subcategory}>
-                    <Link href={`/category/${slugify(subcategory.name)}`}>{subcategory.name}</Link>
+                    <a href={`/category/${slugify(subcategory.name)}`}>{subcategory.name}</a>
                 </Combobox.Option>
               ))}
             </Combobox.Options>
