@@ -427,7 +427,7 @@ const handleVerificationCoupon = async () => {
                             <div className="">
                             {/* <h3 className="text-lg font-semibold mb-2 pr-10">{selectedProduct.name}</h3> */}
                             {selectedProduct.warranty > 0 ? (
-                              <h5 className='text-basecolor font-bold text-sm'>{selectedProduct.warranty} DAYS WARRNTY</h5>
+                              <h5 className='text-basecolor font-bold text-sm'>{selectedProduct.warranty} DAYS WARRANTY</h5>
                             ):(
                               <h5></h5>
                             )}
