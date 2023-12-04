@@ -14,14 +14,17 @@ const Faq = ({ProID}) => {
         fetchFaq();
         // console.log('faq' , faqData)
         
-    } , [URL])
+    } , [ProID])
   return (
     <>
         <div className="text-center">
-            <h2 className="text-xl font-semibold py-4">FAQ'S</h2>    
+        {faqData.length > 0  && (
+            <h2 className="text-xl font-semibold py-4">FAQ'S</h2>  
+        )}
+            {/* <h2 className="text-xl font-semibold py-4">FAQ'S</h2>     */}
         </div>
         <div className="py-2">
-            {faqData.map((faq, idx)=>(
+            {faqData.length > 0  && faqData.map((faq, idx)=>(
 
                 <Disclosure as="div" className="mb-2" key={idx}>
                     <Disclosure.Button className="flex w-full justify-between rounded-lg bg-lightbasecolor px-4 py-2 text-left text-sm font-medium text-white hover:bg-basecolor focus:outline-none focus-visible:ring focus-visible:ring-basecolor focus-visible:ring-opacity-75">
