@@ -94,7 +94,7 @@ const handleVerificationCoupon = async () => {
           const couponAmount = result.discount_amount;
 
     // Check if the coupon amount is valid (e.g., double the total cart amount)
-          const totalCartAmount = getTotalAmount() + Number(getGSTAmount().toFixed(2));
+          const totalCartAmount = getTotalAmount();
 
           if (couponAmount * 2 > totalCartAmount) {
             // Handle the case where the condition is not met
