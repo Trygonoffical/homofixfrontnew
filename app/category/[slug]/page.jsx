@@ -226,11 +226,19 @@ const handleVerificationCoupon = async () => {
                         <h2 className="font-bold md:text-xl w-full">{product.name}</h2> 
                         <div className="py-2">
                             <span className='pr-2 font-bold text-basecolor'> ₹{product.selling_price}</span>
-                            <span className='line-through'> ₹{product.price}</span>
+                            {/* <span className='line-through'> ₹{product.price}</span> */}
+                            {product.price !== product.selling_price && (
+                              <span className="line-through"> ₹{product.price}</span>
+                            )}
                         </div>
-                        <div className=" flex font-bold">
-                            <TagIcon className='w-[20px] text-red' /> ₹{product.dis_amt} OFF
-                        </div>
+                        {/* <div className=" flex font-bold">
+                           <TagIcon className='w-[20px] text-red' /> ₹{product.dis_amt} OFF
+                        </div> */}
+                        {product.dis_amt !== 0 && (
+                          <div className="flex font-bold">
+                            <TagIcon className="w-[20px] text-red" /> ₹{product.dis_amt} OFF
+                          </div>
+                        )}
                         <div className="p-2">
                             <button className='text-basecolor text-sm' onClick={()=>handleView(product)}>View Details</button>
                             <hr className='pb-3' />
