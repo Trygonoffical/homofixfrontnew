@@ -182,6 +182,21 @@ const handleVerificationCoupon = async () => {
         }
     
         setCartItems(updatedCartItems);
+
+        // Recalculate the total amount of the cart
+      const totalCartAmount = getTotalAmount();
+
+      // Check if the coupon amount is still valid
+      const couponAmount = discount;
+      if (couponAmount && couponAmount * 2 > totalCartAmount) {
+        // Handle the case where the condition is not met
+        console.log('Please add more services to apply this coupon');
+        setCouponMsg('Please add more services to apply this coupon.');
+        setDiscount('');
+        setCouponId('');
+      } else {
+        setCartItems(updatedCartItems);
+      }
       };
     const getTotalAmount = () => {
         let total = 0;
