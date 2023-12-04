@@ -443,9 +443,9 @@ const handleVerificationCoupon = async () => {
                             <h2 className="font-bold md:text-xl w-full">{selectedProduct.name}</h2> 
                             <div className="py-2">
                                 <span className='pr-2 font-bold text-basecolor'> ₹{selectedProduct.selling_price}</span>
-                                <span className='line-through'> ₹{selectedProduct.price}</span>
+                                {/* <span className='line-through'> ₹{selectedProduct.price}</span> */}
                                 {selectedProduct.price !== selectedProduct.selling_price && (
-                              <span className="line-through"> ₹{selectedProduct.price}</span>
+                                    <span className="line-through"> ₹{selectedProduct.price}</span>
                             )}
                             </div>
                             {selectedProduct.dis_amt !== 0 && (
