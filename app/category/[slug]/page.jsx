@@ -98,8 +98,8 @@ const handleVerificationCoupon = async () => {
 
           if (couponAmount * 2 > totalCartAmount) {
             // Handle the case where the condition is not met
-            console.log('Coupon amount is not valid for the current cart total.');
-            setCouponMsg('Coupon amount is not valid for the current cart total.');
+            console.log('Add more servies to apply this coupon');
+            setCouponMsg('Add more servies to apply this coupon.');
             setDiscount('');
             setCouponId('');
           } else {
