@@ -77,14 +77,6 @@ const handleCouponChange = (event) => {
 const handleVerificationCoupon = async () => {
  
     try {
-      // const response = await fetch("https://support.homofixcompany.com/check-coupon-validity/" , {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({code : coupon}),
-      // });
-      // const result = await response.json();
       const cupurl = `/api/coupon/?code=${coupon}`;
       const response = await fetch(cupurl)
       const result = await response.json();
@@ -95,10 +87,27 @@ const handleVerificationCoupon = async () => {
           setCouponMsg(result.message)
           setDiscount('')
         }else{
-          setDiscount(result.discount_amount)
-          setCouponId(result.id)
-          console.log("rsid",result.id)
-          setCouponMsg(`Congrats! You've unlocked up to Rs ${result.discount_amount} off`)
+          // setDiscount(result.discount_amount)
+          // setCouponId(result.id)
+          // console.log("rsid",result.id)
+          // setCouponMsg(`Congrats! You've unlocked up to Rs ${result.discount_amount} off`)
+          const couponAmount = result.discount_amount;
+
+    // Check if the coupon amount is valid (e.g., double the total cart amount)
+          const totalCartAmount = getTotalAmount() + Number(getGSTAmount().toFixed(2));
+
+          if (couponAmount * 2 > totalCartAmount) {
+            // Handle the case where the condition is not met
+            console.log('Coupon amount is not valid for the current cart total.');
+            setCouponMsg('Coupon amount is not valid for the current cart total.');
+            setDiscount('');
+            setCouponId('');
+          } else {
+            setDiscount(couponAmount);
+            setCouponId(result.id);
+            console.log("rsid", result.id);
+            setCouponMsg(`Congrats! You've unlocked up to Rs ${couponAmount} off`);
+          }
         }
         
         
