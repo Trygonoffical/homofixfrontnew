@@ -11,7 +11,7 @@ import Head from 'next/head';
 import Script from 'next/script'
 import { useEffect } from 'react'
 const inter = Inter({ subsets: ['latin'] })
-import { initGA, logPageView } from '@/components/Analytics'
+
 // export const metadata = {
 //   title: 'Homofix Company',
 //   description: 'Repair, Cleaning, Grooming, Painting & More Services by Expert Professionals. One stop solution for your household needs. Get 100% safe service by verified partners.',
@@ -24,8 +24,6 @@ export default function RootLayout({ children }) {
     script.src = 'https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js'
     script.async = true
     document.body.appendChild(script)
-    initGA(); // Initialize Google Analytics
-    logPageView();
   }, [])
 
   return (
@@ -35,17 +33,26 @@ export default function RootLayout({ children }) {
         <Head>
         <title>Homofix Company</title>
         <meta name="description" content={metadata.description} />
+        
         </Head>
         <AuthProvider>
             <body className={inter.className}>
               <Header />
               {children}
               <Footer />
-              {/* <script src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js"></script> */}
             </body>
         </AuthProvider>
-
-      </html>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-0KJ071CS4W" />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+  
+            gtag('config', 'G-0KJ071CS4W');
+          `}
+        </Script>
+    </html>
   </>
       
 

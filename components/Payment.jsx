@@ -7,6 +7,10 @@ import Link from "next/link";
 const Payment = ({amount , name , mobile , bookingID }) => {
     const [congBookingShow, setCongBookingShow] = useState(false);
     const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
+    
+
+
+
     const handleOnlinePayment = async() => {
         const apiKey = 'rzp_test_C8XkYZBi6Tpn1G';
         const apiSecret = 'izRT1cAew7L1lfmQfbelyJZs';

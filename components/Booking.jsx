@@ -35,9 +35,24 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsg, setErrorMsg] = useState('');
   const [errormsgadd, setErrorMsgAdd] = useState('');
   const [errormsgName, setErrorMsgName] = useState('');
+
+  const currentworkingcities = ['Delhi','Noida','Gurgaon','Ghaziabad','Kanpur','Patna','Chapra','Siwan'];
+  const [cityerrormsg , setCityErrorMsg] = useState('')
+
+
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
+
+  useEffect(() => {
+    // Check if the selected city is in the currentworkingcities array
+    if (city && !currentworkingcities.includes(city)) {
+      setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
+    } else {
+      setCityErrorMsg('');
+    }
+  }, [city, currentworkingcities]);
+
   useEffect(() => {
   
     const currentDateTime = new Date();
@@ -306,6 +321,11 @@ const Congratsmesg = () => {
       return null;
 }
 const handleOfflinePayment = () => {
+  if (cityerrormsg) {
+    // Display an alert or handle the error in your UI
+    alert(cityerrormsg);
+    return;
+  }
   if(bookingDateTime == ''){
     setErrorMsg('Please Select Date and Time');
   }
@@ -479,6 +499,11 @@ const handleOfflinePayment = () => {
     return pData;
 }
 const handleOnlinePayment2 = async () => {
+  if(cityerrormsg) {
+    // Display an alert or handle the error in your UI
+    alert(cityerrormsg);
+    return;
+  }
   if(bookingDateTime == ''){
     setErrorMsg('Please Select Date and Time');
   }
@@ -581,6 +606,7 @@ const handleOnlinePayment2 = async () => {
 
                 <label htmlFor="city">City</label>
                 <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  />
+                <p className='text-[red] text-sm'>{cityerrormsg}</p>
                 <label htmlFor="State">State</label>
                 <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800"  />
                 <label htmlFor="Pincode">Pincode </label>
