@@ -12,7 +12,7 @@ const easebuzz = ({userID,name , phone ,pro , Amount}) =>{
         const concatenatedString = `${easebuzzkey}|bookingID${pro.product}_${uniqueID}|${Amount}|${pro.productName}|${name}|info@homofixcompnay.com|||||||||||${easebuzzsalt}`;
         // Generate the hash using SHA-256
         const hash = crypto.createHash('sha512').update(concatenatedString).digest('hex');
-        console.log('Generated Hash:', hash);
+        ////console.log('Generated Hash:', hash);
 
         const pData = {
             'key': easebuzzkey,
@@ -26,7 +26,7 @@ const easebuzz = ({userID,name , phone ,pro , Amount}) =>{
             'surl': 'https://homofixcompany.com/account',
             'furl': 'https://homofixcompany.com/account',
         };
-        console.log('pdata', pData)
+        ////console.log('pdata', pData)
         return pData;
     }
     const handleOnlinePayment2 = async () => {
@@ -41,23 +41,23 @@ const easebuzz = ({userID,name , phone ,pro , Amount}) =>{
                 body: JSON.stringify(SendData),
               });
             const data = await response.json();
-            console.log(data);
+            //console.log(data);
             // setAccess_key(data.data);
             access_key = data.data;
-            // console.log(access_key);
+            // //console.log(access_key);
           } catch (error) {
             console.error("An error occurred:", error);
           }
-        console.log('testing here');
-        // console.log(SendData);
+        //console.log('testing here');
+        // //console.log(SendData);
 
         const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
         const options = {
           access_key: access_key, // access key received via Initiate Payment
           onResponse: (response) => {
-              console.log(response);
+              //console.log(response);
               if(response.status == 'success'){
-                console.log('pay has been successfully done yo yo ');
+                //console.log('pay has been successfully done yo yo ');
               }
           },
           theme: "#123456" // color hex

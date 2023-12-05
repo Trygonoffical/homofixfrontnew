@@ -44,14 +44,14 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
 
-  useEffect(() => {
-    // Check if the selected city is in the currentworkingcities array
-    if (city && !currentworkingcities.includes(city)) {
-      setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
-    } else {
-      setCityErrorMsg('');
-    }
-  }, [city, currentworkingcities]);
+  // useEffect(() => {
+  //   // Check if the selected city is in the currentworkingcities array
+  //   if (city && !currentworkingcities.includes(city)) {
+  //     setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
+  //   } else {
+  //     setCityErrorMsg('');
+  //   }
+  // }, [city, currentworkingcities]);
 
   useEffect(() => {
   
@@ -73,32 +73,32 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 //   // Rest of the code...
 const handlePaymentChange = (val) => {
     setPaymentMethod(val);
-    // console.log('Payment Method - ', paymentMethod)
+    // ////console.log('Payment Method - ', paymentMethod)
   };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
-    // console.log('name - ', name)
+    // ////console.log('name - ', name)
   };
   const handleAddChange = (event) => {
     setAdd(event.target.value);
-    // console.log('add - ', add)
+    // ////console.log('add - ', add)
   };
   const handleAreaChange = (event) => {
     setArea(event.target.value);
-    // console.log('area - ', area)
+    // //console.log('area - ', area)
   };
   const handleCityChange = (event) => {
     setCity(event.target.value);
-    // console.log('city - ', city)
+    // //console.log('city - ', city)
   };
   const handleStateChange = (event) => {
     setState(event.target.value);
-    // console.log('state - ', state) 
+    // //console.log('state - ', state) 
   };
   const handleZipChange = (event) => {
     setZip(event.target.value);
-    // console.log('zip - ', zip) 
+    // //console.log('zip - ', zip) 
   };
 useEffect(() => {
   const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
@@ -114,13 +114,13 @@ useEffect(() => {
 
         if (response.ok) {
           const userData = await response.json();
-         console.log('userData', userData[0])
-        //  console.log('cartItems', cartItems[0].productName)
-        console.log('amount', PaymentAmount)
+         //console.log('userData', userData[0])
+        //  //console.log('cartItems', cartItems[0].productName)
+        //console.log('amount', PaymentAmount)
           setUserProfileInfo(userData[0]);
         } else {
           // Handle error case when the response is not ok
-          console.log('token val in error', token)
+          //console.log('token val in error', token)
 
           console.error('Error fetching user profile data');
         //   router.push('/'); // Redirect to homepage if there is an error
@@ -152,7 +152,7 @@ const handleProfileDataUpdate = () =>{
         'state': state,
         'zipcode': zip,
     }
-    // console.log('profiledata', profiledata)
+    // //console.log('profiledata', profiledata)
     const postProfile = async () =>{
         try {
             const response = await fetch(Burl, {
@@ -166,7 +166,7 @@ const handleProfileDataUpdate = () =>{
         
             if (response.ok) {
               const data = await response.json();
-            //   console.log(data);
+            //   //console.log(data);
             } else {
               console.error("Request failed with status:", response.status);
             }
@@ -195,7 +195,7 @@ const handleOnlinePayment = async() => {
     },
     body: JSON.stringify(valord),
     }).then((t) => t.json());
-          // console.log('data', data);
+          // //console.log('data', data);
         const razorpayOptions = {
             key: apiKey, // Replace with your Razorpay key ID
             amount: PaymentAmount * 100, // Replace with the actual amount to be charged
@@ -205,7 +205,7 @@ const handleOnlinePayment = async() => {
             order_id: data.id, // Replace with your unique order ID
             handler: (response) => {
               // Payment successful, perform necessary actions
-              // console.log('Payment successful:', response)
+              // //console.log('Payment successful:', response)
               handleBookingDetailsinner({ COS: 'False', OL: 'True' , PaymentID: response.razorpay_payment_id})
               handleProfileDataUpdate()
               setBookingCompleted(true);
@@ -231,8 +231,8 @@ const handleOnlinePayment = async() => {
     }
 const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
   const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
-  // console.log('cartItems' , cartItems)
-  // console.log('cos ' , COS)
+  // //console.log('cartItems' , cartItems)
+  // //console.log('cos ' , COS)
   let payload = {
       "booking_date": bookingDateTime,
       "customer": customer,
@@ -241,7 +241,7 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
       "online": OL,
       "booking_product": cartItems,
   }
-  // console.log('payload', payload)
+  // //console.log('payload', payload)
   // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
   const url = "https://support.homofixcompany.com/api/create_booking/";
 
@@ -258,12 +258,12 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
      
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
+        //console.log(data);
         let localbookindID = data.data.id ;
         handlePaymentRep(PaymentID, localbookindID)
-        console.log('loc in booking', localbookindID)
+        //console.log('loc in booking', localbookindID)
         
-      //   console.log( 'bookingID-handleBookingDetailsinner', data.data.id);
+      //   //console.log( 'bookingID-handleBookingDetailsinner', data.data.id);
       //   setBookingID(data.data.id)
       } else {
         console.error("Request failed with status:", response.status);
@@ -278,9 +278,9 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
 const handlePaymentRep = (paymentID ,localbookindID )=>{
   const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
   // url = 'https://support.homofixcompany.com/api/customer/payments/'
-  // console.log('PayID' , paymentID)
-  // console.log('bookingID' , localbookindID)
-  // console.log('PaymentAmount' , PaymentAmount)
+  // //console.log('PayID' , paymentID)
+  // //console.log('bookingID' , localbookindID)
+  // //console.log('PaymentAmount' , PaymentAmount)
   let rept = {
       "payment_id": paymentID,
       "payment_mode": 'Online',
@@ -300,7 +300,7 @@ const handlePaymentRep = (paymentID ,localbookindID )=>{
     
         if (response.ok) {
           const data = await response.json();
-          // console.log(data);
+          // //console.log(data);
         } else {
           console.error("Request failed with status:", response.status);
         }
@@ -311,29 +311,36 @@ const handlePaymentRep = (paymentID ,localbookindID )=>{
     postResp()
 }
 const Congratsmesg = () => {
-    // console.log('incongfun')
-    // console.log(isBookingCompleted)
+    // //console.log('incongfun')
+    // //console.log(isBookingCompleted)
     if (isBookingCompleted) {
-        // console.log(isBookingCompleted)
+        // //console.log(isBookingCompleted)
 
         return <CongBooking />;
       }
       return null;
 }
 const handleOfflinePayment = () => {
-  if (cityerrormsg) {
+  // if (cityerrormsg) {
+  //   // Display an alert or handle the error in your UI
+  //   alert(cityerrormsg);
+  //   return;
+  // }
+  if(bookingDateTime == '') {
     // Display an alert or handle the error in your UI
-    alert(cityerrormsg);
+    setErrorMsg('Please Select Date and Time');
     return;
   }
-  if(bookingDateTime == ''){
-    setErrorMsg('Please Select Date and Time');
-  }
+  // if(bookingDateTime == ''){
+  //   setErrorMsg('Please Select Date and Time');
+  // }
   if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
     setErrorMsgAdd('Please Enter Full Address!!');
+    return;
   } 
   if(name == ''){
     setErrorMsgName('Please Enter Name');
+    return;
   }
   if(bookingDateTime != '' && add != '' && area != '' || city != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
@@ -350,8 +357,8 @@ const handleOfflinePayment = () => {
   }
   const handleBookingDetails = ({COS , OL}) =>{
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
-    console.log('inbooknow fun' , cartItems)
-    console.log('cos ' , COS)
+    //console.log('inbooknow fun' , cartItems)
+    //console.log('cos ' , COS)
     let payload = {
         "booking_date": bookingDateTime,
         "customer": customer,
@@ -360,7 +367,7 @@ const handleOfflinePayment = () => {
         "online": OL,
         "booking_product": cartItems,
     }
-    console.log('payload', payload)
+    //console.log('payload', payload)
     // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     const url = "https://support.homofixcompany.com/api/create_booking/";
 
@@ -389,13 +396,13 @@ const handleOfflinePayment = () => {
   }
   const getLocation = async (latitude, longitude) => {
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`;
-    // console.log('usprofile', userProfileInfo)
+    // //console.log('usprofile', userProfileInfo)
     setLoading(true);
     try {
       const response = await fetch(url);
       if (response.ok) {
         const data = await response.json();
-        // console.log( 'address',  data)
+        // //console.log( 'address',  data)
         const address = {
           road: data.address.state_district,
           city: data.address.city,
@@ -444,8 +451,8 @@ const handleOfflinePayment = () => {
   };
 // Update input fields when the address state changes
   useEffect(() => {
-    // console.log('in')
-    // console.log('userProfileInfo', userProfileInfo)
+    // //console.log('in')
+    // //console.log('userProfileInfo', userProfileInfo)
     if (userProfileInfo) {
         setAdd(userProfileInfo.address || '');
         setArea(userProfileInfo.area || '');
@@ -481,7 +488,7 @@ const handleOfflinePayment = () => {
     const concatenatedString = `${easebuzzkey}|bookingID_${uniqueID}|${PaymentAmount}|Homofixcompany|${name}|info@homofixcompnay.com|||||||||||${easebuzzsalt}`;
     // Generate the hash using SHA-256
     const hash = crypto.createHash('sha512').update(concatenatedString).digest('hex');
-    console.log('Generated Hash:', hash);
+    //console.log('Generated Hash:', hash);
 
     const pData = {
         'key': easebuzzkey,
@@ -495,23 +502,26 @@ const handleOfflinePayment = () => {
         'surl': 'https://homofixcompany.com/account',
         'furl': 'https://homofixcompany.com/account',
     };
-    console.log('pdata', pData)
+    //console.log('pdata', pData)
     return pData;
 }
 const handleOnlinePayment2 = async () => {
-  if(cityerrormsg) {
+  //console.log('bookingtime = ',bookingDateTime )
+  if(bookingDateTime == '') {
     // Display an alert or handle the error in your UI
-    alert(cityerrormsg);
+    setErrorMsg('Please Select Date and Time');
     return;
   }
-  if(bookingDateTime == ''){
-    setErrorMsg('Please Select Date and Time');
-  }
+  // if(bookingDateTime == ''){
+  //   setErrorMsg('Please Select Date and Time');
+  // }
   if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
     setErrorMsgAdd('Please Enter Full Address!!');
+    return;
   } 
   if(name == ''){
     setErrorMsgName('Please Enter Name');
+    return;
   }
   if(bookingDateTime != '' && add != '' && area != '' || city != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
@@ -530,23 +540,23 @@ const handleOnlinePayment2 = async () => {
             body: JSON.stringify(SendData),
           });
         const data = await response.json();
-        console.log(data);
+        // //console.log(data);
         // setAccess_key(data.data);
         access_key = data.data;
-        // console.log(access_key);
+        // //console.log(access_key);
       } catch (error) {
         console.error("An error occurred:", error);
       }
-    console.log('testing here');
-    // console.log(SendData);
+    // //console.log('testing here');
+    // //console.log(SendData);
   
     const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
     const options = {
       access_key: access_key, // access key received via Initiate Payment
       onResponse: (response) => {
-          console.log(response);
+          ////console.log(response);
           if(response.status == 'success'){
-            console.log('pay has been successfully done yo yo ');
+            ////console.log('pay has been successfully done yo yo ');
             handleBookingDetailsinner({ COS: 'False', OL: 'True' , PaymentID: response.easepayid})
             handleProfileDataUpdate()
             setBookingCompleted(true);
@@ -630,6 +640,7 @@ const handleOnlinePayment2 = async () => {
                   className="w-full py-2 my-2 border-indigo-800"
                   min={minDateTime}
                 />
+                
               </div>
              <p className='text-[red] text-sm'>{errormsg}</p> 
               <div className='py-3'>

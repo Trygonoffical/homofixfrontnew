@@ -32,7 +32,7 @@ const Payment = ({amount , name , mobile , bookingID }) => {
         body: JSON.stringify(valord),
         }).then((t) => t.json());  
     
-            //   console.log('data', data);
+            //   ////console.log('data', data);
             const razorpayOptions = {
                 key: apiKey, // Replace with your Razorpay key ID
                 amount: amount * 100, // Replace with the actual amount to be charged
@@ -42,7 +42,7 @@ const Payment = ({amount , name , mobile , bookingID }) => {
                 order_id: data.id, // Replace with your unique order ID
                 handler: (response) => {
                   // Payment successful, perform necessary actions
-                  // console.log('Payment successful:', response)
+                  // ////console.log('Payment successful:', response)
                   handlePaymentRep(response.razorpay_payment_id)
                   setCongBookingShow(true)
                 },
@@ -87,7 +87,7 @@ const Payment = ({amount , name , mobile , bookingID }) => {
             
                 if (response.ok) {
                   const data = await response.json();
-                  // console.log(data);
+                  // ////console.log(data);
 
                 } else {
                   console.error("Request failed with status:", response.status);
@@ -104,7 +104,7 @@ const Payment = ({amount , name , mobile , bookingID }) => {
           const concatenatedString = `${easebuzzkey}|bookingID_${uniqueID}|${amount}|Homofixcompany|${name}|info@homofixcompnay.com|||||||||||${easebuzzsalt}`;
           // Generate the hash using SHA-256
           const hash = crypto.createHash('sha512').update(concatenatedString).digest('hex');
-          console.log('Generated Hash:', hash);
+          ////console.log('Generated Hash:', hash);
   
           const pData = {
               'key': easebuzzkey,
@@ -118,7 +118,7 @@ const Payment = ({amount , name , mobile , bookingID }) => {
               'surl': 'https://homofixcompany.com/account',
               'furl': 'https://homofixcompany.com/account',
           };
-          console.log('pdata', pData)
+          ////console.log('pdata', pData)
           return pData;
       }
       const handleOnlinePayment2 = async () => {
@@ -134,23 +134,23 @@ const Payment = ({amount , name , mobile , bookingID }) => {
                 body: JSON.stringify(SendData),
               });
             const data = await response.json();
-            console.log(data);
+            ////console.log(data);
             // setAccess_key(data.data);
             access_key = data.data;
-            // console.log(access_key);
+            // ////console.log(access_key);
           } catch (error) {
             console.error("An error occurred:", error);
           }
-        console.log('testing here');
-        // console.log(SendData);
+        ////console.log('testing here');
+        // //console.log(SendData);
 
         const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
         const options = {
           access_key: access_key, // access key received via Initiate Payment
           onResponse: (response) => {
-              console.log(response);
+              //console.log(response);
               if(response.status == 'success'){
-                console.log('pay has been successfully done yo yo ');
+                //console.log('pay has been successfully done yo yo ');
                 handlePaymentRep(response.easepayid)
                   setCongBookingShow(true)
               }

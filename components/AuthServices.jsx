@@ -42,11 +42,11 @@ const AuthServices = ({cnames , title}) => {
         // });
         const result = await response.json();
         let otpSession = result.otp_session;
-        // console.log(otpSession)
+        // //console.log(otpSession)
         setotpval(otpSession);
         // const response = true;
         if (response) {
-          // console.log('Response:', result);
+          // //console.log('Response:', result);
           setshowLogin(false)
           setshowOtpLogin(true)
           // setMessage('OTP has been sent successfully!');
@@ -54,7 +54,7 @@ const AuthServices = ({cnames , title}) => {
           setMessage('Failed to send OTP. Please try again.');
         }
       } catch (error) {
-        // console.log(error);
+        // //console.log(error);
         setMessage('catch Failed to send OTP. Please try again.');
       }
     };
@@ -73,12 +73,12 @@ const AuthServices = ({cnames , title}) => {
           
           if (response.ok) {
             const result = await response.json();
-            // console.log('Response:', result);
+            // //console.log('Response:', result);
             handleOTPValidationResponse(result)
             setshowOtpLogin(false)
             setMessage('');
           } else {
-            // console.log(response);
+            // //console.log(response);
             setMessage('Failed to Match Otp. Please try again.');
           }
         } catch (error) {

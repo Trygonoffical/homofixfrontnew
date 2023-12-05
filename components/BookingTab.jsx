@@ -51,7 +51,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
         setZip(event.target.value);
       }, []);
       const handleMnoChange = useCallback(() => {
-        // console.log('zip - ', zip) 
+        // //console.log('zip - ', zip) 
       }, []);
      
       const handleUpdateProfile = () =>{

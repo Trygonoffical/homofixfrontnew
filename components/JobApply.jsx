@@ -17,7 +17,7 @@ const JobApply = ({JobID}) => {
    
 
     const handleBlank = useCallback(()=>{
-        console.log('blankfun')
+        //console.log('blankfun')
         setName('')
         setEmail('')
         setMno('')
@@ -59,8 +59,8 @@ const JobApply = ({JobID}) => {
         
             JobData.resume = selectedFile;
           }
-        //   console.log('selectedFile',selectedFile)
-        // console.log('jobdata',JobData)
+        //   //console.log('selectedFile',selectedFile)
+        // //console.log('jobdata',JobData)
         const handleSendJob = async () => {
             // setshowLogin(false);
             try {
@@ -71,11 +71,11 @@ const JobApply = ({JobID}) => {
               });
               const result = await response.json();
               if (response) {
-                // console.log('Response:', result);
+                // //console.log('Response:', result);
                 setSuccessMsg("Submitted Successfully")
                 handleBlank()
               } else {
-                // console.log('error-respose', response)
+                // //console.log('error-respose', response)
                 setSuccessMsg('Failed to send . Please try again.');
               }
             } catch (error) {

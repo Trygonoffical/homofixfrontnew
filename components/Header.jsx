@@ -27,11 +27,11 @@ export default function Example() {
 
   useEffect(() => {
     // Function to handle clicks outside the UserCircleIcon submenu
-    console.log('userEffect fun called')
+    //console.log('userEffect fun called')
     const handleOutsideClick = (event) => {
       // if (submenuRef.current && !submenuRef.current.contains(event.target)) {
       //   setSubMenu('hidden');
-      //   console.log('In > userEffect fun called')
+      //   //console.log('In > userEffect fun called')
 
       // }
     };
@@ -53,18 +53,18 @@ export default function Example() {
   }, []);
 
   const handlesubchange = () =>{
-    // console.log('handlesubchange activated');
+    // //console.log('handlesubchange activated');
     if(subMenu == 'hidden'){
       setSubMenu('block')
-    // console.log('set submenu - block');
+    // //console.log('set submenu - block');
     }else{
       setSubMenu('hidden')
-    // console.log('set submenu - hidden');
+    // //console.log('set submenu - hidden');
 
     }
   }
   const handleaccount = () => {
-    // console.log('acount butn clicked');
+    // //console.log('acount butn clicked');
     setSubMenu('hidden')
   }
   const handlePhoneChange = (event) => {
@@ -81,7 +81,7 @@ export default function Example() {
   const userInfo = authContext.userInfo
   const handleSendOTP = async () => {
     // setshowLogin(false);
-    // console.log('inclick')
+    // //console.log('inclick')
     try {
       const url = "https://support.homofixcompany.com/api/Send/Otp/";
       const response = await fetch(url , {
@@ -93,11 +93,11 @@ export default function Example() {
       });
       const result = await response.json();
       let otpSession = result.otp_session;
-      // console.log(otpSession)
+      // //console.log(otpSession)
       setotpval(otpSession);
       // const response = true;
       if (response) {
-        // console.log('Response:', result);
+        // //console.log('Response:', result);
         setshowLogin(false)
         setshowOtpLogin(true)
         // setMessage('OTP has been sent successfully!');
@@ -105,7 +105,7 @@ export default function Example() {
         setMessage('Failed to send OTP. Please try again.');
       }
     } catch (error) {
-      // console.log(error);
+      // //console.log(error);
       setMessage('catch Failed to send OTP. Please try again.');
     }
   };
@@ -126,8 +126,8 @@ export default function Example() {
   };
   const handleVerifyOTP = async () => {
   // Implement the logic to verify the OTP on the backend
-  // console.log(verificationCode)
-  // console.log(otpval)
+  // //console.log(verificationCode)
+  // //console.log(otpval)
   if (verificationCode == otpval){
     try {
       const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
@@ -140,16 +140,16 @@ export default function Example() {
       
       if (response.ok) {
         const result = await response.json();
-        // console.log('Response:', result);
+        // //console.log('Response:', result);
         handleOTPValidationResponse(result)
         setshowOtpLogin(false)
         setMessage('');
       } else {
-        // console.log(response);
+        // //console.log(response);
         setMessage('Failed to Match Otp. Please try again.');
       }
     } catch (error) {
-      // console.log(error);
+      // //console.log(error);
       setMessage('Error On Sendting Data. Please try again.');
     }
   }else{

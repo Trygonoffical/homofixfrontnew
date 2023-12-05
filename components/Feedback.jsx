@@ -32,7 +32,7 @@ const Feedback = ({bookingID}) => {
               rating: rating,
               description: review,
             };
-            // console.log('feedback', feedData);
+            // //console.log('feedback', feedData);
             const URL = 'https://support.homofixcompany.com/api/Feedback/'
         const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
         const postProfile = async () => {

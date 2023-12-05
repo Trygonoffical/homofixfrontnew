@@ -25,13 +25,13 @@ const Profile = () => {
 
         if (response.ok) {
           const userData = await response.json();
-          console.log('userData', userData)
-          console.log('token val', token)
+          //console.log('userData', userData)
+          //console.log('token val', token)
           setUserProfileInfo(userData[0]);
-          console.log('usprofile', userProfileInfo)
+          //console.log('usprofile', userProfileInfo)
         } else {
           // Handle error case when the response is not ok
-          console.log('token val in error', token)
+          //console.log('token val in error', token)
 
           console.error('Error fetching user profile data');
         //   router.push('/'); // Redirect to homepage if there is an error
@@ -55,12 +55,12 @@ const Profile = () => {
 
         if (response.ok) {
           const bookingData = await response.json();
-          // console.log('bookingData', bookingData)
+          // //console.log('bookingData', bookingData)
           // const latestbooking = userData[userData.length - 1];
           setBookings(bookingData.reverse())
         } else {
           // Handle error case when the response is not ok
-          // console.log('token val in error', token)
+          // //console.log('token val in error', token)
 
           // console.error('Error fetching user profile data');
         //   router.push('/'); // Redirect to homepage if there is an error

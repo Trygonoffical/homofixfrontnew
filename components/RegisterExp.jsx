@@ -18,7 +18,7 @@ const RegisterExp = () => {
     const [errorMsg, setErrorMsg] = useState('')
     const fileInputRef = useRef(null);
     const handleBlank = useCallback(()=>{
-        console.log('blankfun')
+        //console.log('blankfun')
         setName('')
         setEmail('')
         setMno('')
@@ -63,7 +63,7 @@ const RegisterExp = () => {
         if (selectedFile) {
             // File is not empty
             if (selectedFile.type !== 'application/pdf') {
-              // console.log('Resume file must be in PDF format');
+              // //console.log('Resume file must be in PDF format');
               return;
             }
         
@@ -80,7 +80,7 @@ const RegisterExp = () => {
       
           if (response.ok) {
             const FeedbackData = await response.json();
-            console.log(FeedbackData);
+            //console.log(FeedbackData);
             setSuccessMsg('Form Has Been Submitted');
             setErrorMsg('');
             handleBlank();

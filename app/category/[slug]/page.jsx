@@ -37,25 +37,25 @@ useEffect(() => {
     threshold: 0,
   };
 
-console.log('trigger in the useeffect')
+//console.log('trigger in the useeffect')
   const observer = new IntersectionObserver(([entry]) => {
     setCartVisible(!entry.isIntersecting);
-    console.log('Intersection Observer Triggered');
+    //console.log('Intersection Observer Triggered');
   }, options);
 
   const target = cartRef.current;
 
-  console.log(target);
+  //console.log(target);
   if (target) {
     observer.observe(target);
   }
 
   // Cleanup the observer
   return () => {
-    console.log("in return fun = ". target);
+    //console.log("in return fun = ". target);
     if (target) {
       observer.unobserve(target); 
-    console.log('in Return fun');
+    //console.log('in Return fun');
 
     }
   };
@@ -76,14 +76,14 @@ const handleVerificationCoupon = async () => {
       const result = await response.json();
 
       if (response) {
-        console.log('Response:', result);
+        //console.log('Response:', result);
         if(result.message){
           setCouponMsg(result.message)
           setDiscount('')
         }else{
           // setDiscount(result.discount_amount)
           // setCouponId(result.id)
-          // console.log("rsid",result.id)
+          // //console.log("rsid",result.id)
           // setCouponMsg(`Congrats! You've unlocked up to Rs ${result.discount_amount} off`)
           const couponAmount = result.discount_amount;
 
@@ -92,14 +92,14 @@ const handleVerificationCoupon = async () => {
 
           if (couponAmount * 2 > totalCartAmount) {
             // Handle the case where the condition is not met
-            console.log('Please add more servies to apply this coupon');
+            //console.log('Please add more servies to apply this coupon');
             setCouponMsg('Please add more servies to apply this coupon.');
             setDiscount('');
             setCouponId('');
           } else {
             setDiscount(couponAmount);
             setCouponId(result.id);
-            console.log("rsid", result.id);
+            //console.log("rsid", result.id);
             setCouponMsg(`Congrats! You've unlocked up to Rs ${couponAmount} off`);
           }
         }
@@ -109,7 +109,7 @@ const handleVerificationCoupon = async () => {
         setCouponMsg('Failed to send coupon. Please try again.');
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
       setCouponMsg('catch Failed to send coupon. Please try again.');
     }
   
@@ -123,20 +123,20 @@ const handleVerificationCoupon = async () => {
             setCustShare(res[0].percentage)
         }
         fetchshare();
-        console.log('gstCustShare' , gstCustShare)
-        console.log('userifo' , userInfo)
+        //console.log('gstCustShare' , gstCustShare)
+        //console.log('userifo' , userInfo)
         
     } , [])
     useEffect(()=>{
-      console.log('params.slug' , params.slug)
-      console.log('params' , params)
+      //console.log('params.slug' , params.slug)
+      //console.log('params' , params)
       setLoading(true);
         const fetchData = async () => {
             const suburl = `/api/subcat/?cat=${slugify(params.slug)}`;
             // const res = await fetch(`https://support.homofixcompany.com/api/Subcategory-Get/${slugify(params.slug)}/`);
             const res = await fetch(suburl);
             const subcat = await res.json();
-            // console.log( 'subcat', subcat)
+            // //console.log( 'subcat', subcat)
             setSubCat(subcat)
         }
         fetchData()
@@ -144,7 +144,7 @@ const handleVerificationCoupon = async () => {
 
     }, [])
   
-    // console.log('ussubcat' , subCat)
+    // //console.log('ussubcat' , subCat)
     if (Object.keys(subCat).length === 0) {
         // Render loading state or return null if desired
         return <Loading />;
@@ -184,7 +184,7 @@ const handleVerificationCoupon = async () => {
       const couponAmount = discount;
       if (couponAmount && couponAmount * 2 > totalCartAmount) {
         // Handle the case where the condition is not met
-        console.log('Please add more services to apply this coupon');
+        //console.log('Please add more services to apply this coupon');
         setCouponMsg('Please add more services to apply this coupon.');
         setDiscount('');
         setCouponId('');
@@ -222,7 +222,7 @@ const handleVerificationCoupon = async () => {
         setSelectedProduct(product)
         setIsOpenVDetails(true)
       }
-      // console.log( 'selected pros',selectedProduct)
+      // //console.log( 'selected pros',selectedProduct)
 
   return (
       <section className="container mx-auto py-10">
