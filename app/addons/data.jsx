@@ -16,7 +16,7 @@ const AddonPage = () => {
 
         if (res.ok) {
           const JobData = await res.json();
-          setAddons(JobData)
+          setAddons(JobData);
         //   console.log('JobData', JobData)
           // console.log('jab', jobs)
         } else {

@@ -103,24 +103,24 @@ const Feedback = ({bookingID}) => {
                     <div className="flex justify-center m-3">
                         <button  onClick={() => setRating('1')}>
                             <img src="/star.png" width={45} alt="rating" className={`p-1 m-1 ${rating === '1' ? 'border-yellow-400 border-2' : 'hover:border-yellow-400'}`} />
-                            {/* <h5 className='text-sm'>Angry</h5> */}
+                            <h5 className='text-sm'>1</h5>
                         </button>
                         <button   onClick={() => setRating('2')}>
                             <img src="/star.png" width={45} className={`p-1 m-1 ${rating === '2' ? 'border-yellow-400 border-2' : 'hover:border-yellow-400'}`}alt="rating" />
-                            {/* <h5 className='text-sm'>Unsatisfied</h5> */}
+                            <h5 className='text-sm'>2</h5>
 
                         </button>
                         <button   onClick={() => setRating('3')}>
                             <img src="/star.png" width={45} className={`p-1 m-1 ${rating === '3' ? 'border-yellow-400 border-2' : 'hover:border-yellow-400'}`} alt="rating" />
-                            {/* <h5 className='text-sm'>Satisfied</h5> */}
+                            <h5 className='text-sm'>3</h5>
                         </button>
                         <button   onClick={() => setRating('4')}>
                             <img src="/star.png" width={45} className={`p-1 m-1 ${rating === '4' ? 'border-yellow-400 border-2' : 'hover:border-yellow-400'}`} alt="rating" />
-                            {/* <h5 className='text-sm'>Happy</h5> */}
+                            <h5 className='text-sm'>4</h5>
                         </button>
                         <button   onClick={() => setRating('5')}>
                             <img src="/star.png" width={45} className={`p-1 m-1 ${rating === '5' ? 'border-yellow-400 border-2' : 'hover:border-yellow-400'}`} alt="rating" />
-                            {/* <h5 className='text-sm'>Love It</h5> */}
+                            <h5 className='text-sm'>5</h5>
                         </button>
                     </div>
                     <textarea  placeholder="Review" className='w-full' onChange={handleRatingReview} rows="5" >{review}</textarea>
