@@ -8,7 +8,9 @@ const AddonPage = () => {
   useEffect(()=>{
     
     const GetData = async ()=>{
-     const URL = `https://support.homofixcompany.com/api/Addons-GET/`
+    //  const URL = `https://support.homofixcompany.com/api/Addons-GET/`
+     const URL = `https://support.homofixcompany.com/api/SpareParts/`
+     
       try {
         // Make the API call to fetch the user profile data
         const res = await fetch(URL,{cache : 'no-store'})
@@ -60,9 +62,9 @@ const AddonPage = () => {
                         className="border-b border-gray-200 dark:border-gray-700"
                     >
                         <th scope="row" className="px-6 py-4">
-                        {addon.spare_parts_id.spare_part}
+                        {addon.spare_part}
                         </th>
-                        <td className="px-6 py-4">{addon.spare_parts_id.price}</td>
+                        <td className="px-6 py-4">{addon.price}</td>
                     </tr>
                     ))
                 ) : (

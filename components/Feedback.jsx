@@ -98,7 +98,6 @@ const Feedback = ({bookingID}) => {
                     Feedback 
                     
                   </Dialog.Title>
-                 
                   <div className="mt-4">
                     <div className="flex justify-center m-3">
                         <button  onClick={() => setRating('1')}>
