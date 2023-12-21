@@ -37,7 +37,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsgName, setErrorMsgName] = useState('');
   
 
-  const currentworkingcities = ['Delhi','Noida','Gurgaon','Ghaziabad','Kanpur','Patna','Chapra','Siwan'];
+  const currentworkingcities = ['Delhi','Noida','Gurgaon','Ghaziabad','Kanpur','Patna','Chapra','Siwan', 'New Delhi'];
   const [cityerrormsg , setCityErrorMsg] = useState('')
 
 
@@ -54,7 +54,6 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
       setCityErrorMsg('');
      
     }
-    console.log('activeButton', activeButton)
   }, [city, currentworkingcities]);
 
   useEffect(() => {
