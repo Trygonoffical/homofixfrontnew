@@ -35,6 +35,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsg, setErrorMsg] = useState('');
   const [errormsgadd, setErrorMsgAdd] = useState('');
   const [errormsgName, setErrorMsgName] = useState('');
+  
 
   const currentworkingcities = ['Delhi','Noida','Gurgaon','Ghaziabad','Kanpur','Patna','Chapra','Siwan'];
   const [cityerrormsg , setCityErrorMsg] = useState('')
@@ -44,14 +45,17 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
 
-  // useEffect(() => {
-  //   // Check if the selected city is in the currentworkingcities array
-  //   if (city && !currentworkingcities.includes(city)) {
-  //     setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
-  //   } else {
-  //     setCityErrorMsg('');
-  //   }
-  // }, [city, currentworkingcities]);
+  useEffect(() => {
+    // Check if the selected city is in the currentworkingcities array
+    if (city && !currentworkingcities.includes(city)) {
+      setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
+    
+    } else {
+      setCityErrorMsg('');
+     
+    }
+    console.log('activeButton', activeButton)
+  }, [city, currentworkingcities]);
 
   useEffect(() => {
   
@@ -321,11 +325,11 @@ const Congratsmesg = () => {
       return null;
 }
 const handleOfflinePayment = () => {
-  // if (cityerrormsg) {
-  //   // Display an alert or handle the error in your UI
-  //   alert(cityerrormsg);
-  //   return;
-  // }
+  if (cityerrormsg) {
+    // Display an alert or handle the error in your UI
+    alert(cityerrormsg);
+    return;
+  }
   if(bookingDateTime == '') {
     // Display an alert or handle the error in your UI
     setErrorMsg('Please Select Date and Time');
@@ -512,9 +516,11 @@ const handleOnlinePayment2 = async () => {
     setErrorMsg('Please Select Date and Time');
     return;
   }
-  // if(bookingDateTime == ''){
-  //   setErrorMsg('Please Select Date and Time');
-  // }
+  if (cityerrormsg) {
+    // Display an alert or handle the error in your UI
+    alert(cityerrormsg);
+    return;
+  }
   if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
     setErrorMsgAdd('Please Enter Full Address!!');
     return;
@@ -656,32 +662,17 @@ const handleOnlinePayment2 = async () => {
                 
                 {paymentMethod=='Online' ? (
                     <>
-                    {/* <Script
-                      id="razorpay-checkout-js"
-                      src="https://checkout.razorpay.com/v1/checkout.js"
-                    /> */}
-              
-                    {/* <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto '
-                      onClick={() => {
-                        // makePayment({ productId: "example_ebook" });
-                        handleOnlinePayment2()
-                      }}
-                    >
-                      Pay Now
-                    </button> */}
-                    {/* <Easebuzz name={name} userID={userProfileInfo.id} phone={userProfileInfo.mobile} pro={cartItems[0]} Amount={PaymentAmount}  /> */}
                     <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto '
                       onClick={() => {
-                        // makePayment({ productId: "example_ebook" });
                         handleOnlinePayment2()
                       }}
-                    >
+                      >
                       Pay Now
                     </button>
                   </>
 
                 ):(
-                    <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto ' onClick={handleOfflinePayment}>Book Now</button>
+                    <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto ' onClick={handleOfflinePayment} >Book Now</button>
 
                 )}
                 
