@@ -405,8 +405,8 @@ const handleVerificationCoupon = async () => {
         ) : (
           <div className='my-6 py-6  text-center'>
             <img src="/empty-cart.png" alt="empty-cart" width={100} className='mx-auto my-9' />
-            <h2 className='text-2xl font-bold'>You cart is Empty</h2>
-            <p className='text-sm font-light pt-2'>Looks like you have not added anything to you cart. Go ahead and explore top services </p>
+            <h2 className='text-2xl font-bold'>Your Cart is Empty</h2>
+            <p className='text-sm font-light pt-2'>Looks like you have not added anything to your cart. Go ahead and explore top services </p>
           </div>
         )}
       </div>

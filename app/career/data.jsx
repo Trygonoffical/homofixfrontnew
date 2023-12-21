@@ -1,10 +1,11 @@
 "use client"
 import {  useEffect, useState } from "react"
 import JobApply from "@/components/JobApply"
+import JobDescription from "./JobDescription"
 const CarrerPage = () => {
   const [jobs, setJobs] = useState([])
   // const [message, setMessage] = useState('')
-
+  // const [joboverData, setJobOverData] = useState([]);
   useEffect(()=>{
     
     const GetData = async ()=>{
@@ -34,7 +35,7 @@ const CarrerPage = () => {
   GetData();
   }, [URL])
 
-  
+  // const jobOverview = jobs[0]?.description.match(/<strong>Job Overview:<\/strong>(.*?)<p>&nbsp;<\/p>/s);
   return (
     <>
     <section className="container mx-auto my-10 px-4 md:px-0">
@@ -43,10 +44,24 @@ const CarrerPage = () => {
 
         {jobs.map((job) => 
                 <div className="p-4 py-8 shadow-2xl mt-5 text-center" key={job.id}>
-                  <h2 className="text-xl font-semibold py-3">{job.title}</h2>
+                  {/* <h2 className="text-xl font-semibold py-3">{job.title}</h2>
                   <div className="p-5 jobdes w-fit mx-auto" dangerouslySetInnerHTML={{ __html: job.description }}></div>
                   <div className="text-center">
-                  <JobApply JobID={job.id} />
+                    <JobApply JobID={job.id} />
+                  </div> */}
+                  <div className="flex">
+                    <img src="/job-offers.webp" alt="job offer" width={140} />
+                    <div className="px-3 text-left"> 
+                      <h2 className="text-xl font-semibold pt-4 mb-4">{job.title}</h2>
+                      {/* <div className="py-2 w-fit" dangerouslySetInnerHTML={{ __html: job.description.match(/<strong>Job Overview:<\/strong>(.*?)<p>&nbsp;<\/p>/s)[0] }}></div> */}
+                      {/* {job.description.match(/<strong>Job Overview:<\/strong>(.*?)<p>&nbsp;<\/p>/s) !== null ? (
+                  <div className="py-2 w-fit" dangerouslySetInnerHTML={{ __html: job.description.match(/<strong>Job Overview:<\/strong>(.*?)<p>&nbsp;<\/p>/s)[0] }}></div>
+                ) : null} */}
+                 {/* <JobDescription content={jobs.description.match(/<strong>Job Overview:<\/strong>([\s\S]*?)<\/p>/)?.[0]} /> */}
+                 {/* <JobDescription content={job.description} /> */}
+                      <a href={`/career/${job.id}`} className="text-sm bg-black text-white px-4 py-2 mt-4">View More</a>
+                    </div>
+                    
                   </div>
                 </div>
             )}

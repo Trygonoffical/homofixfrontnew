@@ -112,3 +112,7 @@ body {
 .keen-slider__slide{
   outline: none;
 }
+.jobdes ul, ol {
+  list-style-type: disc!important;
+  padding-left: revert;
+}
