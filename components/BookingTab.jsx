@@ -171,7 +171,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                 {booking.booking_product.map((pros , idx)=>(
                     // w-fit mx-auto
                       <ul key={idx} className='bg-gray-300 px-2 py-1 my-2 text-sm'>
-                        <li className='flex justify-between'> <span className='p-2'><strong>Product Name </strong>: {pros.product.name} </span> <span className='p-2'>Price: ₹ {pros.product.selling_price}</span> <span className='p-2'>Qnt: {pros.quantity}</span></li>
+                        <li className='flex justify-between'> <span className='p-2'><strong>Product Name </strong>: {pros.product.name} </span> <span className='p-2'>Price: ₹ {pros.selling_price}</span> <span className='p-2'>Qnt: {pros.quantity}</span></li>
                         {pros.addon_set.map((addons, idx)=>(
                             <ul key={idx}>
                                 <li className='flex justify-between '> <span className='p-2'><strong>Spare Parts</strong>:  {addons.spare_part_name}</span>   <span className='p-2'>Price: ₹ {addons.spare_part_price}</span> <span className='p-2'>Qnt :  {addons.quantity}</span> </li>
