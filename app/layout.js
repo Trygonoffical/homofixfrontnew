@@ -4,8 +4,6 @@ import { AuthProvider } from '@/components/AuthContext'
 import { Footer } from '@/components/Footer'
 import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
-// import { Metadata } from 'next'
-// import { hydrate } from 'react-dom';
 import { metadata } from '@/components/metadata'
 import Head from 'next/head';
 import Script from 'next/script'

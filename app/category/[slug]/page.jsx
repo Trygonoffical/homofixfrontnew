@@ -1,7 +1,7 @@
 'use client'
-import Styles from '../../../styles/Product.module.css';
+// import Styles from '../../../styles/Product.module.css';
 // import Link from "next/link"
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import React, { useEffect, useState,  Fragment , useContext, useRef } from "react";
 // import { useEffect , useState , Fragment , useContext, useRef} from "react"
 import { Dialog, Transition } from '@headlessui/react'
@@ -62,7 +62,16 @@ useEffect(() => {
 }, [cartItems]);
 
 const authContext = useContext(AuthContext)
-const userInfo = authContext.userInfo
+// const userInfo = authContext.userInfo
+// console.log('userInfo', userInfo)
+
+useEffect(() => {
+  if (authContext && authContext.userInfo) {
+    // Access userInfo here
+    const userInfo = authContext.userInfo
+    console.log('userInfo', userInfo)
+  }
+}, [authContext]);
 
 const handleCouponChange = (event) => {
   setCoupon(event.target.value);
@@ -260,7 +269,7 @@ const handleVerificationCoupon = async () => {
                         <div className="p-2">
                             <button className='text-basecolor text-sm' onClick={()=>handleView(product)}>View Details</button>
                             <hr className='pb-3' />
-                        <div className={Styles.productcontent}  dangerouslySetInnerHTML={{ __html: product.description }}></div>
+                        <div   dangerouslySetInnerHTML={{ __html: product.description }} style={{ fontSize: '12px' }}></div>
 
                         </div>
                     </div>
