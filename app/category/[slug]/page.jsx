@@ -19,6 +19,7 @@ const SubcategoryPage = ({ params } ) => {
 
 let [isOpenVDetails, setIsOpenVDetails] = useState(false)
 const [subCat , setSubCat] = useState({})
+const [userInfo , setUserInfo] = useState({})
 const [selectedProduct, setSelectedProduct] = useState(null);
 const [cartItems, setCartItems] = useState([]);
 const [gstCustShare, setCustShare] = useState('');
@@ -66,17 +67,19 @@ const authContext = useContext(AuthContext)
 // console.log('userInfo', userInfo)
 
 useEffect(() => {
+  console.log('test ');
   if (authContext && authContext.userInfo) {
     // Access userInfo here
-    const userInfo = authContext.userInfo
-    console.log('userInfo', userInfo)
+    // const userInfo = authContext.userInfo
+    setUserInfo(authContext.userInfo)
+    
   }
 }, [authContext]);
 
 const handleCouponChange = (event) => {
   setCoupon(event.target.value);
   };
-
+  // console.log('userInfo', userInfo)
 const handleVerificationCoupon = async () => {
  
     try {

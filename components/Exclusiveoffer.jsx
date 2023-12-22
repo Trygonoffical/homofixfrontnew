@@ -8,35 +8,31 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // const animation = { duration: 5000, easing: (t) => t }
+// function SampleNextArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, display: "block", background: "red" }}
+//       onClick={onClick}
+//     />
+//   );
+// }
+
+// function SamplePrevArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, display: "block", background: "green" }}
+//       onClick={onClick}
+//     />
+//   );
+// }
+
 const ExclusiveOffer = (props) => {
   const [offer, setOffer] = useState([]);
-  // const [sliderRef, slider] = useKeenSlider({
-  //   breakpoints: {
-  //     "(min-width: 400px)": {
-  //       slides: { perView: 1, spacing: 5 },
-  //       loop: true,
-        
-  //       // created(s) {
-  //       //   s.moveToIdx(5, true, animation)
-  //       // },
-  //       // updated(s) {
-  //       //   s.moveToIdx(s.track.details.abs + 5, true, animation)
-  //       // },
-  //       // animationEnded(s) {
-  //       //   s.moveToIdx(s.track.details.abs + 5, true, animation)
-  //       // },
-  //     },
-  //     "(min-width: 700px)": {
-  //       slides: { perView: 2, spacing: 10 },
-  //     },
-  //     "(min-width: 1000px)": {
-  //       slides: { perView: 4, spacing: 10 },
-  //     },
-  //   },
-  //   slides: { perView: 1 },
-  //   loop: true, // Enable looping
-     
-  // });
+ 
   const settings = {
     slidesToShow: 3,
     infinite: true,
@@ -44,6 +40,8 @@ const ExclusiveOffer = (props) => {
     initialSlide: 0,
     arrows: true,
     dots: true,
+    // nextArrow: <SampleNextArrow />,
+    // prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
