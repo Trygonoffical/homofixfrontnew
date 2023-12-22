@@ -67,7 +67,7 @@ const authContext = useContext(AuthContext)
 // console.log('userInfo', userInfo)
 
 useEffect(() => {
-  console.log('test ');
+  // console.log('test ');
   if (authContext && authContext.userInfo) {
     // Access userInfo here
     // const userInfo = authContext.userInfo
