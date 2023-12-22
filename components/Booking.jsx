@@ -614,11 +614,8 @@ const handleOnlinePayment2 = async () => {
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
-                
                 <label htmlFor="Area">Near by</label>
                 <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
-                
-
                 <label htmlFor="city">City</label>
                 <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  />
                 <p className='text-[red] text-sm'>{cityerrormsg}</p>
@@ -630,8 +627,6 @@ const handleOnlinePayment2 = async () => {
                 <p className='text-[red] text-sm'>{errormsgadd}</p> 
                </>
             }
-                  
-                
               <div className="mt-4">
                 <label htmlFor="bookingDateTime" className="block text-sm font-medium text-gray-700">
                   Select Date and Time
@@ -651,11 +646,17 @@ const handleOnlinePayment2 = async () => {
               <div className='py-3'>
                 <h3>Payment Method</h3>
                 <div className='mt-2'>
-                <input type="radio" name="PAYMENT" id="payment-method" value='ONLINE' onChange={()=>{handlePaymentChange('Online')}}  />
+                <input type="radio" name="PAYMENT" id="payment-method" 
+                value='ONLINE' 
+                onChange={()=>{handlePaymentChange('Online')}}
+                checked
+                 />
                 <label htmlFor="PAYMENT"> Make Payment</label><br />
                 </div>
                 <div className='mt-2'>
-                <input type="radio" name="PAYMENT" id="payment-method" value='CASH ON SERVICE' onChange={()=>{handlePaymentChange('Cash')}}   />
+                <input type="radio" name="PAYMENT" id="payment-method"
+                 value='CASH ON SERVICE'
+                 onChange={()=>{handlePaymentChange('Cash')}}   />
                 <label htmlFor="PAYMENT"> Cash on Service</label><br />
                 </div>
                 
