@@ -1,7 +1,7 @@
 'use client'
 // import Styles from '../../../styles/Product.module.css';
 // import Link from "next/link"
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState,  Fragment , useContext, useRef } from "react";
 // import { useEffect , useState , Fragment , useContext, useRef} from "react"
 import { Dialog, Transition } from '@headlessui/react'
@@ -19,7 +19,7 @@ const SubcategoryPage = ({ params } ) => {
 
 let [isOpenVDetails, setIsOpenVDetails] = useState(false)
 const [subCat , setSubCat] = useState({})
-const [userInfo , setUserInfo] = useState({})
+const [userInfo , setUserInfo] = useState(null)
 const [selectedProduct, setSelectedProduct] = useState(null);
 const [cartItems, setCartItems] = useState([]);
 const [gstCustShare, setCustShare] = useState('');

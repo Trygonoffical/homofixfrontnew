@@ -10,6 +10,8 @@ import crypto from "crypto"
 import { XMarkIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
 import Loading from './Loading';
+import { useRouter } from 'next/navigation';
+
 // import Easebuzz from "./Easebuzz";
 
 const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmount}) => {
@@ -40,7 +42,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const currentworkingcities = ['Delhi','Noida','Gurgaon','Ghaziabad','Kanpur','Patna','Chapra','Siwan', 'New Delhi'];
   const [cityerrormsg , setCityErrorMsg] = useState('')
 
-
+  const router = useRouter();
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
@@ -52,12 +54,11 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     
     } else {
       setCityErrorMsg('');
-     
     }
   }, [city, currentworkingcities]);
 
   useEffect(() => {
-  
+
     const currentDateTime = new Date();
     currentDateTime.setUTCHours(currentDateTime.getUTCHours() + 1); // Add 1 hour in UTC
 
@@ -76,6 +77,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 //   // Rest of the code...
 const handlePaymentChange = (val) => {
     setPaymentMethod(val);
+
     // ////console.log('Payment Method - ', paymentMethod)
   };
 
@@ -136,8 +138,10 @@ useEffect(() => {
     } 
     if (!token) {
         // Redirect to the homepage if there is no token
+        // fetchUserProfile();
         router.push('/');
-      } else {
+      }
+       else {
         fetchUserProfile();
       }
 }, [URL]);
@@ -646,16 +650,25 @@ const handleOnlinePayment2 = async () => {
               <div className='py-3'>
                 <h3>Payment Method</h3>
                 <div className='mt-2'>
-                <input type="radio" name="PAYMENT" id="payment-method" 
-                value='ONLINE' 
+                {paymentMethod=='Online' ? (
+                  <input type="radio" name="PAYMENT" id="payment-method" 
+                  value='Online' 
+                  onChange={()=>{handlePaymentChange('Online')}}
+                  checked
+                   />
+                ):(
+                  <input type="radio" name="PAYMENT" id="payment-method" 
+                value='Online' 
                 onChange={()=>{handlePaymentChange('Online')}}
-                checked
                  />
+                )}
+                
+
                 <label htmlFor="PAYMENT"> Make Payment</label><br />
                 </div>
                 <div className='mt-2'>
                 <input type="radio" name="PAYMENT" id="payment-method"
-                 value='CASH ON SERVICE'
+                 value='Cash'
                  onChange={()=>{handlePaymentChange('Cash')}}   />
                 <label htmlFor="PAYMENT"> Cash on Service</label><br />
                 </div>
