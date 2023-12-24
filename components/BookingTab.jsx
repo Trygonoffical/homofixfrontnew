@@ -112,6 +112,21 @@ const BookingTab = ({bookings , userProfileInfo}) => {
     return null; // Return null while rendering on the server-side
   }
 
+  const formatDateTime = (dateTimeString) => {
+    const options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true, // Use 12-hour clock
+      // timeZoneName: 'short',
+    };
+  
+    return new Date(dateTimeString).toLocaleString('en-US', options);
+  }
+
   return (
     <>
     <Tab.Group>
@@ -167,6 +182,8 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               </div>
                <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
                <h5>Amount: ₹{booking.final_amount}</h5>
+               <h5>Booking Timging: {formatDateTime(booking.booking_date)}</h5>
+               <h5>Booking Address: {booking.booking_address}</h5>
                 <h5>Booking Details: </h5>
                 {booking.booking_product.map((pros , idx)=>(
                     // w-fit mx-auto

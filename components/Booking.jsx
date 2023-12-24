@@ -373,6 +373,8 @@ const handleOfflinePayment = () => {
         "cash_on_service": COS,
         "online": OL,
         "booking_product": cartItems,
+        "booking_address": `${add} ${area} ${city} ${state}`,
+
     }
     //console.log('payload', payload)
     // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
