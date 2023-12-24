@@ -247,6 +247,14 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
       "cash_on_service": COS,
       "online": OL,
       "booking_product": cartItems,
+      "booking_address": add,
+        "area": area,
+        "city": city,
+        "state": state,
+        "booking_customer": name,
+        "mobile":  userProfileInfo.mobile,
+        "zipcode": zip,
+     
   }
   // //console.log('payload', payload)
   // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
@@ -373,7 +381,13 @@ const handleOfflinePayment = () => {
         "cash_on_service": COS,
         "online": OL,
         "booking_product": cartItems,
-        "booking_address": `${add} ${area} ${city} ${state}`,
+        "booking_address": add,
+        "area": area,
+        "city": city,
+        "state": state,
+        "booking_customer": name,
+        "mobile":  userProfileInfo.mobile,
+        "zipcode": zip,
 
     }
     //console.log('payload', payload)

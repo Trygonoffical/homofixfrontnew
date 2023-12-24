@@ -183,7 +183,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
                <h5>Amount: ₹{booking.final_amount}</h5>
                <h5>Booking Timging: {formatDateTime(booking.booking_date)}</h5>
-               <h5>Booking Address: {booking.booking_address}</h5>
+               <h5>Booking Address: {booking.booking_address} {booking.area} {booking.city} {booking.state} {booking.zip}</h5>
                 <h5>Booking Details: </h5>
                 {booking.booking_product.map((pros , idx)=>(
                     // w-fit mx-auto
