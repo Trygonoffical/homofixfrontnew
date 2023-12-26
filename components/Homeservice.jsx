@@ -97,7 +97,7 @@ const slugify = (text) => {
             // removeArrowOnDeviceType={["desktop", "superLargeDesktop"]}
             dotListClass="custom-dot-list-style"
             itemClass="carousel-item-padding-40-px"
-            
+            className="justify-center"
             >
 
             {/* {book.map((cat , idx) => 
