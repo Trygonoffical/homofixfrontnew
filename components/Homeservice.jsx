@@ -7,9 +7,10 @@ import Loading from "./Loading";
 
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import { Didact_Gothic } from "next/font/google";
 
 
-const Homeservice = ({url}) => {
+const Homeservice = ({url , bgImg=null, icenter=null}) => {
   const [serv, setServ] = useState([])
   const [sub, setSub] = useState([])
   const [loading, setLoading] = useState(false);
@@ -29,19 +30,23 @@ const Homeservice = ({url}) => {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 4
+      items: 4,
+      partialVisibilityGutter: 40
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3
+      items: 4,
+      partialVisibilityGutter: 40
     },
     tablet: {
       breakpoint: { max: 1024, min: 640 },
-      items: 2
+      items: 2,
+      partialVisibilityGutter: 30
     },
     mobile: {
       breakpoint: { max: 640, min: 0 },
       items: 1,
+      partialVisibilityGutter: 30,
       slidesToSlide: 1
     }
   };
@@ -69,50 +74,41 @@ const slugify = (text) => {
 // Trim dashes from the beginning and end
 };
   return (
+    
     <section className="container mx-auto py-5 md:py-10 md:mt-10 pt-4 md:border-none border-t-4 border-b-4 border-t-gray-300 border-b-gray-300">
         <h2 className='md:text-2xl text-center font-semibold'>{serv.title}</h2>
         <div className=" md:mt-9">
-          {/* <div ref={sliderRef} className="keen-slider p-3">
-          {loading ? <Loading /> : sub && (
-            sub.map((cat) => 
-              <div className="keen-slider__slide" key={cat.id} >
-                <Link href={`/category/${slugify(cat.name)}`} >
-                  <img src={cat.subcategory_image} alt="Ac" width={285} className='mx-auto min-w-[250px]'  />
-                  <h2 className='py-4 text-center text-sm md:text-base' >{cat.name}</h2>
-                </Link>
-              </div>
-
-            )
-            ) }
-            
-          </div>   */}
+         
           <div className="pt-4 md:pt-10 overflow-hidden">
             <Carousel 
-            centerMode={true} 
+            additionalTransfrom={0}
+            arrows
+            autoPlay
+            autoPlaySpeed={2000}
+            centerMode={false}
+            className={icenter}
+            containerClass="container-with-dots"
+            dotListClass=""
+            draggable
+            focusOnSelect={false}
+            infinite
+            itemClass=""
+            keyBoardControl
+            minimumTouchDrag={80}
+            pauseOnHover
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
             responsive={responsive}
-            containerClass="carousel-container"
-            keyBoardControl={true}
-            customTransition="all .5"
-            transitionDuration={500}
-            // removeArrowOnDeviceType={["desktop", "superLargeDesktop"]}
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-40-px"
-            className="justify-center"
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
+            showDots={false}
+            sliderClass=""
+            slidesToSlide={2}
+            swipeable
             >
-
-            {/* {book.map((cat , idx) => 
-             <div className='flex justify-center p-1 md:p-10' key={idx}>
-             <Link href={`/category/${slugify(cat.subcategory_name)}`} className=" p-0 " >
-             <img src={cat.img}
-                 width={0}
-                 height={0}
-                 sizes="100vw"
-                 style={{ width: '100%', height: 'auto' }} alt='mostviewd' />
-             <h2 className='text-white text-center p-2'>{cat.subcategory_name}</h2>
-             </Link>
-            </div>
-
-            )}  */}
             {loading ? <Loading /> : sub && (
             sub.map((cat, idx) => 
               <div className="className='flex justify-center p-1 " key={idx} >
@@ -137,6 +133,7 @@ const slugify = (text) => {
         </div>
         
     </section>
+
   )
 }
 

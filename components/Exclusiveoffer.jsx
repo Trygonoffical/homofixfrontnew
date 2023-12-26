@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import Loading from "./Loading";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 // const animation = { duration: 5000, easing: (t) => t }
 // function SampleNextArrow(props) {
 //   const { className, style, onClick } = props;
@@ -32,7 +34,34 @@ import "slick-carousel/slick/slick-theme.css";
 
 const ExclusiveOffer = (props) => {
   const [offer, setOffer] = useState([]);
- 
+  const [loading, setLoading] = useState(false);
+
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 3,
+      partialVisibilityGutter: 40
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3,
+      partialVisibilityGutter: 40
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 640 },
+      items: 2,
+      partialVisibilityGutter: 30
+    },
+    mobile: {
+      breakpoint: { max: 640, min: 0 },
+      items: 1,
+      partialVisibilityGutter: 30,
+      slidesToSlide: 1
+    }
+  };
+
+
   const settings = {
     slidesToShow: 3,
     infinite: true,
@@ -95,8 +124,8 @@ const ExclusiveOffer = (props) => {
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
-      <div className="md:mt-9 ">
-           {offer.length > 0 && (
+      <div className="md:mt-9 overflow-hidden">
+           {/* {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
                   <div key={idx} className="outline-none">
@@ -111,7 +140,60 @@ const ExclusiveOffer = (props) => {
                   </div>
                 ))}
               </Slider>
+           ) } */}
+
+      
+{/* <div className="md:pt-10 overflow-hidden"> */}
+{offer.length > 0 && (
+            <Carousel 
+            additionalTransfrom={0}
+            arrows
+            autoPlay
+            autoPlaySpeed={5000}
+            centerMode={false}
+            className=""
+            containerClass="container-with-dots"
+            dotListClass=""
+            draggable
+            focusOnSelect={false}
+            infinite
+            itemClass=""
+            keyBoardControl
+            minimumTouchDrag={80}
+            pauseOnHover
+            renderArrowsWhenDisabled={false}
+            renderButtonGroupOutside={false}
+            renderDotsOutside={false}
+            responsive={responsive}
+            rewind={false}
+            rewindWithAnimation={false}
+            rtl={false}
+            shouldResetAutoplay
+            showDots={false}
+            sliderClass=""
+            slidesToSlide={2}
+            swipeable
+            >
+            {loading ? <Loading /> : offer && (
+            offer.map((cat, idx) => 
+              <div className="className='flex justify-center p-1 " key={idx} >
+                <Link href={cat.url} className=" p-0 " >
+                
+                <img src={cat.offer_pic}
+                 width={0}
+                 height={0}
+                 sizes="100vw"
+                 style={{ width: '100%', height: 'auto' }} alt='mostviewd' />                 
+                </Link>
+                {/* </a> */}
+              </div>
+
+            )
+            ) }
+        </Carousel>
            ) }
+        {/* </div> */}
+
       </div>
       {/* Add the CSS styling to remove outline when clicking */}
       
