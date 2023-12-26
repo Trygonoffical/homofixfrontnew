@@ -9,28 +9,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Loading from "./Loading";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-// const animation = { duration: 5000, easing: (t) => t }
-// function SampleNextArrow(props) {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div
-//       className={className}
-//       style={{ ...style, display: "block", background: "red" }}
-//       onClick={onClick}
-//     />
-//   );
-// }
-
-// function SamplePrevArrow(props) {
-//   const { className, style, onClick } = props;
-//   return (
-//     <div
-//       className={className}
-//       style={{ ...style, display: "block", background: "green" }}
-//       onClick={onClick}
-//     />
-//   );
-// }
 
 const ExclusiveOffer = (props) => {
   const [offer, setOffer] = useState([]);
@@ -41,23 +19,26 @@ const ExclusiveOffer = (props) => {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 3,
-      partialVisibilityGutter: 40
+      partialVisibilityGutter: 40,
+      
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
       items: 3,
-      partialVisibilityGutter: 40
+      partialVisibilityGutter: 40,
+      
     },
     tablet: {
       breakpoint: { max: 1024, min: 640 },
       items: 2,
-      partialVisibilityGutter: 30
+      partialVisibilityGutter: 30,
+      
     },
     mobile: {
       breakpoint: { max: 640, min: 0 },
       items: 1,
       partialVisibilityGutter: 30,
-      slidesToSlide: 1
+      slidesToSlide: 1,
     }
   };
 
@@ -69,8 +50,6 @@ const ExclusiveOffer = (props) => {
     initialSlide: 0,
     arrows: true,
     dots: true,
-    // nextArrow: <SampleNextArrow />,
-    // prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -111,12 +90,14 @@ const ExclusiveOffer = (props) => {
     ]
   };
   useEffect(() => {
+    setLoading(true);
     const fetchData = async () => {
       const res = await fetch(props.url, { cache: "no-store" });
       const data = await res.json();
       setOffer(data);
     };
     fetchData();
+    setLoading(false);
   }, [props.url]);
 
   return (
@@ -124,8 +105,8 @@ const ExclusiveOffer = (props) => {
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
-      <div className="md:mt-9 overflow-hidden">
-           {/* {offer.length > 0 && (
+      <div className="md:mt-9  md:hidden">
+           {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
                   <div key={idx} className="outline-none">
@@ -140,19 +121,19 @@ const ExclusiveOffer = (props) => {
                   </div>
                 ))}
               </Slider>
-           ) } */}
-
+           ) }
+      </div>
       
-{/* <div className="md:pt-10 overflow-hidden"> */}
+<div className="md:pt-10 overflow-hidden hidden md:block">
 {offer.length > 0 && (
             <Carousel 
             additionalTransfrom={0}
             arrows
             autoPlay
-            autoPlaySpeed={5000}
+            autoPlaySpeed={3000}
             centerMode={false}
             className=""
-            containerClass="container-with-dots"
+            containerClass="container-padding-bottom"
             dotListClass=""
             draggable
             focusOnSelect={false}
@@ -183,7 +164,9 @@ const ExclusiveOffer = (props) => {
                  width={0}
                  height={0}
                  sizes="100vw"
-                 style={{ width: '100%', height: 'auto' }} alt='mostviewd' />                 
+                 style={{ width: '100%', height: 'auto' }} 
+                //  className="w-full"
+                 alt='offers' />                 
                 </Link>
                 {/* </a> */}
               </div>
@@ -192,9 +175,9 @@ const ExclusiveOffer = (props) => {
             ) }
         </Carousel>
            ) }
-        {/* </div> */}
+        </div>
 
-      </div>
+      
       {/* Add the CSS styling to remove outline when clicking */}
       
     </section>

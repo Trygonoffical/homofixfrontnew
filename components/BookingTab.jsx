@@ -3,6 +3,7 @@ import { Tab, Dialog, Transition } from '@headlessui/react'
 import Payment from '@/components/Payment';
 import { useEffect, useState, Fragment, useCallback  } from 'react';
 // import { useClient } from '@chakra-ui/react';
+import Loading from "./Loading";
 import Feedback from './Feedback';
 
 const BookingTab = ({bookings , userProfileInfo}) => {
@@ -15,8 +16,8 @@ const BookingTab = ({bookings , userProfileInfo}) => {
     const [zip , setZip] = useState('')
     const [mno , setMno] = useState(userProfileInfo.mobile)
     let [isOpen, setIsOpen] = useState(false)
-    
-
+    const [loading, setLoading] = useState(false);
+    const [fetchedBookings, setFetchedBookings] = useState([]);
     
       const closeModal = useCallback(() => {
         setIsOpen(false);
@@ -91,6 +92,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
     }
 
   useEffect(() => {
+    setLoading(true);
     setIsClient(true);
     if (userProfileInfo) {
         setAdd(userProfileInfo.address || '');
@@ -102,6 +104,26 @@ const BookingTab = ({bookings , userProfileInfo}) => {
         setMno(userProfileInfo.mobile || '');
     } 
     console.log(bookings);
+    console.log(fetchedBookings);
+  // setLoading2(false);
+  // Fetch bookings data
+  const fetchBookings = async () => {
+    try {
+      // Your logic to fetch bookings data
+      // For example purposes, let's simulate a delay with setTimeout
+      setTimeout(() => {
+        // Update bookings state with fetched data
+        // Set loading to false
+        setFetchedBookings(bookings);
+        setLoading(false);
+      }, 3000); // Simulating a delay of 3 seconds
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+      setLoading(false);
+    }
+  };
+
+  fetchBookings();
   }, [userProfileInfo]);
 
   function classNames(...classes) {
@@ -126,7 +148,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
   
     return new Date(dateTimeString).toLocaleString('en-US', options);
   }
-
+  const mergedBookings = [...bookings, ...fetchedBookings];
   return (
     <>
     <Tab.Group>
@@ -158,9 +180,12 @@ const BookingTab = ({bookings , userProfileInfo}) => {
          
          {/* First Panel  */}
           <Tab.Panel className='mt-4 min-h-[400px] p-5'>
-             {bookings != '' ? (
+             {/* {bookings != '' ? ( */}
+             {loading ? (<Loading />) : mergedBookings && mergedBookings.length > 0 ? (
+            //  bookings.length > 0 && (
               <ul>
-              {bookings.map((booking, idx)=>(
+                 
+              {mergedBookings.map((booking, idx)=>(
                <li
                key={idx}
                className="relative rounded-md py-3 mb-4 border p-3 md:p-3 hover:bg-gray-100"
@@ -236,14 +261,13 @@ const BookingTab = ({bookings , userProfileInfo}) => {
              
               ))}
             </ul>
-             ): (
-              <ul>
-                <li>
-                No Booking Found !!
-
-                </li>
-              </ul>
-             )}
+            
+              )
+              : (
+                <p>No bookings found</p>
+              )}
+         
+                 
             
 
           </Tab.Panel>

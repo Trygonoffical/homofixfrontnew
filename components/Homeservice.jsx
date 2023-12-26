@@ -35,7 +35,7 @@ const Homeservice = ({url , bgImg=null, icenter=null}) => {
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 4,
+      items: 3,
       partialVisibilityGutter: 40
     },
     tablet: {
@@ -81,33 +81,18 @@ const slugify = (text) => {
          
           <div className="pt-4 md:pt-10 overflow-hidden">
             <Carousel 
-            additionalTransfrom={0}
-            arrows
-            autoPlay
-            autoPlaySpeed={2000}
-            centerMode={false}
-            className={icenter}
-            containerClass="container-with-dots"
-            dotListClass=""
-            draggable
-            focusOnSelect={false}
-            infinite
-            itemClass=""
-            keyBoardControl
-            minimumTouchDrag={80}
-            pauseOnHover
-            renderArrowsWhenDisabled={false}
-            renderButtonGroupOutside={false}
-            renderDotsOutside={false}
+            centerMode={true} 
             responsive={responsive}
-            rewind={false}
-            rewindWithAnimation={false}
-            rtl={false}
-            shouldResetAutoplay
-            showDots={false}
-            sliderClass=""
-            slidesToSlide={2}
-            swipeable
+            containerClass="carousel-container"
+            keyBoardControl={true}
+            customTransition="all .1 ease in out"
+            transitionDuration={500}
+            additionalTransfrom={0}
+            draggable={true}
+            // removeArrowOnDeviceType={["desktop", "superLargeDesktop"]}
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-40-px"
+            className="justify-center"
             >
             {loading ? <Loading /> : sub && (
             sub.map((cat, idx) => 
@@ -115,10 +100,12 @@ const slugify = (text) => {
                 <Link href={`/category/${slugify(cat.name)}`} className=" p-0 " >
                 {/* <a href={`/category/${slugify(cat.name)}`} className=" p-0 "> */}
                 <img src={cat.subcategory_image}
-                 width={0}
-                 height={0}
-                 sizes="100vw"
-                 style={{ width: '100%', height: 'auto' }} alt='mostviewd' />
+                //  width={0}
+                //  height={0}
+                //  sizes="100vw"
+                //  style={{ width: '100%', height: 'auto' }} 
+                className="w-full"
+                 alt='mostviewd' />
                   {/* <img src={cat.subcategory_image} alt="Ac" width={285} className='mx-auto min-w-[250px]'  /> */}
                   <h2 className='py-4 text-center text-sm md:text-base' >{cat.name}</h2>
                 </Link>
