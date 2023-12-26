@@ -198,10 +198,10 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                 
                )}
                {booking.status == "Assign"  && (
-                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Assign</span>
+                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Assigned</span>
                )}
                {booking.status == "Proceed"  && (
-                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Assign</span>
+                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Assigned</span>
                )}
                 
               </h5>
