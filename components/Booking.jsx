@@ -94,7 +94,9 @@ const handlePaymentChange = (val) => {
     // //console.log('area - ', area)
   };
   const handleCityChange = (event) => {
-    setCity(event.target.value);
+    const trimmedCity = event.target.value.trim();
+    setCity(trimmedCity);
+    // setCity(event.target.value);
     // //console.log('city - ', city)
   };
   const handleStateChange = (event) => {
