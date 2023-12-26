@@ -97,8 +97,13 @@ body {
 
 .moredetailsviews ul, .jobdes ul {
     list-style-type: disc!important;
+   
+    padding-left: revert;
+  }
+  .productpoints ul {
+    list-style-type: disc!important;
     padding-left: 0!important;
-    /* padding-left: revert; */
+ 
   }
 
 .slick-arrow{
