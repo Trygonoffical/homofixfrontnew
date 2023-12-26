@@ -43,7 +43,7 @@ const CarrerPage = () => {
         <p className="text-center py-5 mb-9 md:px-9 ">We're thrilled to announce a new job opening at HomOfix Company, and we invite talented individuals like you to join our dynamic team. Take the next step in your career by applying for this fantastic opportunity. </p>
 
         {jobs.map((job) => 
-                <div className="p-4 mt-2 py-8 shadow-2xl mt-5 text-center" key={job.id}>
+                <div className="p-4 py-8 shadow-2xl mt-5 text-center" key={job.id}>
                   {/* <h2 className="text-xl font-semibold py-3">{job.title}</h2>
                   <div className="p-5 jobdes w-fit mx-auto" dangerouslySetInnerHTML={{ __html: job.description }}></div>
                   <div className="text-center">

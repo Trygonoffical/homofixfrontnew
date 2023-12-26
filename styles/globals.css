@@ -97,7 +97,8 @@ body {
 
 .moredetailsviews ul, .jobdes ul {
     list-style-type: disc!important;
-    padding-left: revert;
+    padding-left: 0!important;
+    /* padding-left: revert; */
   }
 
 .slick-arrow{

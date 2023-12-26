@@ -272,7 +272,7 @@ const handleVerificationCoupon = async () => {
                         <div className="p-2">
                             <button className='text-basecolor text-sm' onClick={()=>handleView(product)}>View Details</button>
                             <hr className='pb-3' />
-                        <div   dangerouslySetInnerHTML={{ __html: product.description }} style={{ fontSize: '12px' }}></div>
+                        <div className='jobdes'  dangerouslySetInnerHTML={{ __html: product.description }} style={{ fontSize: '12px' }}></div>
 
                         </div>
                     </div>
