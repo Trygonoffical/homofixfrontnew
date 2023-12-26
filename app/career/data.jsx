@@ -39,8 +39,8 @@ const CarrerPage = () => {
   return (
     <>
     <section className="container mx-auto my-10 px-4 md:px-0">
-        <h2 className="text-3xl text-center">Current <strong>JOB</strong> Openings</h2>
-        <p className="text-center py-4 ">Job Opening On HOMOFIX is happens here. Apply For the job  </p>
+        <h2 className="text-3xl text-center">Explore<strong>Exciting Opportunities</strong> at HomOfix Company!</h2>
+        <p className="text-center py-4 ">We're thrilled to announce a new job opening at HomOfix Company, and we invite talented individuals like you to join our dynamic team. Take the next step in your career by applying for this fantastic opportunity. </p>
 
         {jobs.map((job) => 
                 <div className="p-4 py-8 shadow-2xl mt-5 text-center" key={job.id}>
