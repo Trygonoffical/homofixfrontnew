@@ -37,7 +37,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsg, setErrorMsg] = useState('');
   const [errormsgadd, setErrorMsgAdd] = useState('');
   const [errormsgName, setErrorMsgName] = useState('');
-  
+  const [originalCity, setOriginalCity] = useState('');
 
   const currentworkingcities = ['Delhi','Noida','Gurgaon','Ghaziabad','Kanpur','Patna','Chapra','Siwan', 'New Delhi'];
   const [cityerrormsg , setCityErrorMsg] = useState('')
@@ -49,7 +49,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 
   useEffect(() => {
     // Check if the selected city is in the currentworkingcities array
-    if (city && !currentworkingcities.includes(city)) {
+    if (originalCity && !currentworkingcities.includes(originalCity)) {
       setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
     
     } else {
@@ -94,8 +94,12 @@ const handlePaymentChange = (val) => {
     // //console.log('area - ', area)
   };
   const handleCityChange = (event) => {
-    const trimmedCity = event.target.value.trim();
-    setCity(trimmedCity);
+    // const trimmedCity = event.target.value.trim();
+    const inputValue = event.target.value;
+    
+    const trimmedCity = inputValue.trim();
+    setCity(inputValue);
+    setOriginalCity(trimmedCity);
     // setCity(event.target.value);
     // //console.log('city - ', city)
   };
@@ -251,7 +255,7 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
       "booking_product": cartItems,
       "booking_address": add,
         "area": area,
-        "city": city,
+        "city": originalCity,
         "state": state,
         "booking_customer": name,
         "mobile":  userProfileInfo.mobile,
@@ -351,7 +355,7 @@ const handleOfflinePayment = () => {
   // if(bookingDateTime == ''){
   //   setErrorMsg('Please Select Date and Time');
   // }
-  if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
+  if(add == '' || area == '' || originalCity == '' ||  state =='' || zip==''){
     setErrorMsgAdd('Please Enter Full Address!!');
     return;
   } 
@@ -359,7 +363,7 @@ const handleOfflinePayment = () => {
     setErrorMsgName('Please Enter Name');
     return;
   }
-  if(bookingDateTime != '' && add != '' && area != '' || city != '' ||  state !='' || zip!='' && name != ''){
+  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
@@ -385,7 +389,7 @@ const handleOfflinePayment = () => {
         "booking_product": cartItems,
         "booking_address": add,
         "area": area,
-        "city": city,
+        "city": originalCity,
         "state": state,
         "booking_customer": name,
         "mobile":  userProfileInfo.mobile,
@@ -542,7 +546,7 @@ const handleOnlinePayment2 = async () => {
     alert(cityerrormsg);
     return;
   }
-  if(add == '' || area == '' || city == '' ||  state =='' || zip==''){
+  if(add == '' || area == '' || originalCity == '' ||  state =='' || zip==''){
     setErrorMsgAdd('Please Enter Full Address!!');
     return;
   } 
@@ -550,7 +554,7 @@ const handleOnlinePayment2 = async () => {
     setErrorMsgName('Please Enter Name');
     return;
   }
-  if(bookingDateTime != '' && add != '' && area != '' || city != '' ||  state !='' || zip!='' && name != ''){
+  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
