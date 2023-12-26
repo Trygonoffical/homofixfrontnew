@@ -177,10 +177,36 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                
                )}
                {booking.status == "Completed" && (
-                <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-4 py-2'>Invoice</a>
+                <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-4 py-2 my-2'>Invoice</a>
                )}
+               
               </div>
-               <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
+              <div className='flex justify-between'>
+              <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
+              <h5> 
+              {booking.status == "Completed" && (
+                <span className='text-white text-sm rounded bg-Orange px-4 py-2 mt-2'>{booking.status}</span>
+               )}
+               {booking.status == "cancelled" && (
+                <span className='text-white text-sm rounded bg-red px-4 py-2'>{booking.status}</span>
+               )}
+               {booking.status == "New"  && (
+                <>
+                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Booked</span>
+                {/* <span className='text-white text-sm rounded bg-red px-4 py-2'>Booked</span> */}
+                </>
+                
+               )}
+               {booking.status == "Assign"  && (
+                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Proceed</span>
+               )}
+               {booking.status == "Proceed"  && (
+                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>{booking.status}</span>
+               )}
+                
+              </h5>
+              </div>
+               
                <h5>Amount: ₹{booking.final_amount}</h5>
                <h5>Booking Timging: {formatDateTime(booking.booking_date)}</h5>
                <h5>Booking Address: {booking.booking_address} {booking.area} {booking.city} {booking.state} {booking.zip}</h5>
