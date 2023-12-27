@@ -38,7 +38,7 @@ const Service = ({url}) => {
     <div className="w-full bg-[url('/ad2bg.webp')]">
     <section className="container md:max-w-[760px] mx-auto md:py-10 md:mt-10 pt-4 md:border-none border-t-4 border-t-gray-300 ">
         <h2 className=' md:text-2xl text-center font-semibold'>Explore Our Services</h2>
-        <div className="servicesarea  pt-10 md:py-12 grid grid-cols-4 gap-4 p-2">
+        <div className="servicesarea  pt-10 md:py-12 grid grid-cols-3 gap-3 p-2">
         {/* {data.map((cat) => <h1 key={cat.id}>{cat.category_name}</h1>)} */}
         {loading ? <Loading /> : category.map((cat, idx) => (
         <div className='text-center' key={idx}>
