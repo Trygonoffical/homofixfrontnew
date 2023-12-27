@@ -22,7 +22,7 @@ export default function Home() {
       < Homeservice url='https://support.homofixcompany.com/api/HomePageService/5/' />
       <Mostbooked url='https://support.homofixcompany.com/api/MostViewed-Get/' />
       < Homeservice url='https://support.homofixcompany.com/api/HomePageService/6/' />
-      < Homeservice url='https://support.homofixcompany.com/api/HomePageService/7/' bgImg=''icenter="justify-center" />
+      < Homeservice url='https://support.homofixcompany.com/api/HomePageService/7/' bgImg="w-full bg-[url('/ad2bg.webp')]" icenter="justify-center" />
       {/* < Homeservice url='https://support.homofixcompany.com/api/HomePageService/8/' /> */}
       {/* <Whychoose /> */}
       <Partner />
