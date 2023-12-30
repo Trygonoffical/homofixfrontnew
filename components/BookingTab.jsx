@@ -183,7 +183,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
              {/* {bookings != '' ? ( */}
              {loading ? (<Loading />) : mergedBookings && mergedBookings.length > 0 ? (
             //  bookings.length > 0 && (
-              <ul>
+              <ul className='list-none'>
                  
               {mergedBookings.map((booking, idx)=>(
                <li
