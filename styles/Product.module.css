@@ -1,7 +1,8 @@
 .productcontent ul{
    
-        list-style-type: disc;
+        /* list-style-type: disc; */
         font-size: 12px;
+        
 }
 /* .productcontent .addbutton{
     margin-top: -20px;
@@ -9,4 +10,7 @@
 .actionbox{
     left: 0;
     bottom: 0;
+}
+.lines{
+    padding-left: revert;
 }

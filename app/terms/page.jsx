@@ -9,10 +9,7 @@ import { useEffect } from 'react';
 
 
 const blogs = () => {
-  useEffect(() => {
-    initGA(); // Initialize Google Analytics
-    logPageView();
-  }, []);
+
   return (
     <>
         <Tophead slug={'Terms & Conditions'} />

@@ -23,7 +23,7 @@ useEffect(()=>{
     <section className="container mx-auto py-10">
         {/* <h1>Data</h1> */}
         <div className="py-4 px-2 ">
-            <div className={`${styles.productcontent} p-5 jobdes`} dangerouslySetInnerHTML={{ __html: ldata.content }}></div>
+            <div  dangerouslySetInnerHTML={{ __html: ldata.content }}></div>
         </div>
     </section>
   )

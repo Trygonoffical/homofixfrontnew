@@ -22,6 +22,10 @@ body {
   /* color:  */
   
 }
+ol,ul{
+  list-style: auto;
+  padding-left: revert;
+}
 
 [class^="number-slide"],
 [class*=" number-slide"] {
@@ -119,6 +123,6 @@ body {
   outline: none;
 }
 .jobdes ul, ol {
-  list-style-type: disc!important;
+  /* list-style-type: disc!important; */
   padding-left: revert;
 }
