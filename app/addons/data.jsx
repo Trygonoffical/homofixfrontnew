@@ -4,12 +4,14 @@ import {  useEffect, useState } from "react"
 const AddonPage = () => {
   const [addons, setAddons] = useState([])
   // const [message, setMessage] = useState('')
-
+  const [subcat , setSubCat] = useState([]);
   useEffect(()=>{
     
     const GetData = async ()=>{
     //  const URL = `https://support.homofixcompany.com/api/Addons-GET/`
-     const URL = `https://support.homofixcompany.com/api/SpareParts/`
+    //  const URL = `https://support.homofixcompany.com/api/SpareParts/`;
+     const URL = 'https://support.homofixcompany.com/api/SparePartsSubctegory/';
+     
      
       try {
         // Make the API call to fetch the user profile data
@@ -19,7 +21,7 @@ const AddonPage = () => {
         if (res.ok) {
           const JobData = await res.json();
           setAddons(JobData);
-        //   console.log('JobData', JobData)
+          console.log('JobData', JobData)
           // console.log('jab', jobs)
         } else {
           console.error('Error fetching user profile data');
@@ -36,20 +38,37 @@ const AddonPage = () => {
   GetData();
   }, [URL])
 
+  useEffect(()=>{
+  const CatURL = 'https://support.homofixcompany.com/api/Category-Get/';
+   
+    const fatchdata = async () =>{
+    const res = await fetch( CatURL,{cache : 'no-store'})
+    // const res = await fetch('https://support.homofixcompany.com/api/Category-Get/', { cache: "no-store" });
+    
+    // Extract JSON data from the response
+    const responseData = await res.json();
+    setSubCat(responseData);
+    console.log(responseData);
+    // setCategory(await res.json())
+    }
+    fatchdata();
+   
+  }, [])
+
   
   return (
     <>
     <section className="container mx-auto my-10 px-4 md:px-0">
         <h2 className="text-3xl text-center pb-6">Spare  <strong>Parts</strong> Chart </h2>
         {/* <p className="text-center py-4 ">   </p> */}
-        <div class="relative overflow-x-auto max-w-lg mx-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+        <div className="relative overflow-x-auto max-w-lg mx-auto shadow-md sm:rounded-lg">
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                        <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                             Product name
                         </th>
-                        <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                        <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                             Price
                         </th>
                     </tr>
@@ -62,7 +81,7 @@ const AddonPage = () => {
                         className="border-b border-gray-200 dark:border-gray-700"
                     >
                         <th scope="row" className="px-6 py-4">
-                        {addon.spare_part}
+                        {addon.spare_part} {addon.product.subcategory}
                         </th>
                         <td className="px-6 py-4">{addon.price}</td>
                     </tr>
@@ -77,7 +96,9 @@ const AddonPage = () => {
                 </tbody>
             </table>
         </div>
-
+         {/* <div>
+         {subcat} 
+          </div>    */}
     </section>
     </>
   )

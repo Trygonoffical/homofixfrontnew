@@ -487,6 +487,7 @@ const handleOfflinePayment = () => {
         setAdd(userProfileInfo.address || '');
         setArea(userProfileInfo.area || '');
         setCity(userProfileInfo.city || '');
+        setOriginalCity(userProfileInfo.city || '');
         setState(userProfileInfo.state || '');
         setZip(userProfileInfo.zipcode || '');
         setName(userProfileInfo.first_name || '');
@@ -495,6 +496,7 @@ const handleOfflinePayment = () => {
       setName(name || '');
       setArea(address.road || '');
       setCity(address.city || '');
+      setOriginalCity(address.city || '');
       setState(address.state || '');
       setZip(address.postcode || '');
     }
