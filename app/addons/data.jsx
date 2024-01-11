@@ -4,6 +4,7 @@ import {  useEffect, useState } from "react"
 const AddonPage = () => {
   const [addons, setAddons] = useState([])
   // const [message, setMessage] = useState('')
+  const [cat , setCat] = useState([]);
   const [subcat , setSubCat] = useState([]);
   useEffect(()=>{
     
@@ -48,13 +49,28 @@ const AddonPage = () => {
     // Extract JSON data from the response
     const responseData = await res.json();
     setSubCat(responseData);
+   const newsubcat = extractSubcategories(responseData);
+   setCat(newsubcat);
+    // extractSubcat(responseData);
     console.log(responseData);
+    console.log('newsubcat', newsubcat);
     // setCategory(await res.json())
     }
     fatchdata();
    
   }, [])
-
+  const extractSubcategories = (originalArray) => {
+    const newArray = [];
+  
+    originalArray.forEach(({ subcategories, ...rest }) => {
+      if (subcategories && Array.isArray(subcategories)) {
+        newArray.push(...subcategories);
+      }
+    });
+  
+    return newArray;
+  };
+  console.log('cat', cat)
   
   return (
     <>
@@ -81,7 +97,8 @@ const AddonPage = () => {
                         className="border-b border-gray-200 dark:border-gray-700"
                     >
                         <th scope="row" className="px-6 py-4">
-                        {addon.spare_part} {addon.product.subcategory}
+                        {addon.spare_part} 
+                        {/* {addon.product.subcategory} */}
                         </th>
                         <td className="px-6 py-4">{addon.price}</td>
                     </tr>
@@ -95,10 +112,19 @@ const AddonPage = () => {
                 )}
                 </tbody>
             </table>
+          
         </div>
-         {/* <div>
-         {subcat} 
-          </div>    */}
+        {/* <div>
+        <h2>hello</h2>
+        <ul>
+         {cat.map((scat, idx)=> (
+              <li key={idx}>
+                {scat.name} 
+            
+              </li>
+            ))}
+        </ul>
+        </div> */}
     </section>
     </>
   )

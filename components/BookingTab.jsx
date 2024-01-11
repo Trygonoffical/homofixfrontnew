@@ -148,6 +148,36 @@ const BookingTab = ({bookings , userProfileInfo}) => {
   
     return new Date(dateTimeString).toLocaleString('en-US', options);
   }
+
+  const cancelbooking = (bkID)=>{
+    let pData = {
+      "booking_id": bkID,
+  }
+  const URL = 'https://support.homofixcompany.com/api/Booking/Status/Update/';
+  const postaction = async () => {
+    try {
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(pData),
+      });
+  
+      if (response.ok) {
+        window.location.reload();
+        console.log(response);
+      } else {
+        console.error("Request failed with status:", response.status);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  }
+  postaction();
+  }
+
+
   const mergedBookings = [...bookings, ...fetchedBookings];
   return (
     <>
@@ -202,7 +232,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                
                )}
                {booking.status == "Completed" && (
-                <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-4 py-2 my-2'>Invoice</a>
+                <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-2 py-1 my-2'>Invoice</a>
                )}
                
               </div>
@@ -210,23 +240,27 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
               <h5> 
               {booking.status == "Completed" && (
-                <span className='text-white text-sm rounded bg-Orange px-4 py-2 mt-2'>{booking.status}</span>
+                <span className='rounded-full border border-Green-100 bg-Green-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
                )}
-               {booking.status == "cancelled" && (
-                <span className='text-white text-sm rounded bg-red px-4 py-2'>{booking.status}</span>
+               {booking.status == "Cancelled"  && (
+                <span className="rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm ">{booking.status}</span>
+               )}
+               {booking.status == "cancelled"  && (
+                <span className='rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
                )}
                {booking.status == "New"  && (
                 <>
-                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Booked</span>
-                {/* <span className='text-white text-sm rounded bg-red px-4 py-2'>Booked</span> */}
+                <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
+
+                {/* <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button> */}
                 </>
                 
                )}
                {booking.status == "Assign"  && (
-                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Assigned</span>
+                <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
                )}
                {booking.status == "Proceed"  && (
-                <span className='text-white text-sm rounded bg-basecolor px-4 py-2'>Assigned</span>
+                <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
                )}
                 
               </h5>
@@ -250,6 +284,14 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       </ul>
                     ))}
                 <div><span className='text-basecolor'>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
+                <div className='flex justify-center py-2'>
+                  {booking.status == "New"  && (
+                  <>
+                  <button className='text-white text-sm rounded bg-red px-2 py-1 ' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button>
+                  </>
+                )}
+                </div>
+                
                 <div className="rating">
                     {booking.status == "Completed" && (
                        < Feedback bookingID={booking.id} />

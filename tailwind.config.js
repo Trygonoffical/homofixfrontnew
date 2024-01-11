@@ -18,6 +18,11 @@ module.exports = {
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
+      sky:colors.sky,
+      Red:colors.red,
+      Green:colors.green,
+      Blue:colors.blue,
+      Lime:colors.lime,
       'red': '#ff0000',
       'Orange' : '#fcd34d',
       'basecolor' : '#0051BA',
@@ -25,6 +30,7 @@ module.exports = {
       'bgleft' : '#104FA1',
       'bgright' : '#9C850F',
     },
+    
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
