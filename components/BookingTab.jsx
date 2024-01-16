@@ -104,7 +104,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
         setMno(userProfileInfo.mobile || '');
     } 
     console.log(bookings);
-    console.log(fetchedBookings);
+    console.log('fetchedBookings',fetchedBookings);
   // setLoading2(false);
   // Fetch bookings data
   const fetchBookings = async () => {
@@ -114,6 +114,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
       setTimeout(() => {
         // Update bookings state with fetched data
         // Set loading to false
+        console.log('in fatuch booking value ', bookings)
         setFetchedBookings(bookings);
         setLoading(false);
       }, 3000); // Simulating a delay of 3 seconds

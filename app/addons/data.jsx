@@ -107,7 +107,7 @@ const AddonPage = () => {
                         >
                     <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-800 bg-gray-100 ">
                     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase dark:text-gray-300">
+                        <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                             <tr>
                                 <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                                     Product name
