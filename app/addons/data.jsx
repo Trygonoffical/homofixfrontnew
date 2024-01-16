@@ -1,13 +1,17 @@
 "use client"
 import {  useEffect, useState } from "react"
-
+import { Disclosure, Transition } from '@headlessui/react'
+import { ChevronUpIcon } from '@heroicons/react/20/solid'
+import Loading from './loading'
 const AddonPage = () => {
   const [addons, setAddons] = useState([])
   // const [message, setMessage] = useState('')
   const [cat , setCat] = useState([]);
   const [subcat , setSubCat] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(()=>{
     
+    // console.log('loading')
     const GetData = async ()=>{
     //  const URL = `https://support.homofixcompany.com/api/Addons-GET/`
     //  const URL = `https://support.homofixcompany.com/api/SpareParts/`;
@@ -22,7 +26,7 @@ const AddonPage = () => {
         if (res.ok) {
           const JobData = await res.json();
           setAddons(JobData);
-          console.log('JobData', JobData)
+          // console.log('JobData', JobData)
           // console.log('jab', jobs)
         } else {
           console.error('Error fetching user profile data');
@@ -37,9 +41,12 @@ const AddonPage = () => {
 
   }
   GetData();
+  // console.log('loading finished')
+  
   }, [URL])
 
   useEffect(()=>{
+    setLoading(true);
   const CatURL = 'https://support.homofixcompany.com/api/Category-Get/';
    
     const fatchdata = async () =>{
@@ -52,12 +59,12 @@ const AddonPage = () => {
    const newsubcat = extractSubcategories(responseData);
    setCat(newsubcat);
     // extractSubcat(responseData);
-    console.log(responseData);
-    console.log('newsubcat', newsubcat);
+    // console.log(responseData);
+    // console.log('newsubcat', newsubcat);
     // setCategory(await res.json())
     }
     fatchdata();
-   
+    setLoading(false);
   }, [])
   const extractSubcategories = (originalArray) => {
     const newArray = [];
@@ -70,61 +77,74 @@ const AddonPage = () => {
   
     return newArray;
   };
-  console.log('cat', cat)
+  // console.log('cat', cat)
   
   return (
     <>
     <section className="container mx-auto my-10 px-4 md:px-0">
         <h2 className="text-3xl text-center pb-6">Spare  <strong>Parts</strong> Chart </h2>
-        {/* <p className="text-center py-4 ">   </p> */}
-        <div className="relative overflow-x-auto max-w-lg mx-auto shadow-md sm:rounded-lg">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
-                    <tr>
-                        <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            Product name
-                        </th>
-                        <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                            Price
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                {addons.length > 0 ? (
-                    addons.map((addon, idx) => (
-                    <tr
-                        key={idx}
-                        className="border-b border-gray-200 dark:border-gray-700"
-                    >
-                        <th scope="row" className="px-6 py-4">
-                        {addon.spare_part} 
-                        {/* {addon.product.subcategory} */}
-                        </th>
-                        <td className="px-6 py-4">{addon.price}</td>
-                    </tr>
-                    ))
-                ) : (
-                    <tr>
-                    <td colSpan="2" className="px-6 py-4 text-center">
-                        No addons found.
-                    </td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
-          
-        </div>
-        {/* <div>
-        <h2>hello</h2>
-        <ul>
-         {cat.map((scat, idx)=> (
-              <li key={idx}>
-                {scat.name} 
-            
-              </li>
+        {/* <p className="text-center py-4 max-w-lg">   </p> */}
+        <div className="relative overflow-x-auto  mx-auto ">
+        {/* {loading && <Loading /> } */}
+        {loading ? <Loading /> : cat.length  > 0  && cat.map((subcatlist, idx)=>(
+                addons.some(addon => addon.product.subcategory === subcatlist.id) && (
+                <Disclosure as="div" className="mb-2" key={idx}>
+                    <Disclosure.Button className="flex w-full justify-between rounded-lg bg-lightbasecolor px-4 py-2 text-left text-sm font-medium text-white hover:bg-basecolor focus:outline-none focus-visible:ring focus-visible:ring-basecolor focus-visible:ring-opacity-75">
+                        <span className="text-xs">{subcatlist.name}</span>
+                        <ChevronUpIcon
+                        className={`${
+                            open ? 'rotate-180 transform' : ''
+                        } h-5 w-5 text-purple-500`}
+                        />
+                    </Disclosure.Button>
+                    <Transition
+                            enter="transition duration-100 ease-out"
+                            enterFrom="transform scale-95 opacity-0"
+                            enterTo="transform scale-100 opacity-100"
+                            leave="transition duration-75 ease-out"
+                            leaveFrom="transform scale-100 opacity-100"
+                            leaveTo="transform scale-95 opacity-0"
+                        >
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-800 bg-gray-100 ">
+                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase dark:text-gray-300">
+                            <tr>
+                                <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                    Product name
+                                </th>
+                                <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                    Price
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {addons.length > 0 ? (
+                              addons.map((addon, idx) => (
+                                // Add a condition to check if the addon belongs to the current subcategory
+                                subcatlist.id === addon.product.subcategory && (
+                                  <tr key={idx} className="border-b border-gray-200 dark:border-gray-700">
+                                    <th scope="row" className="px-6 py-4">
+                                      {addon.spare_part}
+                                    </th>
+                                    <td className="px-6 py-4">{addon.price}</td>
+                                  </tr>
+                                )
+                              ))
+                            ) : (
+                              <tr>
+                                <td colSpan="2" className="px-6 py-4 text-center">
+                                  No addons found.
+                                </td>
+                              </tr>
+                            )}
+                        </tbody>
+                    </table>
+                    </Disclosure.Panel>
+                    </Transition>
+                </Disclosure>
+                )
             ))}
-        </ul>
-        </div> */}
+        </div>
     </section>
     </>
   )

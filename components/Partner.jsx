@@ -6,8 +6,7 @@ const Partner = () => {
             <div className="columns-1 flex flex-col md:justify-center align-middle text-center">
                 <h1 className="text-xl mb-3 md:text-3xl font-semibold " >REGISTER AS A PROFESSIONAL</h1>
                 <div className="btn">
-                < RegisterExp />
-
+                  < RegisterExp />
                 </div>
             </div>
             <div className="columns-1">

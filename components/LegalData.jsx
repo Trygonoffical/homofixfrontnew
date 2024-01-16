@@ -1,6 +1,6 @@
 "use client"
 import { useState, useEffect } from "react";
-import styles from '../styles/Product.module.css'
+// import styles from '../styles/Product.module.css'
 const data =  ({url}) => {    
     const [ldata, setLdata] = useState('')
 //     const navigation = useNavigation();

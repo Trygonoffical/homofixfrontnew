@@ -23,8 +23,6 @@ export default function Home() {
       <Mostbooked url='https://support.homofixcompany.com/api/MostViewed-Get/' />
       < Homeservice url='https://support.homofixcompany.com/api/HomePageService/6/' />
       < Homeservice url='https://support.homofixcompany.com/api/HomePageService/7/' bgImg="w-full bg-[url('/ad2bg.webp')]" icenter="justify-center" />
-      {/* < Homeservice url='https://support.homofixcompany.com/api/HomePageService/8/' /> */}
-      {/* <Whychoose /> */}
       <Partner />
       <Sidebar />
     </main>

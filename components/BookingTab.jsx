@@ -331,7 +331,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>Appears on reciepts, invoices, and more </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text" className='w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={name} onChange={handleNameChange} />
+                        <input type="text" className='w-screen-full border-gray-600 text-gray-800 w-full'  value={name} onChange={handleNameChange} />
                     </div>
                 </div>
                 <div className="md:flex justify-between pb-5 ">
@@ -341,7 +341,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>Register Mobile no, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="number" disabled className= 'w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={mno} onChange={handleMnoChange}  />
+                        <input type="number" disabled className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={mno} onChange={handleMnoChange}  />
                     </div>
                 </div>
 
@@ -352,7 +352,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>Address where you live, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={add} onChange={handleAddChange} />
+                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={add} onChange={handleAddChange} />
                     </div>
                 </div>
 
@@ -363,7 +363,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>Area where you live, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={area} onChange={handleAreaChange} />
+                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={area} onChange={handleAreaChange} />
                     </div>
                 </div>
 
@@ -374,7 +374,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>State where you live, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={state} onChange={handleStateChange} />
+                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={state} onChange={handleStateChange} />
                     </div>
                 </div>
 
@@ -385,7 +385,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>City where you live, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={city}  onChange={handleCityChange}  />
+                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={city}  onChange={handleCityChange}  />
                     </div>
                 </div>
 
@@ -396,7 +396,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>Zipcode , Appears on reciepts, invoices, and more </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="number"  className= 'w-screen-full border-gray-600 text-gray-800' style={{width: '100%'}} value={zip} onChange={handleZipChange} />
+                        <input type="number"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={zip} onChange={handleZipChange} />
                     </div>
                 </div>
                 <hr />
