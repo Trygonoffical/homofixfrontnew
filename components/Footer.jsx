@@ -11,7 +11,7 @@ export const Footer = () => {
                     <a href="/about" className='text-white px-4 py-2 text-sm'>About Us </a>
                     <a href="/blogs" className='text-white px-4 py-2 text-sm'>Blogs </a>
                     <a href="/career" className='text-white px-4 py-2 text-sm'>Career </a>
-                    <a href="/addons" className='text-white px-4 py-2 text-sm'>AddOn Services </a>
+                    <a href="/addons" className='text-white px-4 py-2 text-sm'>Addon Services </a>
                     <a href="/contactus" className='text-white px-4 py-2 text-sm'>Contact Us </a>
                     <a href="/terms" className='text-white px-4 py-2 text-sm'>Terms & Conditions</a>
                     <a href="/privacy" className='text-white px-4 py-2 text-sm'>Privacy Policy</a>
