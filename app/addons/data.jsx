@@ -82,7 +82,7 @@ const AddonPage = () => {
   return (
     <>
     <section className="container mx-auto my-10 px-4 md:px-0">
-        <h2 className="text-3xl text-center pb-6">Spare  <strong>Parts</strong> Chart </h2>
+        <h2 className="text-3xl text-center pb-6">Spare  <strong>Parts</strong> List </h2>
         {/* <p className="text-center py-4 max-w-lg">   </p> */}
         <div className="relative overflow-x-auto  mx-auto ">
         {/* {loading && <Loading /> } */}
