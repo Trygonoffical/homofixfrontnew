@@ -11,7 +11,7 @@ const page = () => {
 
   return (
     <>
-        <Tophead slug={'Addons-List'} />
+        <Tophead slug={'Addon-Services'} />
         <Data />
         {/* <Callbox /> */}
     </>
