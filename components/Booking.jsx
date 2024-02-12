@@ -731,8 +731,8 @@ const handleOnlinePayment2 = async () => {
           <div className="mb-6 flow-root items-center justify-center text-center px-2">
           <img src="/cracker.png" alt="congrats" width={120} className='mx-auto -mt-16' />
             <h2 className='text-3xl text-basecolor font-bold py-3'>Congratulation</h2>
-                <p className='text-sm text-gray-800'>You have successfully done the booking</p>
-                <ul>
+                <p className='text-sm text-gray-800'>You successfully Created your booking </p>
+                <ul className='list-none'>
                     <li className='py-3 font-semibold text-lg'>Booking Date:Time - {handleDatetimeval(bookingDateTime) }</li>
                 </ul>
                 <Link href='/account' className='px-4 py-2 bg-basecolor text-white'> Go to Account</Link>
