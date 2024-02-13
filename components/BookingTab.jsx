@@ -114,7 +114,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
       setTimeout(() => {
         // Update bookings state with fetched data
         // Set loading to false
-        console.log('in fatuch booking value ', bookings)
+        // console.log('in fatuch booking value ', bookings)
         setFetchedBookings(bookings);
         setLoading(false);
       }, 3000); // Simulating a delay of 3 seconds
@@ -309,10 +309,6 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               : (
                 <p>No bookings found</p>
               )}
-         
-                 
-            
-
           </Tab.Panel>
           {/* third panel */}
           <Tab.Panel className='mt-4 min-h-[400px] max-w-[800px] border mx-auto p-5' >
