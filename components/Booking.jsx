@@ -414,6 +414,7 @@ const handleOfflinePayment = () => {
 
         if (response.ok) {
           const data = await response.json();
+          // console.log(data);
         } else {
           console.error("Request failed with status:", response.status);
         }
