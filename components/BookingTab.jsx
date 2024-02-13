@@ -267,7 +267,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               </h5>
               </div>
                
-               <h5>Amount: ₹{booking.final_amount} | {booking.online == true&&( <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Payment Paid</span>) }</h5>
+               <h5>Amount: ₹{booking.final_amount} | {booking.online == true &&( <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Payment Paid</span>) }</h5>
                <h5>Booking Timging: {formatDateTime(booking.booking_date)}</h5>
                <h5>Booking Address: {booking.booking_address} {booking.area} {booking.city} {booking.state} {booking.zip}</h5>
                 <h5>Booking Details: </h5>
@@ -285,13 +285,13 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       </ul>
                     ))}
                 <div><span className='text-basecolor'>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
-                <div className='flex justify-center py-2'>
+                {/* <div className='flex justify-center py-2'>
                   {booking.status == "New"  && (
                   <>
                   <button className='text-white text-sm rounded bg-red px-2 py-1 ' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button>
                   </>
                 )}
-                </div>
+                </div> */}
                 
                 <div className="rating">
                     {booking.status == "Completed" && (
