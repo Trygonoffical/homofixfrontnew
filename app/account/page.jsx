@@ -56,7 +56,7 @@ const Profile = () => {
 
   //       if (response.ok) {
   //         const bookingData = await response.json();
-  //         console.log('bookingData', bookingData)
+          // console.log('bookingData', bookingData)
   //         // const latestbooking = userData[userData.length - 1];
   //         setBookings(bookingData.reverse())
   //       } else {

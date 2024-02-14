@@ -103,8 +103,8 @@ const BookingTab = ({bookings , userProfileInfo}) => {
         setName(userProfileInfo.first_name || '');
         setMno(userProfileInfo.mobile || '');
     } 
-    console.log(bookings);
-    console.log('fetchedBookings',fetchedBookings);
+    // console.log(bookings);
+    // console.log('fetchedBookings',fetchedBookings);
   // setLoading2(false);
   // Fetch bookings data
   const fetchBookings = async () => {
@@ -167,7 +167,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
   
       if (response.ok) {
         window.location.reload();
-        console.log(response);
+        // console.log(response);
       } else {
         console.error("Request failed with status:", response.status);
       }
@@ -214,7 +214,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
              {/* {bookings != '' ? ( */}
              {loading ? (<Loading />) : mergedBookings && mergedBookings.length > 0 ? (
             //  bookings.length > 0 && (
-              <ul className='list-none'>
+              <ul className='list-none' style={{paddingLeft: 'initial'}}>
                  
               {mergedBookings.map((booking, idx)=>(
                <li
@@ -267,7 +267,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               </h5>
               </div>
                
-               <h5>Amount: ₹{booking.final_amount} | {booking.online == true &&( <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Payment Paid</span>) }</h5>
+               <h5>Amount: ₹{booking.final_amount} {booking.online == true && (<>|  <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Paid</span></>) }</h5>
                <h5>Booking Timging: {formatDateTime(booking.booking_date)}</h5>
                <h5>Booking Address: {booking.booking_address} {booking.area} {booking.city} {booking.state} {booking.zip}</h5>
                 <h5>Booking Details: </h5>
