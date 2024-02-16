@@ -4,6 +4,7 @@ import { useEffect, useState, Fragment, useCallback  } from 'react';
 
 const Feedback = ({bookingID}) => {
     let [isOpenFeedback, setIsOpenFeedback] = useState(false)
+    let [isOpenFeedbackThankYou, setIsOpenFeedbackThankYou] = useState(false)
     const [rating , setRating] = useState('')
     const [ review , setReview] = useState('')
     const [msg , setMsg] = useState('')
@@ -49,9 +50,11 @@ const Feedback = ({bookingID}) => {
               if (response.ok) {
                 const FeedbackData = await response.json();
                 // console.log(FeedbackData);
-                openMessage(FeedbackData.msg)
+                // openMessage('Feedback has been submitted')
+                setIsOpenFeedback(false)
+                setIsOpenFeedbackThankYou(true)
                 setRating('')
-                setRating('')
+                setReview('')
               } else {
                 console.error("Request failed with status:", response.status);
               }
@@ -122,13 +125,13 @@ const Feedback = ({bookingID}) => {
                             <h5 className='text-sm'>5</h5>
                         </button>
                     </div>
-                    <textarea  placeholder="Review" className='w-full' onChange={handleRatingReview} rows="5" >{review}</textarea>
+                    <textarea  placeholder="Review" className='w-full' onChange={handleRatingReview} rows="5" value={review} ></textarea>
                     <button
                       type="button"
                       className="mt-3 inline-flex justify-center rounded-md border border-transparent bg-basecolor px-4 py-2 text-sm font-medium text-white hover:bg-lightbasecolor focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={handleSendFeedback}
                     >
-                      Give it, thanks!
+                      Submit
                     </button>
                     <br />
                     <p className='mt-3 text-red'>{msg}</p>
@@ -138,7 +141,63 @@ const Feedback = ({bookingID}) => {
             </div>
           </div>
         </Dialog>
-      </Transition>
+    </Transition>
+
+
+    <Transition appear show={isOpenFeedbackThankYou} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeFeedback}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-center align-middle shadow-xl transition-all">
+                    {/* <img src="/cracker.png" alt="congs" width={100}  className='mx-auto pb-4' /> */}
+                  <Dialog.Title
+                    as="h3"
+                    className="text-xl font-medium leading-6 text-gray-900"
+                  >
+                    <img src="/cracker.png" alt="congrats" width={100} className='mx-auto ' /> 
+                    
+                  </Dialog.Title>
+                  <div className="mt-4">
+                    <h2 className='text-Red-700 text-lg'>
+                      Thank You for Your Feedback!!
+                    </h2>
+                    <button
+                      type="button"
+                      className="mt-3 inline-flex justify-center rounded-md border border-transparent bg-basecolor px-4 py-2 text-sm font-medium text-white hover:bg-lightbasecolor focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={()=>{setIsOpenFeedbackThankYou(false)}}
+                    >
+                      Close
+                    </button>
+                    <br />
+                    <p className='mt-3 text-red'>{msg}</p>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+    </Transition>
       </>
   )
 }
