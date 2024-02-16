@@ -219,7 +219,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               {mergedBookings.map((booking, idx)=>(
                <li
                key={idx}
-               className="relative rounded-md py-3 mb-4 border p-3 md:p-3 "
+               className="relative rounded-md py-3 mb-4 border border-black p-3 md:p-3 "
              >
               {/* hover:bg-gray-100 */}
               {/* <div className=" flex justify-between">
@@ -333,7 +333,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <li className='flex justify-between '> <span className='p-2 text-sm'>Payment Mode </span>{booking.online == true ? ( <>
                         {booking.pay_amt > 0 ?(
                           <span className='p-2 text-sm text-Red-700'>Unpaid</span>
-                        ): (<span className='p-2 text-sm text-Lime-700'>Online Paid</span>)}</>): <span className='p-2 text-sm text-Lime-700'>Cash On Delivery</span>}  </li>
+                        ): (<span className='p-2 text-sm text-Lime-700'>Online Paid</span>)}</>): <span className='p-2 text-sm text-Lime-700'>Cash On Service</span>}  </li>
                         {booking.status == "Completed" && (
                           <li className='flex justify-between '> <span className='p-2 text-sm'>Invoice</span><a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-2 py-1 my-2'>Invoice</a></li>
                         )}
@@ -368,7 +368,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <li className='flex justify-between'> <span className='p-2'><strong>{pros.product.name}</strong> <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {pros.quantity} </span> </span> <span className='p-2'> ₹ {pros.selling_price}</span></li>
                         {pros.addon_set.map((addons, idx)=>(
                             <ul key={idx} style={{paddingLeft: 'initial'}}>
-                                <li className='flex justify-between '> <span className='p-2'><strong>{addons.spare_part_name}</strong><span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {addons.quantity} Spare Parts </span> </span><span className='p-2'>₹ {addons.spare_part_price}</span></li>
+                                <li className='flex justify-between '> <span className='p-2'><strong>{addons.spare_part_name}</strong><span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {addons.quantity} </span> <br /> <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>Spare Parts </span>  </span><span className='p-2'>₹ {addons.spare_part_price}</span></li>
                             </ul>
                             
                         ))}
