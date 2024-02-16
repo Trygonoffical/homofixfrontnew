@@ -207,7 +207,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                 >Profile</Tab>
           </Tab.List>
         
-        <Tab.Panels className='mt-4 min-h-[400px] md:p-5' >
+        <Tab.Panels className='mt-4 min-h-[400px] max-w-[800px] mx-auto md:p-5' >
          
          {/* First Panel  */}
           <Tab.Panel className='mt-4 min-h-[400px] p-5'>
@@ -392,7 +392,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                   </div>
                   
                 </div>
-                <div className='text-center'><span className='text-basecolor '>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
+                <div className='text-center'><span className='text-basecolor text-sm'>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
                 <div className="rating text-center py-2">
                     {booking.status == "Completed" && (
                        < Feedback bookingID={booking.id} />
