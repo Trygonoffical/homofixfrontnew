@@ -219,58 +219,59 @@ const BookingTab = ({bookings , userProfileInfo}) => {
               {mergedBookings.map((booking, idx)=>(
                <li
                key={idx}
-               className="relative rounded-md py-3 mb-4 border p-3 md:p-3 hover:bg-gray-100"
+               className="relative rounded-md py-3 mb-4 border p-3 md:p-3 "
              >
+              {/* hover:bg-gray-100 */}
               <div className=" flex justify-between">
-              <h3 className="text-sm font-medium leading-5">
-                Booking ID: {booking.id} 
-               </h3> 
-               {booking.cash_on_service == false && ( <>
-               {booking.pay_amt > 0 &&(
-                <Payment amount={booking.pay_amt} name={userProfileInfo.first_name}   mobile={userProfileInfo.mobile}  bookingID={booking.id} />
-               )}
-               </>
-               
-               )}
-               {booking.status == "Completed" && (
-                <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-2 py-1 my-2'>Invoice</a>
-               )}
+                <h3 className="text-sm font-medium leading-5">
+                  Booking ID: {booking.id} 
+                </h3> 
+                {booking.cash_on_service == false && ( <>
+                {booking.pay_amt > 0 &&(
+                  <Payment amount={booking.pay_amt} name={userProfileInfo.first_name}   mobile={userProfileInfo.mobile}  bookingID={booking.id} />
+                )}
+                </>
+                
+                )}
+                {booking.status == "Completed" && (
+                  <a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-2 py-1 my-2'>Invoice</a>
+                )}
                
               </div>
               <div className='flex justify-between'>
-              <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
-              <h5> 
-              {booking.status == "Completed" && (
-                <span className='rounded-full border border-Green-100 bg-Green-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
-               )}
-               {booking.status == "Cancelled"  && (
-                <span className="rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm ">{booking.status}</span>
-               )}
-               {booking.status == "cancelled"  && (
-                <span className='rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
-               )}
-               {booking.status == "New"  && (
-                <>
-                <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
+                <h5 className="text-sm font-medium leading-5">Order Id: {booking.order_id}</h5>
+                <h5> 
+                {booking.status == "Completed" && (
+                  <span className='rounded-full border border-Green-100 bg-Green-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
+                )}
+                {booking.status == "Cancelled"  && (
+                  <span className="rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm ">{booking.status}</span>
+                )}
+                {booking.status == "cancelled"  && (
+                  <span className='rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
+                )}
+                {booking.status == "New"  && (
+                  <>
+                  <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
 
-                {/* <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button> */}
-                </>
-                
-               )}
-               {booking.status == "Assign"  && (
-                <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
-               )}
-               {booking.status == "Proceed"  && (
-                <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
-               )}
-                
-              </h5>
+                  {/* <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button> */}
+                  </>
+                  
+                )}
+                {booking.status == "Assign"  && (
+                  <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
+                )}
+                {booking.status == "Proceed"  && (
+                  <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
+                )}
+                  
+                </h5>
               </div>
                
                <h5>Amount: ₹{booking.final_amount} {booking.online == true && (<>|  <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Paid</span></>) }</h5>
                <h5>Booking Timging: {formatDateTime(booking.booking_date)}</h5>
-               <h5>Booking Address: {booking.booking_address} {booking.area} {booking.city} {booking.state} {booking.zip}</h5>
-                <h5>Booking Details: </h5>
+               <h5>Booking Address: {booking.booking_address} {booking.area} {booking.city} {booking.state} - {booking.zipcode}</h5>
+               <h5>Booking Details: </h5>
                 {booking.booking_product.map((pros , idx)=>(
                     // w-fit mx-auto
                       <ul key={idx} className='bg-gray-300 px-2 py-1 my-2 text-sm'>
@@ -300,6 +301,98 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         
                 </div>
 
+
+                {/* Status booking details  */}
+                <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
+                  <p className='text-sm py-2 text-gray-500 flex justify-between'> <span>Booking Status </span>
+                    <span>{booking.status == "Completed" && (
+                      <span className='rounded-full border border-Green-100 bg-Green-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
+                    )}
+                    {booking.status == "Cancelled"  && (
+                      <span className="rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm ">{booking.status}</span>
+                    )}
+                    {booking.status == "cancelled"  && (
+                      <span className='rounded-full border border-Red-100 bg-Red-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
+                    )}
+                    {booking.status == "New"  && (
+                      <>
+                      <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
+
+                      {/* <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button> */}
+                      </>
+                      
+                    )}
+                    {booking.status == "Assign"  && (
+                      <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
+                    )}
+                    {booking.status == "Proceed"  && (
+                      <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-sm '>Assigned</span>
+                    )}</span>
+                    {booking.cash_on_service == false && ( <>
+                        {booking.pay_amt > 0 &&(
+                          <Payment amount={booking.pay_amt} name={userProfileInfo.first_name}   mobile={userProfileInfo.mobile}  bookingID={booking.id} />
+                        )}</>)} 
+                    </p>
+                  
+                  <hr />
+                  <div className='pt-2'>
+                    <ul  style={{paddingLeft: 'initial'}}>
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Booking ID </span><span className='p-2 text-sm'>{booking.id}</span></li>
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Tax</span><span className='p-2 text-sm'>₹ {booking.tax_amount} </span></li>
+                        <hr />
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Amount</span><span className='p-2 text-sm'>₹ {booking.final_amount} </span></li>
+                    </ul>
+                  </div>
+                </div>
+                {/* bookign details  */}
+                <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
+                  <p className='text-sm py-2 text-gray-500'>Booking Details</p>
+                  <hr />
+                  <div className='flex pt-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                      <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                    </svg>
+                    <div>
+                      <h5 className='text-sm pl-2'>
+                      {booking.booking_customer} <br />
+                      {booking.booking_address} {booking.area} {booking.city} {booking.state} - {booking.zipcode}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                {/* order details  */}
+                <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
+                  <p className='text-sm py-2 text-gray-400'>Order Details</p>
+                  <hr />
+
+                  {booking.booking_product.map((pros , idx)=>(
+                    // w-fit mx-auto
+                      <ul key={idx} className='px-2 py-1 my-2 text-sm'>
+                        <li className='flex justify-between'> <span className='p-2'><strong>{pros.product.name}</strong> <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {pros.quantity} </span> </span> <span className='p-2'> ₹ {pros.selling_price}</span></li>
+                        {pros.addon_set.map((addons, idx)=>(
+                            <ul key={idx} style={{paddingLeft: 'initial'}}>
+                                <li className='flex justify-between '> <span className='p-2'><strong>{addons.spare_part_name}</strong><span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {addons.quantity} Spare Parts </span> </span><span className='p-2'>₹ {addons.spare_part_price}</span></li>
+                            </ul>
+                            
+                        ))}
+                         
+                      </ul>
+                    ))}
+                    <hr />
+
+                  <div className=' pt-2'>
+                  <ul  style={{paddingLeft: 'initial'}}>
+                      <li className='flex justify-between '> <span className='p-2 text-sm'>Price</span><span className='p-2 text-sm'>₹ {booking.total_amount} </span></li>
+                      <li className='flex justify-between '> <span className='p-2 text-sm'>Tax</span><span className='p-2 text-sm'>₹ {booking.tax_amount} </span></li>
+                      <hr />
+                      <li className='flex justify-between '> <span className='p-2 text-sm'>Amount</span><span className='p-2 text-sm'>₹ {booking.final_amount} </span></li>
+                      
+                      
+                  </ul>
+                  </div>
+                </div>
+                
+                
              </li>
              
               ))}

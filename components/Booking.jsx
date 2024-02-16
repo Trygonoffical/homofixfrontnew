@@ -39,7 +39,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsgName, setErrorMsgName] = useState('');
   const [originalCity, setOriginalCity] = useState('');
 
-  const currentworkingcities = ['Delhi', 'New Delhi', 'New delhi', 'new Delhi', 'new delhi','North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar', 'Chapra', 'Chhapra', 'Siwan', 'Patna', 'Patna Sadar', 'Patna City'];
+  const currentworkingcities = ['Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar', 'Chapra', 'Chhapra', 'Siwan', 'Patna', 'Patna Sadar', 'Patna City'];
   
   const [cityerrormsg , setCityErrorMsg] = useState('')
 
@@ -50,11 +50,27 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 
   useEffect(() => {
     // Check if the selected city is in the currentworkingcities array
-    if (originalCity && !currentworkingcities.includes(originalCity)) {
-      setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
+
+    // if (originalCity && !currentworkingcities.includes(originalCity)) {
+    //   setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
     
-    } else {
-      setCityErrorMsg('');
+    // } else {
+    //   setCityErrorMsg('');
+    // }
+    if(originalCity){
+      const foundCity = currentworkingcities.find(
+        (workingCity) => workingCity.toLowerCase() === originalCity.toLowerCase()
+      );
+        // console.log('foundCity', foundCity);
+      if (!foundCity) {
+        setCityErrorMsg(
+          'Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.'
+        );
+      } else {
+        setCityErrorMsg('');
+        setOriginalCity(foundCity);
+        setCity(foundCity);
+      }
     }
   }, [city, currentworkingcities]);
 
@@ -101,8 +117,7 @@ const handlePaymentChange = (val) => {
     const trimmedCity = inputValue.trim();
     setCity(inputValue);
     setOriginalCity(trimmedCity);
-    // setCity(event.target.value);
-    // //console.log('city - ', city)
+    
   };
   const handleStateChange = (event) => {
     setState(event.target.value);
