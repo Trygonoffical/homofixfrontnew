@@ -142,7 +142,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
       day: 'numeric',
       hour: 'numeric',
       minute: 'numeric',
-      second: 'numeric',
+      // second: 'numeric',
       hour12: true, // Use 12-hour clock
       // timeZoneName: 'short',
     };
@@ -328,7 +328,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                   <div className='pt-2'>
                     <ul  style={{paddingLeft: 'initial'}}>
                         <li className='flex justify-between '> <span className='p-2 text-sm'>Booking ID </span><span className='p-2 text-sm'>{booking.id}</span></li>
-                        <li className='flex justify-between '> <span className='p-2 text-sm'>Booking Timging </span><span className='p-2 text-sm'>{formatDateTime(booking.booking_date)} </span></li>
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Scheduled </span><span className='p-2 text-sm'>{formatDateTime(booking.booking_date)} </span></li>
                         <hr />
                         <li className='flex justify-between '> <span className='p-2 text-sm'>Payment Mode </span>{booking.online == true ? ( <>
                         {booking.pay_amt > 0 ?(
