@@ -345,7 +345,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                 <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
                   <p className='text-sm py-2 text-gray-500'>Booking Details</p>
                   <hr />
-                  <div className='flex pt-2'>
+                  <div className='flex py-2'>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
                       <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
                     </svg>
@@ -356,9 +356,10 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       </h5>
                     </div>
                   </div>
-                </div>
+                {/* </div> */}
                 {/* order details  */}
-                <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
+                {/* <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'> */}
+                <hr />
                   <p className='text-sm py-2 text-gray-400'>Order Details</p>
                   <hr />
 
@@ -368,7 +369,9 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <li className='flex justify-between'> <span className='p-2'><strong>{pros.product.name}</strong> <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {pros.quantity} </span> </span> <span className='p-2'> ₹ {pros.selling_price}</span></li>
                         {pros.addon_set.map((addons, idx)=>(
                             <ul key={idx} style={{paddingLeft: 'initial'}}>
-                                <li className='flex justify-between '> <span className='p-2'><strong>{addons.spare_part_name}</strong><span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {addons.quantity} </span> <br /> <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>Spare Parts </span>  </span><span className='p-2'>₹ {addons.spare_part_price}</span></li>
+                                <li className='flex justify-between '> <span className='p-2'><strong>{addons.spare_part_name}</strong><span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>x {addons.quantity} </span> <br />
+                                {/* <span className='rounded-full border border-Lime-100 bg-Lime-500 text-white px-2 py-0.5 text-xs '>Addons </span>  */}
+                                </span><span className='p-2'>₹ {addons.spare_part_price}</span></li>
                             </ul>
                             
                         ))}
