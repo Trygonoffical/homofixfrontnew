@@ -142,7 +142,7 @@ useEffect(() => {
   return (
     <>
     {loading ? <Loading /> : (
-      <div className="container mx-auto py-10">
+      <div className="container mx-auto md:py-3">
       <div className="bg-gradient-to-r from-bgleft to-Orange text-center py-20 -mb-10">
         <h2 className="text-3xl font-bold text-white">Account</h2>
       </div>
