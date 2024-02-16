@@ -293,7 +293,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
 
 
                 {/* Status booking details  */}
-                <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
+                <div className='bg-gray-100 p-2 mb-2'>
                   <p className='text-sm py-2 text-gray-500 flex justify-between'> <span>Booking Status </span>
                     <span>{booking.status == "Completed" && (
                       <span className='rounded-full border border-Green-100 bg-Green-500 text-white px-2 py-0.5 text-sm '>{booking.status}</span>
@@ -342,7 +342,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                   </div>
                 </div>
                 {/* bookign details  */}
-                <div className='bg-gray-100 p-2 hover:bg-gray-200 mb-2'>
+                <div className='bg-gray-100 p-2 mb-2'>
                   <p className='text-sm py-2 text-gray-500'>Booking Details</p>
                   <hr />
                   <div className='flex py-2'>
