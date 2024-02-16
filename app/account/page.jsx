@@ -126,7 +126,7 @@ useEffect(() => {
 
         const bookingData = await responseBooking.json();
         setBookings(bookingData.reverse());
-        console.log('bookingData', bookingData)
+        // console.log('bookingData', bookingData)
       }
       setLoading(false)
     } catch (error) {

@@ -63,7 +63,7 @@ const Feedback = ({bookingID}) => {
           }, [bookingID, rating, review]);
   return (
     <>
-    <button className='text-sm cursor-pointer text-basecolor' onClick={openFeedback}> Give Rating</button>
+    <button className=' cursor-pointe rounded-full border border-yellow-500 bg-yellow-500 text-white px-4 py-2 text-xs ' onClick={openFeedback}> Give Rating</button>
     <Transition appear show={isOpenFeedback} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeFeedback}>
           <Transition.Child

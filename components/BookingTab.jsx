@@ -222,7 +222,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                className="relative rounded-md py-3 mb-4 border p-3 md:p-3 "
              >
               {/* hover:bg-gray-100 */}
-              <div className=" flex justify-between">
+              {/* <div className=" flex justify-between">
                 <h3 className="text-sm font-medium leading-5">
                   Booking ID: {booking.id} 
                 </h3> 
@@ -253,8 +253,6 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                 {booking.status == "New"  && (
                   <>
                   <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
-
-                  {/* <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button> */}
                   </>
                   
                 )}
@@ -286,20 +284,12 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       </ul>
                     ))}
                 <div><span className='text-basecolor'>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
-                {/* <div className='flex justify-center py-2'>
-                  {booking.status == "New"  && (
-                  <>
-                  <button className='text-white text-sm rounded bg-red px-2 py-1 ' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button>
-                  </>
-                )}
-                </div> */}
-                
                 <div className="rating">
                     {booking.status == "Completed" && (
                        < Feedback bookingID={booking.id} />
                     )}
                         
-                </div>
+                </div> */}
 
 
                 {/* Status booking details  */}
@@ -338,9 +328,16 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                   <div className='pt-2'>
                     <ul  style={{paddingLeft: 'initial'}}>
                         <li className='flex justify-between '> <span className='p-2 text-sm'>Booking ID </span><span className='p-2 text-sm'>{booking.id}</span></li>
-                        <li className='flex justify-between '> <span className='p-2 text-sm'>Tax</span><span className='p-2 text-sm'>₹ {booking.tax_amount} </span></li>
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Booking Timging </span><span className='p-2 text-sm'>{formatDateTime(booking.booking_date)} </span></li>
                         <hr />
-                        <li className='flex justify-between '> <span className='p-2 text-sm'>Amount</span><span className='p-2 text-sm'>₹ {booking.final_amount} </span></li>
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Payment Mode </span>{booking.online == true ? ( <>
+                        {booking.pay_amt > 0 ?(
+                          <span className='p-2 text-sm text-Red-700'>Unpaid</span>
+                        ): (<span className='p-2 text-sm text-Lime-700'>Online Paid</span>)}</>): <span className='p-2 text-sm text-Lime-700'>Cash On Delivery</span>}  </li>
+                        {booking.status == "Completed" && (
+                          <li className='flex justify-between '> <span className='p-2 text-sm'>Invoice</span><a href={`https://support.homofixcompany.com/api/invoice/download/${booking.id}/`} target='_blank' className='text-white text-sm rounded bg-basecolor px-2 py-1 my-2'>Invoice</a></li>
+                        )}
+                        
                     </ul>
                   </div>
                 </div>
@@ -390,8 +387,15 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       
                   </ul>
                   </div>
+                  
                 </div>
-                
+                <div className='text-center'><span className='text-basecolor '>For Support Call : <a href="tel:918130105760">+91-813-0105-760</a></span></div>
+                <div className="rating text-center py-2">
+                    {booking.status == "Completed" && (
+                       < Feedback bookingID={booking.id} />
+                    )}
+                        
+                </div>
                 
              </li>
              
