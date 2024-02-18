@@ -43,9 +43,9 @@ export const Footer = () => {
                     <a href="https://www.linkedin.com/company/homofix-in/" target="_blank">
                     <img src="/assets/imgs/linkdin.png" width={49} height={49} className="mr-2 " alt="Lindin" />
                     </a>
-                    <a href="#" target="_blank">
+                    {/* <a href="#" target="_blank">
                     <img src="/assets/imgs/twitter.png" width={49} height={49} className="mr-2 " alt="Twitter" />
-                    </a>
+                    </a> */}
                 </div>
                 <hr className='border-dotted' />
 
