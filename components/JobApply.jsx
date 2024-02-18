@@ -92,7 +92,7 @@ const JobApply = ({JobID}) => {
     }
   return (
     <>
-        <button className="bg-basecolor px-4 py-2 text-white mx-auto text-center" onClick={() => setFormVisible(true)}>Apply For Job</button>
+        <button className="bg-basecolor px-4 py-2 text-white mx-auto text-center" onClick={() => setFormVisible(true)}>Apply</button>
 
         <Transition appear show={isFormVisible} as={Fragment} >
         <Dialog as="div" className="relative z-10" onClose={handlepopbox}>

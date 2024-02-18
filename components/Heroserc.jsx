@@ -54,10 +54,10 @@ const Heroserc = ({url}) => {
               className="border-transparent form-input border-gray-200 placeholder-gray-400 contrast-more:border-gray-400 contrast-more:placeholder-gray-500 rounded-2xl pl-9 p-8 py-3 md:py-4 drop-shadow-md w-full text-sm md:text-md text-gray-700"
             />
             <CiSearch className="absolute top-[14px] md:top-[18px] left-[32px] md:left-[7px] text-[20px] text-gray-700" />
-            <Combobox.Options className="bg-white shadow-md p-2 border-2 rounded pt-10 -mt-8">
+            <Combobox.Options className="bg-white shadow-md p-2 border-2 rounded pt-10 -mt-8 list-none">
               {filteredService.map((subcategory, idx) => (
-                <Combobox.Option key={idx} value={subcategory}>
-                    <a href={`/category/${slugify(subcategory.name)}`}>{subcategory.name}</a>
+                <Combobox.Option key={idx} value={subcategory} cla>
+                    <a className='text-sm hover:text-basecolor' href={`/category/${slugify(subcategory.name)}`}>{subcategory.name}</a>
                 </Combobox.Option>
               ))}
             </Combobox.Options>
