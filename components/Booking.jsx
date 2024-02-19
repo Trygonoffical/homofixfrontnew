@@ -168,25 +168,25 @@ useEffect(() => {
       }
 }, [URL]);
 
-const congratstextmsg = () =>{
-  console.log('in sms filed');
-  const smsurl = `http://sms.webtextsolution.com/sms-panel/api/http/index.php?username=Homofix&apikey=21141-B77C6&apirequest=Text&sender=HOMOFX&mobile=${userProfileInfo.mobile}&message=Dear Customer,Your service has been successfully booked. Our Service Expert will arrive as scheduled on the agreed date and time. Thank you for choosing HomOfix Company&route=TRANS&TemplateID=1407170037761317839&format=JSON`;
-  const getsms = async () =>{
-    try {
-        const response = await fetch(smsurl);
+// const congratstextmsg = () =>{
+//   console.log('in sms filed');
+//   const smsurl = `http://sms.webtextsolution.com/sms-panel/api/http/index.php?username=Homofix&apikey=21141-B77C6&apirequest=Text&sender=HOMOFX&mobile=${userProfileInfo.mobile}&message=Dear Customer,Your service has been successfully booked. Our Service Expert will arrive as scheduled on the agreed date and time. Thank you for choosing HomOfix Company&route=TRANS&TemplateID=1407170037761317839&format=JSON`;
+//   const getsms = async () =>{
+//     try {
+//         const response = await fetch(smsurl);
     
-        if (response.ok) {
-          const data = await response.json();
-          console.log('sms send ', response);
-        } else {
-          console.error("Request failed with status:", response.status);
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-}
-getsms();
-}
+//         if (response.ok) {
+//           const data = await response.json();
+//           console.log('sms send ', response);
+//         } else {
+//           console.error("Request failed with status:", response.status);
+//         }
+//       } catch (error) {
+//         console.error("An error occurred:", error);
+//       }
+// }
+// getsms();
+// }
 
 const handleProfileDataUpdate = () =>{
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; // Replace with your actual authentication token
@@ -367,8 +367,8 @@ const handlePaymentRep = (paymentID ,localbookindID )=>{
     postResp()
 }
 const Congratsmesg = () => {
-    console.log('incongfun')
-    congratstextmsg();
+    // console.log('incongfun')
+    // congratstextmsg();
     // //console.log(isBookingCompleted)
     if (isBookingCompleted) {
         // //console.log(isBookingCompleted)
