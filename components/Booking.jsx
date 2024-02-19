@@ -173,7 +173,12 @@ useEffect(() => {
 //   const smsurl = `http://sms.webtextsolution.com/sms-panel/api/http/index.php?username=Homofix&apikey=21141-B77C6&apirequest=Text&sender=HOMOFX&mobile=${userProfileInfo.mobile}&message=Dear Customer,Your service has been successfully booked. Our Service Expert will arrive as scheduled on the agreed date and time. Thank you for choosing HomOfix Company&route=TRANS&TemplateID=1407170037761317839&format=JSON`;
 //   const getsms = async () =>{
 //     try {
-//         const response = await fetch(smsurl);
+//         const response = await fetch(smsurl, {
+//           method: "GET",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         });
     
 //         if (response.ok) {
 //           const data = await response.json();
