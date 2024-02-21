@@ -5,7 +5,7 @@ export const Footer = () => {
     const ComingSoons = ['Mumbai', 'Pune', 'Hyderabad', 'Bangalore', 'Kolkata', 'Jaipur', 'Chandigarh', 'Lucknow', 'Gorakhpur'];
   return (
     <section >
-        <div className="w-full bg-black py-10 ">
+        <div className="w-full bg-black py-10 max-w-[1200px]">
             <div className="container mx-auto">
                 <div className="flex justify-center mb-5 flex-wrap">
                     <a href="/about" className='text-white px-4 py-2 text-sm'>About Us </a>
