@@ -2,7 +2,7 @@
 
 const about = () => {
   return (
-    <section className="container mx-auto mt-10 max-w-[1200]">
+    <section className="container mx-auto mt-10 max-w-[1200px]">
         {/* <div className="grid md:grid-cols-2 my-12"> */}
         <div className="my-12">
             {/* <div className="columns-1">
