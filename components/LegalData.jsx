@@ -20,7 +20,7 @@ useEffect(()=>{
     // console.log( 'ldata', ldata)
      
   return (
-    <section className="container mx-auto py-10">
+    <section className="container mx-auto z-[1200] py-10">
         {/* <h1>Data</h1> */}
         <div className="py-4 px-2 ">
             <div  dangerouslySetInnerHTML={{ __html: ldata.content }}></div>

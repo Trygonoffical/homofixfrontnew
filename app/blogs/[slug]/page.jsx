@@ -41,7 +41,7 @@ const BlogPage = ({ params }) => {
         {/* <div className="bg-[url('/herobg.svg')] bg-bottom bg-no-repeat bg-cover text-center text-white py-20">
           <h2 className="text-3xl font-bold py-4 md:py-9">{blog.title}</h2>-mt-10 
         </div> */}
-        <div className="container mx-auto pb-20 p-4">
+        <div className="container mx-auto z-[1200] pb-20 p-4">
           <div className="img mx-auto pb-5">
           {/* <div className="img max-w-[350px] md:max-w-[550px]  mx-auto"> */}
             <img src={blog.feature_img} alt="feature image" width="100%"  />
