@@ -237,7 +237,7 @@ const handleVerificationCoupon = async () => {
       // //console.log( 'selected pros',selectedProduct)
 
   return (
-      <section className="container mx-auto py-10">
+      <section className="container mx-auto py-10 max-w-[1200px]">
         <div className="bg-gradient-to-r from-bgleft to-Orange text-center py-8" >
             <h2 className="text-3xl font-bold text-white">{subCat.Category_name}</h2>
             {/* <img src={subCat.subcategory_image} alt={subCat.Category_name} width={250} /> */}
