@@ -5,7 +5,7 @@ export const Footer = () => {
     const ComingSoons = ['Mumbai', 'Pune', 'Hyderabad', 'Bangalore', 'Kolkata', 'Jaipur', 'Chandigarh', 'Lucknow', 'Gorakhpur'];
   return (
     <section >
-        <div className="w-full bg-black py-10 max-w-[1200px]">
+        <div className="w-full bg-black py-10 ">
             <div className="container mx-auto">
                 <div className="flex justify-center mb-5 flex-wrap">
                     <a href="/about" className='text-white px-4 py-2 text-sm'>About Us </a>
@@ -18,13 +18,13 @@ export const Footer = () => {
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
                 </div>
                 <hr className='border-dotted' />
-                <div className="locations p-4  sm:py-8">
+                <div className="locations p-4  sm:py-8 max-w-[1200px]" >
                     <h3 className='text-white text-lg mb-3  '>Serving in</h3>
                     <div className="flex justify-start flex-wrap">
                     {locations.map((location , idx) => <h1 key={idx} className='text-white p-2 text-sm'>{location}</h1>)}
                     </div>
                 </div>
-                <div className="locations p-4  sm:py-8">
+                <div className="locations p-4  sm:py-8 max-w-[1200px]">
                     <h3 className='text-white text-lg mb-3  '>Coming soon cities</h3>
                     <div className="flex justify-start flex-wrap">
                     {ComingSoons.map((location , idx) => <h1 key={idx} className='text-white p-2 text-sm'>{location}</h1>)}
