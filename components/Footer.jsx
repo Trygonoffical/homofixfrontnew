@@ -18,13 +18,13 @@ export const Footer = () => {
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
                 </div>
                 <hr className='border-dotted' />
-                <div className="locations p-4  sm:py-8 max-w-[1200px]" >
+                <div className="locations p-4  sm:py-8 max-w-[1200px] mx-auto" >
                     <h3 className='text-white text-lg mb-3  '>Serving in</h3>
                     <div className="flex justify-start flex-wrap">
                     {locations.map((location , idx) => <h1 key={idx} className='text-white p-2 text-sm'>{location}</h1>)}
                     </div>
                 </div>
-                <div className="locations p-4  sm:py-8 max-w-[1200px]">
+                <div className="locations p-4  sm:py-8 max-w-[1200px] mx-auto">
                     <h3 className='text-white text-lg mb-3  '>Coming soon cities</h3>
                     <div className="flex justify-start flex-wrap">
                     {ComingSoons.map((location , idx) => <h1 key={idx} className='text-white p-2 text-sm'>{location}</h1>)}
