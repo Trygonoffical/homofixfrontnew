@@ -75,7 +75,7 @@ const slugify = (text) => {
 };
   return (
     <section className={bgImg}>
-    <div className="container mx-auto py-5 md:py-10 md:mt-10 pt-4 md:border-none border-t-4 border-b-4 border-t-gray-300 border-b-gray-300">
+    <div className="container max-w-[1200px] mx-auto py-5 md:py-10 md:mt-10 pt-4 md:border-none border-t-4 border-b-4 border-t-gray-300 border-b-gray-300">
         <h2 className='md:text-2xl text-center font-semibold'>{serv.title}</h2>
         <div className=" md:mt-9">
          
