@@ -49,7 +49,7 @@ const page = ({ params }) => {
        
         {/* <h2 className="text-3xl text-center"> <strong>{jobs.title}</strong> </h2> */}
         {jobs.title && (
-           <div className="container mx-auto z-[1200] my-10 px-4 md:px-0">
+           <div className="container mx-auto max-w-[1200] my-10 px-4 md:px-0">
             <h2 className="text-3xl text-center">
               <strong>{jobs.title}</strong>
             </h2>

@@ -29,7 +29,7 @@ const data = () => {
       }, []);
      
   return (
-    <section className="container mx-auto z-[1200] py-20">
+    <section className="container mx-auto max-w-[1200] py-20">
         {/* <h1>Data</h1> */}
         <div className="grid md:grid-cols-4 gap-4 ">
             {blogs.map((blog) => 

@@ -38,7 +38,7 @@ const CarrerPage = () => {
   // const jobOverview = jobs[0]?.description.match(/<strong>Job Overview:<\/strong>(.*?)<p>&nbsp;<\/p>/s);
   return (
     <>
-    <section className="container mx-auto z-[1200] my-10 px-4 md:px-0">
+    <section className="container mx-auto max-w-[1200] my-10 px-4 md:px-0">
         <h2 className="text-3xl text-center">Explore <strong> Exciting Opportunities </strong> at HomOfix Company!</h2>
         <p className="text-center py-5 mb-9 md:px-9 ">We're thrilled to announce a new job opening at HomOfix Company, and we invite talented individuals like you to join our dynamic team. Take the next step in your career by applying for this fantastic opportunity. </p>
 
