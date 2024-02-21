@@ -101,7 +101,7 @@ const ExclusiveOffer = (props) => {
   }, [props.url]);
 
   return (
-    <section className="container mx-auto py-10 md:mt-10">
+    <section className="container mx-auto py-10 md:mt-10 ">
       <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
@@ -124,7 +124,7 @@ const ExclusiveOffer = (props) => {
            ) }
       </div>
       
-<div className="md:pt-10 overflow-hidden hidden md:block">
+<div className="md:pt-10 overflow-hidden hidden md:block max-w-[1200px]">
 {offer.length > 0 && (
             <Carousel 
             additionalTransfrom={0}

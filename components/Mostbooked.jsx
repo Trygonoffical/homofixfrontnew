@@ -39,10 +39,10 @@ const Mostbooked =  ({url}) => {
     
   return (
     // <section className="w-full bg-[url('/bgimg.jpg')] py-10 mt-10">
-    <section className="w-full py-5 md:py-10 md:bg-gray-100 max-w-[1200px]">
+    <section className="w-full py-5 md:py-10 md:bg-gray-100 ">
     {/* // <section className="Hservice w-fullpy-10 mt-10" style="background: url('/assets/') 0% 100% no-repeat, url('') 100% 0% no-repeat;"> */}
         <h2 className=' md:text-2xl text-center font-semibold '>Most Booked</h2>
-        <div className="pt-4 md:pt-10 overflow-hidden">
+        <div className="pt-4 md:pt-10 overflow-hidden max-w-[1200px]">
             <Carousel 
             centerMode={true} 
             responsive={responsive}
