@@ -124,7 +124,7 @@ const ExclusiveOffer = (props) => {
            ) }
       </div>
       
-<div className="md:pt-10 overflow-hidden hidden md:block max-w-[1200px]">
+<div className="md:pt-10 overflow-hidden hidden md:block max-w-[1200px] mx-auto">
 {offer.length > 0 && (
             <Carousel 
             additionalTransfrom={0}
