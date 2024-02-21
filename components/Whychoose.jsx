@@ -2,7 +2,7 @@
 
 const Whychoose = () => {
   return (
-    <section className='container mx-auto px-2 py-5 md:mt-10' >
+    <section className='container mx-auto px-2 max-w-[1200px] py-5 md:mt-10' >
         <h2 className='md:text-2xl text-center font-semibold'>Why Choose Us?</h2>
         <div className="grid  md:grid-cols-4 py-9 text-center">
             <div className="columns-1 text-center bg-gray-100 m-1 py-4">
