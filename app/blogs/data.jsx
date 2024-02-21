@@ -37,7 +37,7 @@ const data = () => {
                
                     <Link href={`/blogs/${slugify(blog.title)}`} >
                         <img src={blog.feature_img} alt="feature image" width="100%"  />
-                        <h2 className='py-4 text-center'>{blog.title}</h2>
+                        <h2 className='py-5 text-center'>{blog.title}</h2>
                     </Link>
                 </div>
             )}

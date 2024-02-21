@@ -5,9 +5,9 @@ const Tophead = ({slug}) => {
     
   return (
     <section className="bg-[url('/headerbg.jpg')] bg-bottom bg-no-repeat bg-cover text-white">
-        <div className="container mx-auto py-20 flex flex-col justify-center  md:justify-between md:flex-row">
+        <div className="container mx-auto py-20 flex flex-col justify-center px-5  md:justify-between md:flex-row">
             <h2 className='text-3xl text-center pb-4  md:text-left md:pb-0'>{slug}</h2>
-            <div className="slug text-center md:text-right px-3" >
+            <div className="slug text-center md:text-right " >
                <Link href={'/'}>
                Home
                </Link>
