@@ -39,7 +39,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsgName, setErrorMsgName] = useState('');
   const [originalCity, setOriginalCity] = useState('');
 
-  const currentworkingcities = ['Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar', 'Chapra', 'Chhapra', 'Siwan', 'Patna', 'Patna Sadar', 'Patna City'];
+  const currentworkingcities = ['Central Delhi', 'Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar', 'Chapra', 'Chhapra', 'Siwan', 'Patna', 'Patna Sadar', 'Patna City'];
   
   const [cityerrormsg , setCityErrorMsg] = useState('')
 
