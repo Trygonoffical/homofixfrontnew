@@ -26,7 +26,7 @@ const AddonPage = () => {
         if (res.ok) {
           const JobData = await res.json();
           setAddons(JobData);
-          // console.log('JobData', JobData)
+          console.log('addon', JobData)
           // console.log('jab', jobs)
         } else {
           console.error('Error fetching user profile data');
@@ -122,17 +122,17 @@ const AddonPage = () => {
                               addons.map((addon, idx) => (
                                 // Add a condition to check if the addon belongs to the current subcategory
                                 subcatlist.id === addon.product.subcategory && (
-                                  <tr key={idx} className="border-b border-gray-200 dark:border-gray-700">
-                                    <th scope="row" className="px-6 py-4">
+                                  <tr key={idx} className="border-b border-gray-200 md:px-6 dark:border-gray-700">
+                                    <td scope="row" className=" py-4">
                                       {addon.spare_part}
-                                    </th>
-                                    <td className="px-6 py-4">₹ {addon.price}</td>
+                                    </td>
+                                    <td colSpan="2" className="text-right py-4">₹ {addon.price}</td>
                                   </tr>
                                 )
                               ))
                             ) : (
                               <tr>
-                                <td colSpan="2" className="px-6 py-4 text-center">
+                                <td colSpan="2" className=" py-4 text-center">
                                   No addons found.
                                 </td>
                               </tr>
