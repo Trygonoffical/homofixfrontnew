@@ -84,13 +84,20 @@ const Profile = () => {
     // Fetch user profile data when the component mounts
     
 //   }, []);
-useEffect(() => {
+const custURL = 'https://support.homofixcompany.com/api/Customer/';
+const bokkingURL = 'https://support.homofixcompany.com/api/Customer-Booking-Details/';
 
+useEffect(() => {
   const fetchData = async () => {
     const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
 
     if (!token) {
       // Redirect to the homepage if there is no token
+      // setToken(null);
+      // setUserInfo(null);
+      // Clear user data from local storage
+      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
       router.push('/');
       return;
     }
@@ -98,7 +105,8 @@ useEffect(() => {
     try {
       // Fetch user profile data
       setLoading(true)
-      const responseProfile = await fetch('https://support.homofixcompany.com/api/Customer/', {
+
+      const responseProfile = await fetch(custURL, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -114,7 +122,7 @@ useEffect(() => {
       // Check if there is user data before fetching bookings
       if (userData.length > 0) {
         // Fetch booking details
-        const responseBooking = await fetch('https://support.homofixcompany.com/api/Customer-Booking-Details/', {
+        const responseBooking = await fetch(bokkingURL, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -126,29 +134,31 @@ useEffect(() => {
 
         const bookingData = await responseBooking.json();
         setBookings(bookingData.reverse());
-        // console.log('bookingData', bookingData)
+        console.log('bookingData 121', bookingData)
       }
       setLoading(false)
     } catch (error) {
       console.error('Error fetching data:', error);
+      localStorage.removeItem("token");
+      localStorage.removeItem("userInfo");
       router.push('/');
     }
   };
 
   fetchData();
-}, []);
+}, [bokkingURL]);
 
 // let categories = ['Bookings','Profile']
   return (
     <>
-    {loading ? <Loading /> : (
+    {/* {loading ? <Loading /> : ( */}
       <div className="container mx-auto md:py-3">
       <div className="bg-gradient-to-r from-bgleft to-Orange text-center py-20 -mb-10">
         <h2 className="text-3xl font-bold text-white">Account</h2>
       </div>
       <BookingTab bookings={bookings} userProfileInfo={userProfileInfo} />
     </div>
-    ) }
+    {/* ) } */}
     
     </>
   );
