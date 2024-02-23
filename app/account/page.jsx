@@ -12,78 +12,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [userData, setUserData] = useState([])
-  // useEffect(() => {
-  //  const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
-  //   const fetchUserProfile = async () => {
-  //       const URL = 'https://support.homofixcompany.com/api/Customer/'
-  //     try {
-  //       // Make the API call to fetch the user profile data
-  //       const response = await fetch(URL, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //       if (response.ok) {
-  //         const userData = await response.json();
-  //         //console.log('userData', userData)
-  //         //console.log('token val', token)
-  //         setUserProfileInfo(userData[0]);
-  //         //console.log('usprofile', userProfileInfo)
-  //       } else {
-  //         // Handle error case when the response is not ok
-  //         //console.log('token val in error', token)
-
-  //         console.error('Error fetching user profile data');
-  //       //   router.push('/'); // Redirect to homepage if there is an error
-  //       }
-  //     } catch (error) {
-  //       // Handle error case when an exception occurs during the API call
-  //       console.error('Error fetching user profile data:', error);
-  //       // router.push('/'); // Redirect to homepage if there is an error
-  //     }
-  //   } 
-  //   const fetchBookingDetails = async ()=>{
-  //     const URL2 = 'https://support.homofixcompany.com/api/Customer-Booking-Details/'
-
-  //     try {
-  //       // Make the API call to fetch the user profile data
-  //       const response = await fetch(URL2, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //       if (response.ok) {
-  //         const bookingData = await response.json();
-          // console.log('bookingData', bookingData)
-  //         // const latestbooking = userData[userData.length - 1];
-  //         setBookings(bookingData.reverse())
-  //       } else {
-  //         // Handle error case when the response is not ok
-  //         // //console.log('token val in error', token)
-
-  //         console.error('Error fetching user profile data');
-  //       //   router.push('/'); // Redirect to homepage if there is an error
-  //       }
-  //     } catch (error) {
-  //       // Handle error case when an exception occurs during the API call
-  //       console.error('Error fetching user profile data:', error);
-  //       // router.push('/'); // Redirect to homepage if there is an error
-  //     }
-  //   }
-  //   if (!token) {
-  //       // Redirect to the homepage if there is no token
-  //       router.push('/');
-  //     } else {
-  //       fetchUserProfile();
-  //       fetchBookingDetails();
-  //     }
-  //   }, [])
-
-    // Fetch user profile data when the component mounts
-    
-//   }, []);
+  
 const custURL = 'https://support.homofixcompany.com/api/Customer/';
 const bokkingURL = 'https://support.homofixcompany.com/api/Customer-Booking-Details/';
 

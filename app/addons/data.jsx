@@ -126,7 +126,7 @@ const AddonPage = () => {
                                     <th scope="row" className="px-6 py-4">
                                       {addon.spare_part}
                                     </th>
-                                    <td className="px-6 py-4">{addon.price}</td>
+                                    <td className="px-6 py-4">₹ {addon.price}</td>
                                   </tr>
                                 )
                               ))
