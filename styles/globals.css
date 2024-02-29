@@ -23,7 +23,7 @@ body {
   
 }
 ol,ul{
-  list-style: auto;
+  list-style: inherit;
   padding-left: revert;
 }
 
