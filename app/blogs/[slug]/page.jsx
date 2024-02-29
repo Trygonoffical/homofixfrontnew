@@ -15,7 +15,7 @@ const BlogPage = ({ params }) => {
 
         if (res.ok) {
           setBlog(blogsData);
-          console.log('Blogs:', blogsData)
+          // console.log('Blogs:', blogsData)
         } else {
           // console.log('Error response:', res);
         }

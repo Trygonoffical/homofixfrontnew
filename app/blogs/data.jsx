@@ -36,8 +36,8 @@ const data = () => {
                 <div className="column-1 shadow mx-2" key={blog.id}>
                
                     <Link href={`/blogs/${slugify(blog.title)}`} >
-                        <img src={blog.feature_img} alt="feature image" width="100%"  />
-                        <h2 className='py-5 text-center'>{blog.title}</h2>
+                        <img src={blog.feature_img} alt="feature image" width="100%"  className="blogimg" />
+                        <h2 className='py-5 px-2 text-center'>{blog.title}</h2>
                     </Link>
                 </div>
             )}
