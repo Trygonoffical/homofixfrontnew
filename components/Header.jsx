@@ -125,9 +125,6 @@ export default function Example() {
     authContext.logout();
   };
   const handleVerifyOTP = async () => {
-  // Implement the logic to verify the OTP on the backend
-  // //console.log(verificationCode)
-  // //console.log(otpval)
   if (verificationCode == otpval){
     try {
       const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
