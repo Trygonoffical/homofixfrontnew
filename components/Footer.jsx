@@ -50,7 +50,7 @@ export const Footer = () => {
                 <hr className='border-dotted' />
 
                 <div className="copyright py-6 text-center">
-                    <h5 className="text-white text-sm">© 2023 Homofix Technologies Pvt. Ltd. All Rights Reserved.
+                    <h5 className="text-white text-sm">© 2023 HomOfix Technologies Pvt. Ltd. All Rights Reserved.
                      {/* Designed By <a href="https://trygon.in" className="text-indigo">TRYGON</a> */}
                     </h5>
                 </div>

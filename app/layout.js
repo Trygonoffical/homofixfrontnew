@@ -12,7 +12,7 @@ import { Inter } from 'next/font/google'
 import Scripthead from '@/components/Scripthead'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
-  title: 'Homofix Company',
+  title: 'HomOfix Company',
   description: 'Repair, Cleaning, Grooming, Painting & More Services by Expert Professionals. One stop solution for your household needs. Get 100% safe service by verified partners.',
 }
 
