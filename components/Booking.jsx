@@ -412,7 +412,8 @@ const handleOfflinePayment = () => {
     handleProfileDataUpdate();
     setBookingCompleted(true);
     Congratsmesg();
-    setCongBookingShow(true);
+    // setCongBookingShow(true);
+    router.push('/order/thankyou');
   }
   
 
@@ -636,7 +637,8 @@ const handleOnlinePayment2 = async () => {
             handleProfileDataUpdate()
             setBookingCompleted(true);
             Congratsmesg();
-            setCongBookingShow(true);
+            // setCongBookingShow(true);
+            router.push('/order/thankyou');
           }
       },
       theme: "#123456" // color hex
