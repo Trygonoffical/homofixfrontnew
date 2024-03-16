@@ -682,9 +682,9 @@ const handleOnlinePayment2 = async () => {
               <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />
              
               {loading ? <Loading /> :   <>
-               <label htmlFor="Address">Address</label>
+               <label htmlFor="Address">Full Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
-                <label htmlFor="Area">Near by</label>
+                <label htmlFor="Area">Near By</label>
                 <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
                 <label htmlFor="city">City</label>
                 <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  />
