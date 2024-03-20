@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
+import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
 import crypto from "crypto"
 import { XMarkIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
@@ -729,9 +729,11 @@ const handleOnlinePayment2 = async () => {
                 <p className='text-[red] text-sm'>{errormsgadd}</p> 
                </>
             }
-              <div className="">
+              <div className="mt-2">
                 
-                
+              <label htmlFor="bookingDateTime" className="block font-medium text-gray-700 text-sm ">
+                  Select Date & Time 
+                </label>
                 {/* <input
                   type="date"
                   id="bookingDateTime"
@@ -757,28 +759,23 @@ const handleOnlinePayment2 = async () => {
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer
                       components={[
-                        'DateTimePicker',
                         'MobileDateTimePicker',
-                        'DesktopDateTimePicker',
-                        'StaticDateTimePicker',
                       ]}
                     >
                       {/* <DemoItem label="Select Date and Time"> */}
-                        <StaticDateTimePicker 
+                        <MobileDateTimePicker 
                           disablePast
                           defaultValue={dayjs(bookingDateTime)}
                           // minTime={nineAM} 
                           // maxTime={eightPM}
                           // shouldDisableTime={shouldDisableTime}
-                          onChange={(value, context) => {
-                            setBookingDateTime(value);
-                        }}
+                          onChange={(value) => {setBookingDateTime(value)}}
                         />
                       {/* </DemoItem> */}
                     </DemoContainer>
                   </LocalizationProvider>
 
-                  <label htmlFor="bookingDateTime" className="block font-medium text-[red] text-xs">
+                  <label htmlFor="bookingDateTime" className="block font-medium text-[red] text-xs mt-2">
                   Please Select Time between 9AM to 8PM ( focus on AM & PM while seclecting hours) 
                 </label>
 {/* 
