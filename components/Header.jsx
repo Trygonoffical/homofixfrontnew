@@ -82,6 +82,8 @@ export default function Example() {
   const handleSendOTP = async () => {
     // setshowLogin(false);
     // //console.log('inclick')
+    setshowLogin(false)
+    setshowOtpLogin(true)
     try {
       const url = "https://support.homofixcompany.com/api/Send/Otp/";
       const response = await fetch(url , {
@@ -96,14 +98,18 @@ export default function Example() {
       // //console.log(otpSession)
       setotpval(otpSession);
       // const response = true;
-      if (response) {
+      if (!response) {
         // //console.log('Response:', result);
-        setshowLogin(false)
-        setshowOtpLogin(true)
-        // setMessage('OTP has been sent successfully!');
-      } else {
+        setshowLogin(true)
+        setshowOtpLogin(false)
         setMessage('Failed to send OTP. Please try again.');
+        // setMessage('OTP has been sent successfully!');
       }
+      //  else {
+      //   setshowLogin(true)
+      //   setshowOtpLogin(false)
+      //   setMessage('Failed to send OTP. Please try again.');
+      // }
     } catch (error) {
       // //console.log(error);
       setMessage('catch Failed to send OTP. Please try again.');

@@ -5,7 +5,11 @@ import { useState, useEffect } from 'react';
 import CongBooking from './CongBooking';
 // import Razorpay  from 'react-razorpay';
 // import Razorpay from 'react-razorpay';
-import Script from "next/script";
+import dayjs from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker';
 import crypto from "crypto"
 import { XMarkIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
@@ -21,6 +25,8 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [longitude, setLongitude] = useState(null);
   const [address, setAddress] = useState(null);
   const [bookingDateTime, setBookingDateTime] = useState('');
+  const [bookingDate, setBookingDate] = useState('');
+  const [bookingTime, setBookingTime] = useState('');
   const [name , setName] = useState('')
   const [add , setAdd] = useState('')
   const [area , setArea] = useState('')
@@ -38,8 +44,12 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsgadd, setErrorMsgAdd] = useState('');
   const [errormsgName, setErrorMsgName] = useState('');
   const [originalCity, setOriginalCity] = useState('');
-
-  const currentworkingcities = ['Central Delhi', 'Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar', 'Chapra', 'Chhapra', 'Siwan', 'Patna', 'Patna Sadar', 'Patna City'];
+  const nineAM = dayjs().set('hour', 9).startOf('hour');
+  const eightPM = dayjs().set('hour', 20).startOf('hour');
+  const shouldDisableTime= ()=>{(value, view) =>
+    view === 'hours' && value.hour() > 9 && value.hour() < 20
+  }
+  const currentworkingcities = ['Central Delhi', 'Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar'];
   
   const [cityerrormsg , setCityErrorMsg] = useState('')
 
@@ -47,6 +57,31 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
+
+  useEffect(() => {
+    const currentDate = new Date();
+    const currentHour = currentDate.getHours();
+
+    let nextBookingDate = new Date();
+    let nextBookingTime = '';
+
+    if (currentHour >= 20) { // If current time is 8 PM or later
+      nextBookingDate.setDate(currentDate.getDate() + 1); // Move to the next day
+      nextBookingTime = '21:00'; // Set the default time to 9 PM
+    } else {
+      nextBookingTime = `${currentHour + 1}:00`; // Set the default time to the next hour
+    }
+
+    const year = nextBookingDate.getFullYear();
+    const month = String(nextBookingDate.getMonth() + 1).padStart(2, '0');
+    const day = String(nextBookingDate.getDate()).padStart(2, '0');
+    const newdateupdate = `${year}-${month}-${day}`;
+    setBookingDate(`${year}-${month}-${day}`);    
+    setBookingTime(nextBookingTime);
+    
+    const bookingDateTimeString = `${newdateupdate}T${nextBookingTime}:00+05:30`; 
+    setBookingDateTime(bookingDateTimeString);
+  }, []);
 
   useEffect(() => {
     // Check if the selected city is in the currentworkingcities array
@@ -85,9 +120,21 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     // Set the minimum date and time for the input
     setMinDateTime(formattedMinDateTime);
   }, []);
-  const handleDateTimeChange = (event) => {
-    setBookingDateTime(event.target.value);
+  
+  const handleDateChange = (event) => {
+    const selectedDate = e.target.value;
+    setBookingDate(selectedDate);
   };
+  const handleTimeChange = (e) => {
+
+    setBookingTime(e.target.value);
+  };
+
+  const handleDateTimeChange = (e) => {
+    console.log('datetime value = ',e.target.value);
+    setBookingDateTime(e.target.value);
+  };
+
 //   const [bookingDate, setBookingDate] = useState('');
 //   const [bookingTime, setBookingTime] = useState('');
 
@@ -168,30 +215,7 @@ useEffect(() => {
       }
 }, [URL]);
 
-// const congratstextmsg = () =>{
-//   console.log('in sms filed');
-//   const smsurl = `http://sms.webtextsolution.com/sms-panel/api/http/index.php?username=Homofix&apikey=21141-B77C6&apirequest=Text&sender=HOMOFX&mobile=${userProfileInfo.mobile}&message=Dear Customer,Your service has been successfully booked. Our Service Expert will arrive as scheduled on the agreed date and time. Thank you for choosing HomOfix Company&route=TRANS&TemplateID=1407170037761317839&format=JSON`;
-//   const getsms = async () =>{
-//     try {
-//         const response = await fetch(smsurl, {
-//           method: "GET",
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         });
-    
-//         if (response.ok) {
-//           const data = await response.json();
-//           console.log('sms send ', response);
-//         } else {
-//           console.error("Request failed with status:", response.status);
-//         }
-//       } catch (error) {
-//         console.error("An error occurred:", error);
-//       }
-// }
-// getsms();
-// }
+
 
 const handleProfileDataUpdate = () =>{
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; // Replace with your actual authentication token
@@ -404,6 +428,8 @@ const handleOfflinePayment = () => {
     setErrorMsgName('Please Enter Name');
     return;
   }
+  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  // setBookingDateTime(bookingDateTimeString);
   if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
@@ -648,6 +674,10 @@ const handleOnlinePayment2 = async () => {
   
 }
   
+// const handleInputClick = () => {
+//   const inputField = document.getElementById('bookingDateTime');
+//   inputField.click();
+// };
   return (
     <>
       <button className={cnames} onClick={() => setBookingShow(true)}>
@@ -699,19 +729,66 @@ const handleOnlinePayment2 = async () => {
                 <p className='text-[red] text-sm'>{errormsgadd}</p> 
                </>
             }
-              <div className="mt-4">
-                <label htmlFor="bookingDateTime" className="block text-sm font-medium text-gray-700">
-                  Select Date and Time
-                </label>
-                <input
-                  type="datetime-local"
+              <div className="">
+                
+                
+                {/* <input
+                  type="date"
                   id="bookingDateTime"
                   name="bookingDateTime"
-                  value={bookingDateTime}
-                  onChange={handleDateTimeChange}
+                  
+                  value={bookingDate}
+                  onChange={handleDateChange}
                   className="w-full py-2 my-2 border-indigo-800"
-                  min={minDateTime}
+                  min={new Date().toISOString().split('T')[0]}
                 />
+
+                  <input
+                  type="time"
+                  id="bookingDateTime"
+                  name="bookingDateTime"
+                  
+                  value={bookingTime}
+                  onChange={handleTimeChange}
+                  className="w-full py-2 my-2 border-indigo-800"
+                  
+                /> */}
+
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DemoContainer
+                      components={[
+                        'DateTimePicker',
+                        'MobileDateTimePicker',
+                        'DesktopDateTimePicker',
+                        'StaticDateTimePicker',
+                      ]}
+                    >
+                      {/* <DemoItem label="Select Date and Time"> */}
+                        <StaticDateTimePicker 
+                          disablePast
+                          defaultValue={dayjs(bookingDateTime)}
+                          minTime={nineAM} 
+                          maxTime={eightPM}
+                          // shouldDisableTime={shouldDisableTime}
+                          onChange={(value, context) => {
+                            setBookingDateTime(value);
+                        }}
+                        />
+                      {/* </DemoItem> */}
+                    </DemoContainer>
+                  </LocalizationProvider>
+
+                  <label htmlFor="bookingDateTime" className="block font-medium text-[red] text-xs">
+                  Please Select Time between 9AM to 8PM ( focus on AM & PM while seclecting hours) 
+                </label>
+{/* 
+              <DateTimePicker 
+                  onChange={handleDateTimeChange}
+                  value={bookingDateTime}
+                  clockClassName='w-full py-2 my-2 border-indigo-800'
+                  // className="w-full py-2 my-2 border-indigo-800"
+                   /> */}
+                
                 
               </div>
              <p className='text-[red] text-sm'>{errormsg}</p> 
