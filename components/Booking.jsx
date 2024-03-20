@@ -790,8 +790,8 @@ const handleOnlinePayment2 = async () => {
               </div>
              <p className='text-[red] text-sm'>{errormsg}</p> 
               <div className='py-3'>
-                <h3>Payment Method</h3>
-                <div className='mt-2'>
+                <h3 className='text-center'>Payment Method</h3>
+                {/* <div className='mt-2'>
                 {paymentMethod=='Online' ? (
                   <input type="radio" name="PAYMENT" id="payment-method" 
                   value='Online' 
@@ -807,15 +807,15 @@ const handleOnlinePayment2 = async () => {
                 
 
                 <label htmlFor="PAYMENT"> Make Payment</label><br />
-                </div>
-                <div className='mt-2'>
+                </div> */}
+                {/* <div className='mt-2'>
                 <input type="radio" name="PAYMENT" id="payment-method"
                  value='Cash'
                  onChange={()=>{handlePaymentChange('Cash')}}   />
                 <label htmlFor="PAYMENT"> Cash on Service</label><br />
-                </div>
+                </div> */}
                 
-                {paymentMethod=='Online' ? (
+                {/* {paymentMethod=='Online' ? (
                     <>
                     <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto '
                       onClick={() => {
@@ -829,9 +829,18 @@ const handleOnlinePayment2 = async () => {
                 ):(
                     <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto ' onClick={handleOfflinePayment} >Book Now</button>
 
-                )}
+                )} */}
+                <div className='flex justify-between'>
+                <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto '
+                      onClick={() => {
+                        handleOnlinePayment2()
+                      }}
+                      >
+                      Pay Now
+                    </button>
+                    <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto ' onClick={handleOfflinePayment} >Cash on Service</button>
+                </div>
                 
-
               </div>
             </div>
           </div>
