@@ -767,8 +767,8 @@ const handleOnlinePayment2 = async () => {
                         <StaticDateTimePicker 
                           disablePast
                           defaultValue={dayjs(bookingDateTime)}
-                          minTime={nineAM} 
-                          maxTime={eightPM}
+                          // minTime={nineAM} 
+                          // maxTime={eightPM}
                           // shouldDisableTime={shouldDisableTime}
                           onChange={(value, context) => {
                             setBookingDateTime(value);
