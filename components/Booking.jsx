@@ -10,6 +10,9 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { MobileDateTimePicker } from '@mui/x-date-pickers/MobileDateTimePicker';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import crypto from "crypto"
 import { XMarkIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
@@ -44,6 +47,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [errormsgadd, setErrorMsgAdd] = useState('');
   const [errormsgName, setErrorMsgName] = useState('');
   const [originalCity, setOriginalCity] = useState('');
+  const [dfVal, setDfval] = useState('');
   const nineAM = dayjs().set('hour', 9).startOf('hour');
   const eightPM = dayjs().set('hour', 20).startOf('hour');
   const shouldDisableTime= ()=>{(value, view) =>
@@ -52,7 +56,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const currentworkingcities = ['Central Delhi', 'Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar'];
   
   const [cityerrormsg , setCityErrorMsg] = useState('')
-
+  let defaultValue = '';
   const router = useRouter();
   // const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
 //   const [paymentID , setPaymentID] = useState(null)
@@ -68,21 +72,45 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     if (currentHour >= 20) { // If current time is 8 PM or later
       nextBookingDate.setDate(currentDate.getDate() + 1); // Move to the next day
       nextBookingTime = '21:00'; // Set the default time to 9 PM
+      defaultValue =  dayjs().set('hour', 21).set('minute', 50).startOf('minute');
+      // console.log('inside condition def vl = ', defaultValue)
+      setDfval(defaultValue);
     } else {
       nextBookingTime = `${currentHour + 1}:00`; // Set the default time to the next hour
+      defaultValue = dayjs().set('hour', `${currentHour+1}`).set('minute', 50).startOf('minute');
+      // console.log('else condition def vl = ', defaultValue)
+      setDfval(defaultValue);
     }
-
+    // const defaultValue = dayjs().set('hour', `${currentHour+1}`).set('minute', 50).startOf('minute');
+    // console.log('currentHour',currentHour);
+    // const defaultValue = nextBookingTime ;
+    // dayjs().set('hour', currentHour).set('minute', 50).startOf('minute');
     const year = nextBookingDate.getFullYear();
     const month = String(nextBookingDate.getMonth() + 1).padStart(2, '0');
     const day = String(nextBookingDate.getDate()).padStart(2, '0');
     const newdateupdate = `${year}-${month}-${day}`;
     setBookingDate(`${year}-${month}-${day}`);    
     setBookingTime(nextBookingTime);
-    
+    // console.log(nextBookingTime)
     const bookingDateTimeString = `${newdateupdate}T${nextBookingTime}:00+05:30`; 
     setBookingDateTime(bookingDateTimeString);
   }, []);
+  // useEffect(()=>{
+  //   const currentDate = new Date();
 
+  //   let year = currentDate.getFullYear();
+  //   let month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
+  //   let day = ('0' + currentDate.getDate()).slice(-2);
+
+  //   let formattedDate = `${year}-${month}-${day}`;
+  //   console.log('currentdata = ', currentDate)
+  //   console.log('bookingdata = ', bookingDate)
+  //   if(formattedDate != bookingDate){
+  //     defaultValue =  dayjs().set('hour', 9).set('minute', 50).startOf('minute');
+  //     // console.log('inside condition def vl = ', defaultValue)
+  //     setDfval(defaultValue);
+  //   }
+  // }, [bookingDate]);
   useEffect(() => {
     // Check if the selected city is in the currentworkingcities array
 
@@ -121,19 +149,20 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     setMinDateTime(formattedMinDateTime);
   }, []);
   
-  const handleDateChange = (event) => {
-    const selectedDate = e.target.value;
-    setBookingDate(selectedDate);
-  };
-  const handleTimeChange = (e) => {
+  // const handleDateChange = (datedata) => {
+  //   const selectedDate = datedata;
+  //   setBookingDate(datedata);
+  //   setBookingTime
+  // };
+  // const handleTimeChange = (e) => {
 
-    setBookingTime(e.target.value);
-  };
+  //   setBookingTime(e.target.value);
+  // };
 
-  const handleDateTimeChange = (e) => {
-    console.log('datetime value = ',e.target.value);
-    setBookingDateTime(e.target.value);
-  };
+  // const handleDateTimeChange = (e) => {
+  //   console.log('datetime value = ',e.target.value);
+  //   setBookingDateTime(e.target.value);
+  // };
 
 //   const [bookingDate, setBookingDate] = useState('');
 //   const [bookingTime, setBookingTime] = useState('');
@@ -731,7 +760,7 @@ const handleOnlinePayment2 = async () => {
             }
               <div className="mt-2">
                 
-              <label htmlFor="bookingDateTime" className="block font-medium text-gray-700 text-sm ">
+              <label htmlFor="bookingDateTime" className="block font-medium text-gray-700 text-sm mb-2">
                   Select Date & Time 
                 </label>
                 {/* <input
@@ -760,10 +789,11 @@ const handleOnlinePayment2 = async () => {
                     <DemoContainer
                       components={[
                         'MobileDateTimePicker',
+                        'TimePicker',
                       ]}
                     >
                       {/* <DemoItem label="Select Date and Time"> */}
-                        <MobileDateTimePicker 
+                        {/* <MobileDateTimePicker 
                           disablePast
                           defaultValue={dayjs(bookingDateTime)}
                           value={dayjs(bookingDateTime)}
@@ -771,14 +801,47 @@ const handleOnlinePayment2 = async () => {
                           // maxTime={eightPM}
                           shouldDisableTime={shouldDisableTime}
                           onChange={(value) => {setBookingDateTime(value)}}
-                        />
+                          
+                        /> */}
                       {/* </DemoItem> */}
+
+                      
+                        {/* <DatePicker 
+                        disablePast
+                        label="Pick Date"
+                        defaultValue={dayjs(bookingDateTime)} 
+                        onChange={(newDate)=>{setBookingDate(newDate)}}
+                        /> */}
+                     
+                      {/* <TimePicker
+                        label="Pick Time Slot"
+                        disablePast
+                        defaultValue={dfVal}
+                        value={dfVal}
+                        views={['hours']}
+                        minTime={nineAM} 
+                        maxTime={eightPM}
+                        shouldDisableTime={shouldDisableTime}
+                        onChange={(newValue) => setBookingTime(newValue)}
+                        
+                      /> */}
+
+                    <DateTimePicker
+                      label="Date & Time"
+                      disablePast
+                          defaultValue={dayjs(bookingDateTime)}
+                          value={dayjs(bookingDateTime)}
+                          shouldDisableTime={shouldDisableTime}
+                          onChange={(value) => {setBookingDateTime(value)}}
+                    />
                     </DemoContainer>
+
+                    
                   </LocalizationProvider>
 
-                  <label htmlFor="bookingDateTime" className="block font-medium text-basecolor text-xs mt-2">
+                  {/* <label htmlFor="bookingDateTime" className="block font-medium text-basecolor text-xs mt-2">
                   Please Select Time between 9AM to 8PM ( focus on AM & PM while selecting hours) 
-                </label>
+                </label> */}
 {/* 
               <DateTimePicker 
                   onChange={handleDateTimeChange}
