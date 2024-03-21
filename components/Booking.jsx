@@ -766,16 +766,17 @@ const handleOnlinePayment2 = async () => {
                         <MobileDateTimePicker 
                           disablePast
                           defaultValue={dayjs(bookingDateTime)}
+                          value={dayjs(bookingDateTime)}
                           // minTime={nineAM} 
                           // maxTime={eightPM}
-                          // shouldDisableTime={shouldDisableTime}
+                          shouldDisableTime={shouldDisableTime}
                           onChange={(value) => {setBookingDateTime(value)}}
                         />
                       {/* </DemoItem> */}
                     </DemoContainer>
                   </LocalizationProvider>
 
-                  <label htmlFor="bookingDateTime" className="block font-medium text-[red] text-xs mt-2">
+                  <label htmlFor="bookingDateTime" className="block font-medium text-basecolor text-xs mt-2">
                   Please Select Time between 9AM to 8PM ( focus on AM & PM while selecting hours) 
                 </label>
 {/* 
