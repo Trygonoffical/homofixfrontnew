@@ -142,15 +142,15 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     setMinDateTime(formattedMinDateTime);
   }, []);
   
-  // const handleDateChange = (datedata) => {
-  //   const selectedDate = datedata;
-  //   setBookingDate(datedata);
-  //   setBookingTime
-  // };
-  // const handleTimeChange = (e) => {
+  const handleDateChange = (e) => {
+    // const selectedDate = datedata;
+    setBookingDate(e.target.value);
+    // setBookingTime
+  };
+  const handleTimeChange = (e) => {
 
-  //   setBookingTime(e.target.value);
-  // };
+    setBookingTime(e.target.value);
+  };
 
   // const handleDateTimeChange = (e) => {
   //   console.log('datetime value = ',e.target.value);
@@ -450,9 +450,9 @@ const handleOfflinePayment = () => {
     setErrorMsgName('Please Enter Name');
     return;
   }
-  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
-  // setBookingDateTime(bookingDateTimeString);
-  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
+  const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  setBookingDateTime(bookingDateTimeString);
+  if(bookingDateTimeString != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
@@ -629,7 +629,9 @@ const handleOfflinePayment = () => {
 }
 const handleOnlinePayment2 = async () => {
   //console.log('bookingtime = ',bookingDateTime )
-  if(bookingDateTime == '') {
+  const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  setBookingDateTime(bookingDateTimeString);
+  if(bookingDateTimeString == '') {
     // Display an alert or handle the error in your UI
     setErrorMsg('Please Select Date and Time');
     return;
@@ -647,7 +649,9 @@ const handleOnlinePayment2 = async () => {
     setErrorMsgName('Please Enter Name');
     return;
   }
-  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
+  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  // setBookingDateTime(bookingDateTimeString);
+  if(bookingDateTimeString != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
@@ -756,7 +760,7 @@ const handleOnlinePayment2 = async () => {
               <label htmlFor="bookingDateTime" className="block font-medium text-gray-700 text-sm mb-2">
                   Select Date & Time 
                 </label>
-                <input
+                {/* <input
                   type="datetime-local"
                   id="bookingDateTime"
                   name="bookingDateTime"
@@ -765,18 +769,26 @@ const handleOnlinePayment2 = async () => {
                   onChange={(e)=>setBookingDateTime(e.target.value)}
                   className="w-full py-2 my-2 border-indigo-800"
                   
-                />
+                /> */}
 
-                  {/* <input
+                <input
+                  type="date"
+                  id="bookingDate"
+                  name="bookingDate"
+                  value={bookingDate}
+                  onChange={handleDateChange}
+                  className="w-full py-2 my-2 border-indigo-800"
+                  min={new Date().toISOString().split('T')[0]}
+                /> 
+                  <input
                   type="time"
-                  id="bookingDateTime"
-                  name="bookingDateTime"
-                  
+                  id="bookingTime"
+                  name="bookingTime"
                   value={bookingTime}
                   onChange={handleTimeChange}
                   className="w-full py-2 my-2 border-indigo-800"
                   
-                />  */}
+                /> 
                 
                 
               </div>
