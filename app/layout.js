@@ -33,7 +33,7 @@ export default function RootLayout({ children }) {
               <Footer />
             </body>
             <GoogleTagManager gtmId="GTM-MVVP33ZX" />
-            <GoogleAnalytics gaId="AW-16494970140" />
+            {/* <GoogleAnalytics gaId="AW-16494970140" /> */}
             <GoogleAnalytics gaId="G-KDV329WZFW" />
         </AuthProvider>
         <Scripthead />
