@@ -16,6 +16,15 @@ const MicrosoftClarity = () =>{
                 `,
             }}
         />
+        <Script 
+        id="google-analytics-call-ads"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={`
+        gtag('config', 'AW-16494970140/EFQLCKq4w6AZEJyKtbk9', {
+          'phone_conversion_number': '8130105760'
+        });
+      `}
+        />
     </>
   )
 }
