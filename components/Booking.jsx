@@ -46,8 +46,30 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const shouldDisableTime= ()=>{(value, view) =>
     view === 'hours' && value.hour() > 9 && value.hour() < 20
   }
-  const currentworkingcities = ['Central Delhi', 'Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli, Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar'];
-  
+  const currentworkingcities = ['Central Delhi', 'Delhi', 'New Delhi', 'North West Delhi', 'North Delhi', 'North East Delhi', 'East Delhi', 'West Delhi', 'South West Delhi', 'South Delhi', 'Old Delhi', 'Mehrauli', 'Faridabad', 'Ghaziabad', 'Shahdara', 'Gurgaon', 'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur', 'Kanpur Nagar'];
+  const validcity = ['Delhi', 'New Delhi', 'Faridabad', 'Ghaziabad',  'Gurugram', 'Noida', 'Noida Extension', 'Greater Noida', 'Kanpur'];
+  const statesWithCities = {
+    "Delhi": ["New Delhi", "Delhi"],
+    "Uttar Pradesh": ["Noida", "Kanpur", "Ghaziabad"],
+    "Haryana": ["Gurugram"]
+};
+
+
+    const [selectedState, setSelectedState] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
+    const handleStatenewChange = (e) => {
+        setSelectedState(e.target.value);
+        setState(e.target.value);
+        setSelectedCity(''); // Reset city when state changes
+        setCity('');
+        setOriginalCity('');
+    };
+
+    const handleCitynewChange = (e) => {
+        setSelectedCity(e.target.value);
+        setCity(e.target.value);
+        setOriginalCity(e.target.value);
+    };
   const [cityerrormsg , setCityErrorMsg] = useState('')
   let defaultValue = '';
   const router = useRouter();
@@ -64,8 +86,8 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 
     if (currentHour >= 20) { // If current time is 8 PM or later
       nextBookingDate.setDate(currentDate.getDate() + 1); // Move to the next day
-      nextBookingTime = '21:00'; // Set the default time to 9 PM
-      defaultValue =  dayjs().set('hour', 21).set('minute', 50).startOf('minute');
+      nextBookingTime = '09:00'; // Set the default time to 9 AM
+      defaultValue =  dayjs().set('hour', 9).set('minute', 50).startOf('minute');
       // console.log('inside condition def vl = ', defaultValue)
       setDfval(defaultValue);
     } else {
@@ -87,6 +109,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     // console.log(nextBookingTime)
     const bookingDateTimeString = `${newdateupdate}T${nextBookingTime}:00+05:30`; 
     setBookingDateTime(bookingDateTimeString);
+    
   }, []);
   // useEffect(()=>{
   //   const currentDate = new Date();
@@ -104,31 +127,23 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   //     setDfval(defaultValue);
   //   }
   // }, [bookingDate]);
-  useEffect(() => {
-    // Check if the selected city is in the currentworkingcities array
-
-    // if (originalCity && !currentworkingcities.includes(originalCity)) {
-    //   setCityErrorMsg('Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.');
-    
-    // } else {
-    //   setCityErrorMsg('');
-    // }
-    if(originalCity){
-      const foundCity = currentworkingcities.find(
-        (workingCity) => workingCity.toLowerCase() === originalCity.toLowerCase()
-      );
-        // console.log('foundCity', foundCity);
-      if (!foundCity) {
-        setCityErrorMsg(
-          'Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.'
-        );
-      } else {
-        setCityErrorMsg('');
-        setOriginalCity(foundCity);
-        setCity(foundCity);
-      }
-    }
-  }, [city, currentworkingcities]);
+  // useEffect(() => {
+  //   if(originalCity != ''){
+  //     const foundCity = currentworkingcities.find(
+  //       (workingCity) => workingCity.toLowerCase() === originalCity.toLowerCase()
+  //     );
+  //       // console.log('foundCity', foundCity);
+  //     if (!foundCity) {
+  //       setCityErrorMsg(
+  //         'Sorry, currently our services are not available in your city. We appreciate your interest, and we will be expanding to your city soon! Please check back later.'
+  //       );
+  //     } else {
+  //       setCityErrorMsg('');
+  //       setOriginalCity(foundCity);
+  //       setCity(foundCity);
+  //     }
+  //   }
+  // }, [city, currentworkingcities]);
 
   useEffect(() => {
 
@@ -246,7 +261,7 @@ const handleProfileDataUpdate = () =>{
     let profiledata = {
         'address': add,
         'area' : area, 
-        'city' : city,
+        'city' : originalCity,
         'first_name' : name,
         'state': state,
         'zipcode': zip,
@@ -439,9 +454,13 @@ const handleOfflinePayment = () => {
     setErrorMsg('Please Select Date and Time');
     return;
   }
-  // if(bookingDateTime == ''){
-  //   setErrorMsg('Please Select Date and Time');
-  // }
+  if(state == ''){
+    setErrorMsg('Please Select State');
+  }
+  if(originalCity == ''){
+    setErrorMsg('Please Select City');
+  }
+  
   if(add == '' || area == '' || originalCity == '' ||  state =='' || zip==''){
     setErrorMsgAdd('Please Enter Full Address!!');
     return;
@@ -452,6 +471,8 @@ const handleOfflinePayment = () => {
   }
   const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
   setBookingDateTime(bookingDateTimeString);
+  console.log('state - ', state)
+    console.log('city - ', originalCity)
   if(bookingDateTimeString != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
@@ -744,11 +765,33 @@ const handleOnlinePayment2 = async () => {
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
                 <label htmlFor="Area">Near By</label>
                 <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
-                <label htmlFor="city">City</label>
-                <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  />
+                {/* <label htmlFor="city">City</label>
+                <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  /> */}
+
+                <label htmlFor="state">State</label>
+            <select id="state" value={selectedState} onChange={handleStatenewChange} className="w-full py-2 my-2 border-indigo-800">
+                {/* <option value="">Select a state</option> */}
+                {/* {state === '' ?  <option value="" >Select a state</option> :  <option value={state} >{state}</option>} */}
+                <option value="" >Select a state</option>
+                {Object.keys(statesWithCities).map((state) => (
+                    <option key={state} value={state}>
+                        {state}
+                    </option>
+                ))}
+            </select>
+
+            <label htmlFor="city">City</label>
+            <select id="city" value={selectedCity} onChange={handleCitynewChange} className="w-full py-2 my-2 border-indigo-800">
+            <option value="">Select a city</option>
+                {selectedState && statesWithCities[selectedState] && statesWithCities[selectedState].map((city, index) => (
+                    <option key={index} value={city}>
+                        {city}
+                    </option>
+                ))}
+            </select>
                 {/* <p className='text-[red] text-sm'>{cityerrormsg}</p> */}
-                <label htmlFor="State">State</label>
-                <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800"  />
+                {/* <label htmlFor="State">State</label>
+                <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800"  /> */}
                 <label htmlFor="Pincode">Pincode </label>
                 <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800"  />
               
