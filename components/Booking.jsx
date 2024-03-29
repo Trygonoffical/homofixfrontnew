@@ -178,7 +178,8 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 //   // Rest of the code...
 const handlePaymentChange = (val) => {
     setPaymentMethod(val);
-
+    const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+    setBookingDateTime(bookingDateTimeString);
     // ////console.log('Payment Method - ', paymentMethod)
   };
 
@@ -444,6 +445,8 @@ const Congratsmesg = () => {
       return null;
 }
 const handleOfflinePayment = () => {
+  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  // setBookingDateTime(bookingDateTimeString);
   if (cityerrormsg) {
     // Display an alert or handle the error in your UI
     alert(cityerrormsg);
@@ -469,11 +472,10 @@ const handleOfflinePayment = () => {
     setErrorMsgName('Please Enter Name');
     return;
   }
-  const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
-  setBookingDateTime(bookingDateTimeString);
+  
   console.log('state - ', state)
     console.log('city - ', originalCity)
-  if(bookingDateTimeString != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
+  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
@@ -491,6 +493,8 @@ const handleOfflinePayment = () => {
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
     //console.log('inbooknow fun' , cartItems)
     //console.log('cos ' , COS)
+    const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+    setBookingDateTime(bookingDateTimeString);
     let payload = {
         "booking_date": bookingDateTime,
         "customer": customer,
@@ -650,8 +654,7 @@ const handleOfflinePayment = () => {
 }
 const handleOnlinePayment2 = async () => {
   //console.log('bookingtime = ',bookingDateTime )
-  const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
-  setBookingDateTime(bookingDateTimeString);
+  
   if(bookingDateTimeString == '') {
     // Display an alert or handle the error in your UI
     setErrorMsg('Please Select Date and Time');
@@ -672,7 +675,7 @@ const handleOnlinePayment2 = async () => {
   }
   // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
   // setBookingDateTime(bookingDateTimeString);
-  if(bookingDateTimeString != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
+  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
