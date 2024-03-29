@@ -77,40 +77,40 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
 //   const [paymentID , setPaymentID] = useState(null)
   // Rest of the code...
 
-  useEffect(() => {
-    const currentDate = new Date();
-    const currentHour = currentDate.getHours();
+  // useEffect(() => {
+  //   const currentDate = new Date();
+  //   const currentHour = currentDate.getHours();
 
-    let nextBookingDate = new Date();
-    let nextBookingTime = '';
+  //   let nextBookingDate = new Date();
+  //   let nextBookingTime = '';
 
-    if (currentHour >= 20) { // If current time is 8 PM or later
-      nextBookingDate.setDate(currentDate.getDate() + 1); // Move to the next day
-      nextBookingTime = '09:00'; // Set the default time to 9 AM
-      defaultValue =  dayjs().set('hour', 9).set('minute', 50).startOf('minute');
-      // console.log('inside condition def vl = ', defaultValue)
-      setDfval(defaultValue);
-    } else {
-      nextBookingTime = `${currentHour + 1}:00`; // Set the default time to the next hour
-      defaultValue = dayjs().set('hour', `${currentHour+1}`).set('minute', 50).startOf('minute');
-      // console.log('else condition def vl = ', defaultValue)
-      setDfval(defaultValue);
-    }
-    // const defaultValue = dayjs().set('hour', `${currentHour+1}`).set('minute', 50).startOf('minute');
-    // console.log('currentHour',currentHour);
-    // const defaultValue = nextBookingTime ;
-    // dayjs().set('hour', currentHour).set('minute', 50).startOf('minute');
-    const year = nextBookingDate.getFullYear();
-    const month = String(nextBookingDate.getMonth() + 1).padStart(2, '0');
-    const day = String(nextBookingDate.getDate()).padStart(2, '0');
-    const newdateupdate = `${year}-${month}-${day}`;
-    setBookingDate(`${year}-${month}-${day}`);    
-    setBookingTime(nextBookingTime);
-    // console.log(nextBookingTime)
-    const bookingDateTimeString = `${newdateupdate}T${nextBookingTime}:00+05:30`; 
-    setBookingDateTime(bookingDateTimeString);
+  //   if (currentHour >= 20) { // If current time is 8 PM or later
+  //     nextBookingDate.setDate(currentDate.getDate() + 1); // Move to the next day
+  //     nextBookingTime = '09:00'; // Set the default time to 9 AM
+  //     defaultValue =  dayjs().set('hour', 9).set('minute', 50).startOf('minute');
+  //     // console.log('inside condition def vl = ', defaultValue)
+  //     setDfval(defaultValue);
+  //   } else {
+  //     nextBookingTime = `${currentHour + 1}:00`; // Set the default time to the next hour
+  //     defaultValue = dayjs().set('hour', `${currentHour+1}`).set('minute', 50).startOf('minute');
+  //     // console.log('else condition def vl = ', defaultValue)
+  //     setDfval(defaultValue);
+  //   }
+  //   // const defaultValue = dayjs().set('hour', `${currentHour+1}`).set('minute', 50).startOf('minute');
+  //   // console.log('currentHour',currentHour);
+  //   // const defaultValue = nextBookingTime ;
+  //   // dayjs().set('hour', currentHour).set('minute', 50).startOf('minute');
+  //   const year = nextBookingDate.getFullYear();
+  //   const month = String(nextBookingDate.getMonth() + 1).padStart(2, '0');
+  //   const day = String(nextBookingDate.getDate()).padStart(2, '0');
+  //   const newdateupdate = `${year}-${month}-${day}`;
+  //   setBookingDate(`${year}-${month}-${day}`);    
+  //   setBookingTime(nextBookingTime);
+  //   // console.log(nextBookingTime)
+  //   const bookingDateTimeString = `${newdateupdate}T${nextBookingTime}:00+05:30`; 
+  //   setBookingDateTime(bookingDateTimeString);
     
-  }, []);
+  // }, []);
   // useEffect(()=>{
   //   const currentDate = new Date();
 
