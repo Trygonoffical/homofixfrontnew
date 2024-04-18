@@ -82,38 +82,44 @@ export default function Example() {
   const handleSendOTP = async () => {
     // setshowLogin(false);
     // //console.log('inclick')
-    setshowLogin(false)
-    setshowOtpLogin(true)
-    try {
-      const url = "https://support.homofixcompany.com/api/Send/Otp/";
-      const response = await fetch(url , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({phone_number : phone}),
-      });
-      const result = await response.json();
-      let otpSession = result.otp_session;
-      // //console.log(otpSession)
-      setotpval(otpSession);
-      // const response = true;
-      if (!response) {
-        // //console.log('Response:', result);
-        setshowLogin(true)
-        setshowOtpLogin(false)
-        setMessage('Failed to send OTP. Please try again.');
-        // setMessage('OTP has been sent successfully!');
+    if(phone != ''){
+      setMessage('');
+      setshowLogin(false)
+      setshowOtpLogin(true)
+      try {
+        const url = "https://support.homofixcompany.com/api/Send/Otp/";
+        const response = await fetch(url , {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({phone_number : phone}),
+        });
+        const result = await response.json();
+        let otpSession = result.otp_session;
+        // //console.log(otpSession)
+        setotpval(otpSession);
+        // const response = true;
+        if (!response) {
+          // //console.log('Response:', result);
+          setshowLogin(true)
+          setshowOtpLogin(false)
+          setMessage('Failed to send OTP. Please try again.');
+          // setMessage('OTP has been sent successfully!');
+        }
+        //  else {
+        //   setshowLogin(true)
+        //   setshowOtpLogin(false)
+        //   setMessage('Failed to send OTP. Please try again.');
+        // }
+      } catch (error) {
+        // //console.log(error);
+        setMessage('catch Failed to send OTP. Please try again.');
       }
-      //  else {
-      //   setshowLogin(true)
-      //   setshowOtpLogin(false)
-      //   setMessage('Failed to send OTP. Please try again.');
-      // }
-    } catch (error) {
-      // //console.log(error);
-      setMessage('catch Failed to send OTP. Please try again.');
+    }else{
+      setMessage('Please Enter a Valid Phone Number');
     }
+    
   };
   
   const handleOTPValidationResponse = (response) => {
@@ -128,10 +134,14 @@ export default function Example() {
     }
   };
   const handleLogout = () => {
+    setPhone('')
+    setotpval('')
     authContext.logout();
   };
   const handleVerifyOTP = async () => {
-  if (verificationCode == otpval){
+
+  if (verificationCode != '' && verificationCode === otpval){
+    setMessage('');
     try {
       const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
         method: 'POST',
@@ -142,11 +152,12 @@ export default function Example() {
       })
       
       if (response.ok) {
+        
         const result = await response.json();
         // //console.log('Response:', result);
         handleOTPValidationResponse(result)
         setshowOtpLogin(false)
-        setMessage('');
+        
       } else {
         // //console.log(response);
         setMessage('Failed to Match Otp. Please try again.');
@@ -275,7 +286,7 @@ export default function Example() {
         <div className="fixed inset-0 z-10" />
         
         <Dialog.Panel className="fixed inset-y-0 right-0 z-[1500] w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-2">
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
@@ -293,9 +304,17 @@ export default function Example() {
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
+          <hr />
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
+              <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                   Home
+                </Link>
                 <Link
                   href="/about"
                   onClick={() => setMobileMenuOpen(false)}
@@ -378,7 +397,12 @@ export default function Example() {
                   <span className='pt-4'>Login/Singup</span> 
                   <button
                       type="button"
-                      onClick={() => setshowLogin(false)}
+                      onClick={() => {
+                        setPhone('')
+                        setMessage('')
+                        
+                        setshowLogin(false)}
+                      }
                     >
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                     </button> 
@@ -441,7 +465,13 @@ export default function Example() {
                   <span className='pt-4'>Verification Code:</span> 
                   <button
                       type="button"
-                      onClick={() => setshowOtpLogin(false)}
+                      onClick={() => {
+                        setVerificationCode('')
+                        setPhone('')
+                        setMessage('')
+                        setotpval('')
+                        setshowOtpLogin(false)
+                      }}
                     >
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                     </button> 
@@ -459,6 +489,9 @@ export default function Example() {
                   <button onClick={()=> {
                     setshowOtpLogin(false)
                     setshowLogin(true)
+                    setVerificationCode('')
+                    setPhone('')
+                    setotpval('')
                     setMessage('')
                   }}  className='bg-basecolor text-white  py-2 px-4 my-3 rounded '>Back</button>
                   <br />
