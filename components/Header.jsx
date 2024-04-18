@@ -401,6 +401,7 @@ export default function Example() {
                         setPhone('')
                         setMessage('')
                         setotpval('')
+                        setVerificationCode('')
                         setshowLogin(false)}
                       }
                     >
@@ -469,6 +470,7 @@ export default function Example() {
                         setVerificationCode('')
                         setPhone('')
                         setMessage('')
+                        setVerificationCode('')
                         setotpval('')
                         setshowOtpLogin(false)
                       }}
