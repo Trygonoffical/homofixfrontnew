@@ -152,18 +152,18 @@ export default function Example() {
       })
       
       if (response.ok) {
-        
         const result = await response.json();
         // //console.log('Response:', result);
         handleOTPValidationResponse(result)
         setshowOtpLogin(false)
-        
+        setPhone('')
+        setotpval('')
       } else {
-        // //console.log(response);
-        setMessage('Failed to Match Otp. Please try again.');
+        console.log(response);
+        setMessage('Failed to Match OTP. Please try again.');
       }
     } catch (error) {
-      // //console.log(error);
+      console.log(error);
       setMessage('Error On Sendting Data. Please try again.');
     }
   }else{
@@ -394,13 +394,13 @@ export default function Example() {
                     className="flex justify-between align-middle text-lg font-medium leading-6 text-gray-900"
                   >
                   <img src="/login.png" width={50} alt="" />  
-                  <span className='pt-4'>Login/Singup</span> 
+                  <span className='pt-4'>Login/Signup</span> 
                   <button
                       type="button"
                       onClick={() => {
                         setPhone('')
                         setMessage('')
-                        
+                        setotpval('')
                         setshowLogin(false)}
                       }
                     >
