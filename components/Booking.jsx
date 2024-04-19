@@ -163,8 +163,10 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     // setBookingTime
   };
   const handleTimeChange = (e) => {
-
+    // const timeset = e.target.value ;
     setBookingTime(e.target.value);
+    // const bookingDateTimeString = `${bookingDate}T${timeset}:00+05:30`; 
+    // setBookingDateTime(bookingDateTimeString);
   };
 
   // const handleDateTimeChange = (e) => {
@@ -180,7 +182,8 @@ const handlePaymentChange = (val) => {
     setPaymentMethod(val);
     const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
     setBookingDateTime(bookingDateTimeString);
-    // ////console.log('Payment Method - ', paymentMethod)
+    console.log('Payment Method - ', paymentMethod)
+    console.log('Booking Time - ', bookingDateTimeString)
   };
 
   const handleNameChange = (event) => {
@@ -655,11 +658,11 @@ const handleOfflinePayment = () => {
 const handleOnlinePayment2 = async () => {
   //console.log('bookingtime = ',bookingDateTime )
   
-  if(bookingDateTimeString == '') {
-    // Display an alert or handle the error in your UI
-    setErrorMsg('Please Select Date and Time');
-    return;
-  }
+  // if(bookingDateTime == '') {
+  //   // Display an alert or handle the error in your UI
+  //   setErrorMsg('Please Select Date and Time');
+  //   return;
+  // }
   if (cityerrormsg) {
     // Display an alert or handle the error in your UI
     alert(cityerrormsg);

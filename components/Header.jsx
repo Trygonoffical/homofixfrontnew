@@ -87,14 +87,17 @@ export default function Example() {
       setshowLogin(false)
       setshowOtpLogin(true)
       try {
-        const url = "https://support.homofixcompany.com/api/Send/Otp/";
-        const response = await fetch(url , {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({phone_number : phone}),
-        });
+        // const url = "https://support.homofixcompany.com/api/Send/Otp/";
+        const url = `/api/otp/?phone=${phone}`;
+        // const response = await fetch(url , {
+        //   // method: 'POST',
+        //   method: 'GET',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({phone_number : phone}),
+        // });
+        const response = await fetch (url , {cache : 'no-store'})
         const result = await response.json();
         let otpSession = result.otp_session;
         // //console.log(otpSession)
@@ -142,15 +145,17 @@ export default function Example() {
 
   if (verificationCode != '' && verificationCode === otpval){
     setMessage('');
+
+    const url = `/api/otpValidation/?phone=${phone}`;
     try {
-      const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ phone_number : phone }),
-      })
-      
+      // const response = await fetch( 'https://support.homofixcompany.com/api/CustomerLogin/'  , {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ phone_number : phone }),
+      // })
+      const response = await fetch( url , {cache : 'no-store'}) 
       if (response.ok) {
         const result = await response.json();
         // //console.log('Response:', result);
