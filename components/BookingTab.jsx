@@ -11,14 +11,19 @@ const BookingTab = ({bookings , userProfileInfo}) => {
     const [name , setName] = useState('')
     const [add , setAdd] = useState('')
     const [area , setArea] = useState('')
+    const [errormsg, setErrorMsg] = useState('');
+    const [errormsgadd, setErrorMsgAdd] = useState('');
+    const [errormsgadrea, setErrorMsgArea] = useState('');
     const [city , setCity] = useState('')
     const [state , setState] = useState('')
+    const [originalCity, setOriginalCity] = useState('');
     const [zip , setZip] = useState('')
     const [mno , setMno] = useState(userProfileInfo.mobile)
     let [isOpen, setIsOpen] = useState(false)
     const [loading, setLoading] = useState(false);
     const [fetchedBookings, setFetchedBookings] = useState([]);
-    
+    const [selectedState, setSelectedState] = useState('');
+    const [selectedCity, setSelectedCity] = useState('');
       const closeModal = useCallback(() => {
         setIsOpen(false);
       }, []);
@@ -33,11 +38,26 @@ const BookingTab = ({bookings , userProfileInfo}) => {
       }, []);
     
       const handleAddChange = useCallback((event) => {
-        setAdd(event.target.value);
+        // setAdd(event.target.value);
+        if( event.target.value.length < 1000){
+          setErrorMsgAdd('')
+          setAdd(event.target.value);
+        }else{
+          setErrorMsgAdd('Please Enter Details within 100 characters')
+          console.log('area - ', event.target.value.length)
+        }
       }, []);
     
       const handleAreaChange = useCallback((event) => {
-        setArea(event.target.value);
+        // setArea(event.target.value);
+        
+        if( event.target.value.length < 1000){
+          setErrorMsgArea('')
+          setArea(event.target.value);
+        }else{
+          setErrorMsgArea('Please Enter Details within 50 characters')
+          console.log('area - ', event.target.value.length)
+        }
       }, []);
     
       const handleCityChange = useCallback((event) => {
@@ -54,7 +74,26 @@ const BookingTab = ({bookings , userProfileInfo}) => {
       const handleMnoChange = useCallback(() => {
         // //console.log('zip - ', zip) 
       }, []);
-     
+      const statesWithCities = {
+        "Delhi": ["New Delhi", "Delhi"],
+        "Uttar Pradesh": ["Noida", "Kanpur", "Ghaziabad"],
+        "Haryana": ["Gurugram"]
+    };
+
+    const handleCitynewChange = (e) => {
+      setSelectedCity(e.target.value);
+      setCity(e.target.value);
+      setOriginalCity(e.target.value);
+    };
+
+    const handleStatenewChange = (e) => {
+      setSelectedState(e.target.value);
+      setState(e.target.value);
+      setSelectedCity(''); // Reset city when state changes
+      setCity('');
+      setOriginalCity('');
+    };
+
       const handleUpdateProfile = () =>{
         let pData = {
             'first_name': name,
@@ -64,6 +103,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
             'state': state,
             'zipcode': zip,
         }
+        console.log('pData', pData)
         const URL = 'https://support.homofixcompany.com/api/customer/profile/update/'
         const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
         const postProfile = async () => {
@@ -79,8 +119,14 @@ const BookingTab = ({bookings , userProfileInfo}) => {
           
               if (response.ok) {
                 const Profiledata = await response.json();
-                // console.log(Profiledata);
-                openModal()
+                if(Profiledata.status == "success"){
+                  // console.log(Profiledata);
+                  // console.log(Profiledata.status);
+                  openModal()
+                }else {
+                  setErrorMsg("Something is Wrong. Please contact support")
+                }
+                
               } else {
                 console.error("Request failed with status:", response.status);
               }
@@ -379,6 +425,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                     </div>
                     <div className="lable py-3">
                         <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={add} onChange={handleAddChange} />
+                        <p className='text-[red] text-sm' >{errormsgadd}</p>
                     </div>
                 </div>
 
@@ -390,6 +437,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                     </div>
                     <div className="lable py-3">
                         <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={area} onChange={handleAreaChange} />
+                        <p className='text-[red] text-sm' >{errormsgadrea}</p>
                     </div>
                 </div>
 
@@ -400,7 +448,17 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>State where you live, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={state} onChange={handleStateChange} />
+                        {/* <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={state} onChange={handleStateChange} /> */}
+                        <select id="state" value={selectedState} onChange={handleStatenewChange} className="w-screen-full w-full py-2 my-2 border-gray-600" style={{minWidth:206}}>
+                       {state ?  (<option selected>{state}</option>): (<option value="" >Select a state</option>)}
+                        {/* {state === '' ?  <option value="" >Select a state</option> :  <option value={state} >{state}</option>} */}
+                        
+                        {Object.keys(statesWithCities).map((state) => (
+                            <option key={state} value={state}>
+                                {state}
+                            </option>
+                        ))}
+                    </select>
                     </div>
                 </div>
 
@@ -411,8 +469,25 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                         <p className='text-sm text-gray-400'>City where you live, Appears on reciepts, invoices, and more  </p>
                     </div>
                     <div className="lable py-3">
-                        <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={city}  onChange={handleCityChange}  />
+                        {/* <input type="text"  className= 'w-screen-full border-gray-600 text-gray-800 w-full'  value={city}  onChange={handleCityChange}  /> */}
+                        <select id="city" value={selectedCity} onChange={handleCitynewChange} className="w-screen-full w-full py-2 my-2 border-gray-600" style={{minWidth:206}}>
+                        {/* <option value="">Select a city</option> */}
+                        {city ?  (<option selected>{city}</option>): (<option value="" >Select a city</option>)}
+                            {selectedState && statesWithCities[selectedState] && statesWithCities[selectedState].map((city, index) => (
+                                <option key={index} value={city}>
+                                    {city}
+                                </option>
+                            ))}
+                      </select>
                     </div>
+
+
+
+
+                   
+
+                {/* <label htmlFor="city">City</label> */}
+                
                 </div>
 
                 <div className="md:flex justify-between pb-5 ">

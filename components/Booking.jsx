@@ -38,6 +38,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [easebuzzkey , easebuzzsalt] = ['WJE5UAJ51D', 'Y3LVJ15S3M'];
   const [errormsg, setErrorMsg] = useState('');
   const [errormsgadd, setErrorMsgAdd] = useState('');
+  const [errormsgadrea, setErrorMsgArea] = useState('');
   const [errormsgName, setErrorMsgName] = useState('');
   const [originalCity, setOriginalCity] = useState('');
   const [dfVal, setDfval] = useState('');
@@ -53,7 +54,6 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     "Uttar Pradesh": ["Noida", "Kanpur", "Ghaziabad"],
     "Haryana": ["Gurugram"]
 };
-
 
     const [selectedState, setSelectedState] = useState('');
     const [selectedCity, setSelectedCity] = useState('');
@@ -191,12 +191,27 @@ const handlePaymentChange = (val) => {
     // ////console.log('name - ', name)
   };
   const handleAddChange = (event) => {
-    setAdd(event.target.value);
+   
     // ////console.log('add - ', add)
+    if( event.target.value.length < 1000){
+      setErrorMsgAdd('')
+      setAdd(event.target.value);
+    }else{
+      setErrorMsgAdd('Please Enter Details within 100 characters')
+      console.log('area - ', event.target.value.length)
+    }
   };
   const handleAreaChange = (event) => {
-    setArea(event.target.value);
-    // //console.log('area - ', area)
+    
+    // console.log('area - ', area)
+    
+    if( event.target.value.length < 1000){
+      setErrorMsgArea('')
+      setArea(event.target.value);
+    }else{
+      setErrorMsgArea('Please Enter Details within 50 characters')
+      console.log('area - ', event.target.value.length)
+    }
   };
   const handleCityChange = (event) => {
     // const trimmedCity = event.target.value.trim();
@@ -270,7 +285,7 @@ const handleProfileDataUpdate = () =>{
         'state': state,
         'zipcode': zip,
     }
-    // //console.log('profiledata', profiledata)
+    console.log('profiledata', profiledata)
     const postProfile = async () =>{
         try {
             const response = await fetch(Burl, {
@@ -284,7 +299,7 @@ const handleProfileDataUpdate = () =>{
         
             if (response.ok) {
               const data = await response.json();
-            //   //console.log(data);
+              console.log(data);
             } else {
               console.error("Request failed with status:", response.status);
             }
@@ -477,7 +492,7 @@ const handleOfflinePayment = () => {
   }
   
   console.log('state - ', state)
-    console.log('city - ', originalCity)
+  console.log('city - ', originalCity)
   if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
@@ -514,7 +529,7 @@ const handleOfflinePayment = () => {
         "zipcode": zip,
 
     }
-    //console.log('payload', payload)
+    console.log('payload', payload)
     // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     const url = "https://support.homofixcompany.com/api/create_booking/";
 
@@ -531,7 +546,7 @@ const handleOfflinePayment = () => {
 
         if (response.ok) {
           const data = await response.json();
-          // console.log(data);
+          console.log(data);
         } else {
           console.error("Request failed with status:", response.status);
         }
@@ -769,39 +784,40 @@ const handleOnlinePayment2 = async () => {
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Full Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
+                <p className='text-[red] text-sm'>{errormsgadd}</p> 
                 <label htmlFor="Area">Near By</label>
                 <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
                 {/* <label htmlFor="city">City</label>
                 <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  /> */}
-
+                <p className='text-[red] text-sm' >{errormsgadrea}</p>
                 <label htmlFor="state">State</label>
-            <select id="state" value={selectedState} onChange={handleStatenewChange} className="w-full py-2 my-2 border-indigo-800">
-                {/* <option value="">Select a state</option> */}
-                {/* {state === '' ?  <option value="" >Select a state</option> :  <option value={state} >{state}</option>} */}
-                <option value="" >Select a state</option>
-                {Object.keys(statesWithCities).map((state) => (
-                    <option key={state} value={state}>
-                        {state}
-                    </option>
-                ))}
-            </select>
+                <select id="state" value={selectedState} onChange={handleStatenewChange} className="w-full py-2 my-2 border-indigo-800">
+                    {/* <option value="">Select a state</option> */}
+                    {/* {state === '' ?  <option value="" >Select a state</option> :  <option value={state} >{state}</option>} */}
+                    <option value="" >Select a state</option>
+                    {Object.keys(statesWithCities).map((state) => (
+                        <option key={state} value={state}>
+                            {state}
+                        </option>
+                    ))}
+                </select>
 
-            <label htmlFor="city">City</label>
-            <select id="city" value={selectedCity} onChange={handleCitynewChange} className="w-full py-2 my-2 border-indigo-800">
-            <option value="">Select a city</option>
-                {selectedState && statesWithCities[selectedState] && statesWithCities[selectedState].map((city, index) => (
-                    <option key={index} value={city}>
-                        {city}
-                    </option>
-                ))}
-            </select>
+                <label htmlFor="city">City</label>
+                <select id="city" value={selectedCity} onChange={handleCitynewChange} className="w-full py-2 my-2 border-indigo-800">
+                <option value="">Select a city</option>
+                    {selectedState && statesWithCities[selectedState] && statesWithCities[selectedState].map((city, index) => (
+                        <option key={index} value={city}>
+                            {city}
+                        </option>
+                    ))}
+                </select>
                 {/* <p className='text-[red] text-sm'>{cityerrormsg}</p> */}
                 {/* <label htmlFor="State">State</label>
                 <input type="text" value={state} onChange={handleStateChange} className="w-full py-2 my-2 border-indigo-800"  /> */}
                 <label htmlFor="Pincode">Pincode </label>
                 <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800"  />
               
-                <p className='text-[red] text-sm'>{errormsgadd}</p> 
+                {/* <p className='text-[red] text-sm'>{errormsgadd}</p>  */}
                </>
             }
               <div className="mt-2">
