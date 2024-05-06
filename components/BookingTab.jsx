@@ -103,7 +103,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
             'state': state,
             'zipcode': zip,
         }
-        console.log('pData', pData)
+        // console.log('pData', pData)
         const URL = 'https://support.homofixcompany.com/api/customer/profile/update/'
         const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
         const postProfile = async () => {

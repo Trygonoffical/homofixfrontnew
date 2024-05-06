@@ -285,7 +285,7 @@ const handleProfileDataUpdate = () =>{
         'state': state,
         'zipcode': zip,
     }
-    console.log('profiledata', profiledata)
+    // console.log('profiledata', profiledata)
     const postProfile = async () =>{
         try {
             const response = await fetch(Burl, {
@@ -779,8 +779,7 @@ const handleOnlinePayment2 = async () => {
 
               <input type="text" value={name }  className="w-full py-2 my-2 border-indigo-800" onChange={handleNameChange} required />
               <p className='text-[red] text-sm'>{errormsgName}</p> 
-              <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />
-             
+             {/*   <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />*/}
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Full Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
