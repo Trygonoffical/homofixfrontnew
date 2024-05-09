@@ -509,9 +509,9 @@ const handleOfflinePayment = () => {
     handleBookingDetails({ COS: 'True', OL: 'False' });
     handleProfileDataUpdate();
     setBookingCompleted(true);
-    // Congratsmesg();
+    Congratsmesg();
     // setCongBookingShow(true);
-    // router.push('/order/thankyou');
+    router.push('/order/thankyou');
   }
   
 
