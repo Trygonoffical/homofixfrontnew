@@ -161,12 +161,19 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     // const selectedDate = datedata;
     setBookingDate(e.target.value);
     // setBookingTime
+    if(bookingTime != ''){
+      const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+      setBookingDateTime(bookingDateTimeString);
+    }
   };
   const handleTimeChange = (e) => {
-    // const timeset = e.target.value ;
+    const timeset = e.target.value ;
     setBookingTime(e.target.value);
-    // const bookingDateTimeString = `${bookingDate}T${timeset}:00+05:30`; 
-    // setBookingDateTime(bookingDateTimeString);
+    if(bookingDate != ''){
+      const bookingDateTimeString = `${bookingDate}T${timeset}:00+05:30`; 
+      setBookingDateTime(bookingDateTimeString);
+    }
+    
   };
 
   // const handleDateTimeChange = (e) => {
@@ -365,7 +372,9 @@ const handleOnlinePayment = async() => {
 const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
   const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
   // //console.log('cartItems' , cartItems)
-  // //console.log('cos ' , COS)
+  console.log('cbookingDateTimeos ' , bookingDateTime)
+  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  // setBookingDateTime(bookingDateTimeString);
   let payload = {
       "booking_date": bookingDateTime,
       "customer": customer,
@@ -500,9 +509,9 @@ const handleOfflinePayment = () => {
     handleBookingDetails({ COS: 'True', OL: 'False' });
     handleProfileDataUpdate();
     setBookingCompleted(true);
-    Congratsmesg();
+    // Congratsmesg();
     // setCongBookingShow(true);
-    router.push('/order/thankyou');
+    // router.push('/order/thankyou');
   }
   
 
@@ -678,6 +687,14 @@ const handleOnlinePayment2 = async () => {
   //   setErrorMsg('Please Select Date and Time');
   //   return;
   // }
+  const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  setBookingDateTime(bookingDateTimeString);
+  if(bookingDateTime == '') {
+    // Display an alert or handle the error in your UI
+    setErrorMsg('Please Select Date and Time');
+    return;
+  }
+
   if (cityerrormsg) {
     // Display an alert or handle the error in your UI
     alert(cityerrormsg);
@@ -710,7 +727,7 @@ const handleOnlinePayment2 = async () => {
             body: JSON.stringify(SendData),
           });
         const data = await response.json();
-        // //console.log(data);
+        // console.log(data);
         // setAccess_key(data.data);
         access_key = data.data;
         // //console.log(access_key);
@@ -718,7 +735,7 @@ const handleOnlinePayment2 = async () => {
         console.error("An error occurred:", error);
       }
     // //console.log('testing here');
-    // //console.log(SendData);
+    // console.log(SendData);
   
     const easebuzzCheckout = new EasebuzzCheckout(easebuzzkey, 'prod');
     const options = {
