@@ -158,11 +158,11 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   }, []);
   
   const handleDateChange = (e) => {
-    // const selectedDate = datedata;
+    const selectedDate = datedata;
     setBookingDate(e.target.value);
     // setBookingTime
     if(bookingTime != ''){
-      const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+      const bookingDateTimeString = `${selectedDate}T${bookingTime}:00+05:30`; 
       setBookingDateTime(bookingDateTimeString);
     }
   };
