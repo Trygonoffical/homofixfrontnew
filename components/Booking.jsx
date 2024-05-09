@@ -158,7 +158,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   }, []);
   
   const handleDateChange = (e) => {
-    const selectedDate = datedata;
+    const selectedDate = e.target.value;
     setBookingDate(e.target.value);
     // setBookingTime
     if(bookingTime != ''){
@@ -372,7 +372,7 @@ const handleOnlinePayment = async() => {
 const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
   const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
   // //console.log('cartItems' , cartItems)
-  console.log('cbookingDateTimeos ' , bookingDateTime)
+  // console.log('cbookingDateTimeos ' , bookingDateTime)
   // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
   // setBookingDateTime(bookingDateTimeString);
   let payload = {
@@ -391,7 +391,7 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
         "zipcode": zip,
      
   }
-  // //console.log('payload', payload)
+  console.log('payload', payload)
   // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
   const url = "https://support.homofixcompany.com/api/create_booking/";
 
@@ -408,7 +408,7 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
      
       if (response.ok) {
         const data = await response.json();
-        //console.log(data);
+        console.log(data);
         let localbookindID = data.data.id ;
         handlePaymentRep(PaymentID, localbookindID)
         //console.log('loc in booking', localbookindID)
@@ -508,8 +508,8 @@ const handleOfflinePayment = () => {
     setErrorMsgAdd('');
     handleBookingDetails({ COS: 'True', OL: 'False' });
     handleProfileDataUpdate();
-    setBookingCompleted(true);
-    Congratsmesg();
+    // setBookingCompleted(true);
+    // Congratsmesg();
     // setCongBookingShow(true);
     router.push('/order/thankyou');
   }
@@ -687,8 +687,8 @@ const handleOnlinePayment2 = async () => {
   //   setErrorMsg('Please Select Date and Time');
   //   return;
   // }
-  const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
-  setBookingDateTime(bookingDateTimeString);
+  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+  // setBookingDateTime(bookingDateTimeString);
   if(bookingDateTime == '') {
     // Display an alert or handle the error in your UI
     setErrorMsg('Please Select Date and Time');
@@ -746,8 +746,8 @@ const handleOnlinePayment2 = async () => {
             ////console.log('pay has been successfully done yo yo ');
             handleBookingDetailsinner({ COS: 'False', OL: 'True' , PaymentID: response.easepayid})
             handleProfileDataUpdate()
-            setBookingCompleted(true);
-            Congratsmesg();
+            // setBookingCompleted(true);
+            // Congratsmesg();
             // setCongBookingShow(true);
             router.push('/order/thankyou');
           }
