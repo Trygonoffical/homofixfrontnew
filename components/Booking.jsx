@@ -348,9 +348,9 @@ const handleOnlinePayment = async() => {
               // //console.log('Payment successful:', response)
               handleBookingDetailsinner({ COS: 'False', OL: 'True' , PaymentID: response.razorpay_payment_id})
               handleProfileDataUpdate()
-              setBookingCompleted(true);
-              Congratsmesg();
-              setCongBookingShow(true)
+              // setBookingCompleted(true);
+              // Congratsmesg();
+              // setCongBookingShow(true)
             },
             prefill: {
               name: name, // Replace with the customer's name
@@ -520,8 +520,8 @@ const handleOfflinePayment = () => {
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
     //console.log('inbooknow fun' , cartItems)
     //console.log('cos ' , COS)
-    const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
-    setBookingDateTime(bookingDateTimeString);
+    // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
+    // setBookingDateTime(bookingDateTimeString);
     let payload = {
         "booking_date": bookingDateTime,
         "customer": customer,
