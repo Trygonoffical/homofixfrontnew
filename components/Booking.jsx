@@ -484,6 +484,16 @@ const handleOfflinePayment = () => {
     setErrorMsg('Please Select Date and Time');
     return;
   }
+  if(bookingDate == '') {
+    // Display an alert or handle the error in your UI
+    setErrorMsg('Please Select Date');
+    return;
+  }
+  if(bookingTime == '') {
+    // Display an alert or handle the error in your UI
+    setErrorMsg('Please Select Time');
+    return;
+  }
   if(state == ''){
     setErrorMsg('Please Select State');
   }
@@ -694,7 +704,16 @@ const handleOnlinePayment2 = async () => {
     setErrorMsg('Please Select Date and Time');
     return;
   }
-
+  if(bookingDate == '') {
+    // Display an alert or handle the error in your UI
+    setErrorMsg('Please Select Date');
+    return;
+  }
+  if(bookingTime == '') {
+    // Display an alert or handle the error in your UI
+    setErrorMsg('Please Select Time');
+    return;
+  }
   if (cityerrormsg) {
     // Display an alert or handle the error in your UI
     alert(cityerrormsg);
