@@ -18,6 +18,12 @@ export const Footer = () => {
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
                 </div>
                 <hr className='border-dotted' />
+                <div className="w-full pt-6 text-center" >
+                    <a href="https://play.google.com/store/apps/details?id=com.homofix.homo_fix" target="_blank" className="mx-autorounded-sm inline-block">
+                    <img src="/assets/imgs/googlepaystore.webp" alt="playstore" className="mx-auto bg-gray-50 rounded-lg" width={200}  />
+                    </a>
+                    
+                </div>
                 <div className="locations p-4  sm:py-8 max-w-[1200px] mx-auto" >
                     <h3 className='text-white text-lg mb-3  '>Serving in</h3>
                     <div className="flex justify-start flex-wrap">

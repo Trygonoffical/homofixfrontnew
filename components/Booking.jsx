@@ -672,7 +672,7 @@ const handleOfflinePayment = () => {
     const concatenatedString = `${easebuzzkey}|bookingID_${uniqueID}|${PaymentAmount}|Homofixcompany|${name}|info@homofixcompnay.com|||||||||||${easebuzzsalt}`;
     // Generate the hash using SHA-256
     const hash = crypto.createHash('sha512').update(concatenatedString).digest('hex');
-    //console.log('Generated Hash:', hash);
+    console.log('Generated Hash:', hash);
 
     const pData = {
         'key': easebuzzkey,
@@ -686,19 +686,11 @@ const handleOfflinePayment = () => {
         'surl': 'https://homofixcompany.com/account',
         'furl': 'https://homofixcompany.com/account',
     };
-    //console.log('pdata', pData)
+    console.log('pdata', pData)
     return pData;
 }
 const handleOnlinePayment2 = async () => {
-  //console.log('bookingtime = ',bookingDateTime )
   
-  // if(bookingDateTime == '') {
-  //   // Display an alert or handle the error in your UI
-  //   setErrorMsg('Please Select Date and Time');
-  //   return;
-  // }
-  // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
-  // setBookingDateTime(bookingDateTimeString);
   if(bookingDateTime == '') {
     // Display an alert or handle the error in your UI
     setErrorMsg('Please Select Date and Time');
