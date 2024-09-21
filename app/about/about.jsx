@@ -11,23 +11,16 @@ const about = () => {
             <div className="p-5 text-center">
                 <h2 className="text-3xl">Who We Are</h2>
                 <p className="py-4 text-sm md:text-base">
-                HomOfix Company is a leading provider of home services, facilitating seamless
-                connections between service professionals and customers through our platform. Our
-                primary goal is to deliver top-notch home services right at your doorstep, making
-                your life more convenient and hassle-free. With a wide array of services ranging from
-                Appliance Repair & Service, Cleaning, Pest Control, Electrician, Carpentry, Plumbing,
-                Home Painting, and more, we strive to meet all your home service needs. We take
-                immense pride in our team of highly skilled and experienced professionals who are
-                dedicated to delivering exceptional service quality at doorstep.
+                Homofix Technologies Private Limited also known as HomOfix Company incorporated on 13 September 2022 having its registered office in Kanpur, Uttar Pradesh, India. HomOfix Company is a leading provider of home services, facilitating seamless connections between service professionals and customers through our innovative platform. We offer a comprehensive range of services, including Appliance Repair & Service, Home Cleaning, Electrician, Carpentry, Plumbing, and Home Painting. Currently, we are successfully operating in Delhi, Noida, Ghaziabad, Gurugram, Faridabad, and Kanpur. We have a team of highly skilled and experienced professionals who are experts in their respective fields. Whether you need Appliance Repair, Cleaning, Electrician Services, Carpentry, Plumbing, or home painting, our professionals are well-trained to handle any task with precision and efficiency. We are committed to delivering exceptional service quality to our customers. Our Professional Service Experts go above and beyond to ensure that every task is completed to the highest standards. We are committed to delivering a seamless and hassle-free experience from booking to service completion. Our dedicated customer support team is always available to assist with any queries or concerns. We highly value customer feedback and continually strive to enhance our services, ensuring complete satisfaction.
                 
                 </p>
-                <p className="text-sm md:text-base">
+                {/* <p className="text-sm md:text-base">
                 HomOfix Company aims to be synonymous with trust, reliability, and convenience in
                 the home service industry. We are dedicated to making life easier for our customers,
                 providing them with a sense of security and peace of mind. Together with our service
                 professionals, we are committed to raising the bar and setting new standards for
                 home services.
-                </p>
+                </p> */}
             </div>
         </div>
         <div className="py-10 bg-gray-100 rounded-sm">

@@ -43,7 +43,7 @@ const Heroserc = ({url}) => {
     <>
     <div className="bg-basecolor md:bg-[url('/bgnew.jpg')] md:py-6 py-8 md:h-96 bg-bottom flex flex-col justify-center bg-no-repeat  md:bg-cover">
         <h1 className='hidden md:block text-center text-4xl text-Orange font-semibold '>Expert Home Services, On Your Demands</h1>
-        <p className=' hidden md:block text-center pt-4 text-xl text-white'>Your home services worries needs to be fixed</p>
+        <p className=' hidden md:block text-center pt-4 text-xl text-white'>Your Home, Our Priority</p>
     </div>
     <div className="flex justify-center -mt-8">
       <div className="relative w-full px-6 md:px-0 md:w-7/12 ">
