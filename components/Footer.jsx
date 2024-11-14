@@ -1,8 +1,25 @@
-
+"use client"
+import Link from "next/link"
+import { useState, useEffect } from "react";
 
 export const Footer = () => {
     const locations = ['Delhi' , 'Noida' , 'Gurgaon' , 'Ghaziabad' ,'Kanpur' ];
     const ComingSoons = ['Mumbai', 'Pune', 'Hyderabad', 'Bangalore', 'Kolkata', 'Jaipur', 'Chandigarh', 'Lucknow', 'Gorakhpur', 'Patna' , 'Chapra', 'Siwan'];
+    const [pages , setPages] = useState([]);
+    const url = 'https://support.homofixcompany.com/api/Legal-Page-Get/';
+    useEffect(()=>{
+        const featch = async() =>{
+            const res = await fetch( url,{cache : 'no-store'});
+            const data = await res.json()
+           const updatedata = data.slice(2);
+           console.log("res updatedata - ", updatedata )
+
+            setPages(updatedata)
+        }
+        featch()
+    } , [url])
+
+
   return (
     <section >
         <div className="w-full bg-black py-10 ">
@@ -15,6 +32,9 @@ export const Footer = () => {
                     <a href="/contactus" className='text-white px-4 py-2 text-sm'>Contact Us </a>
                     <a href="/terms" className='text-white px-4 py-2 text-sm'>Terms & Conditions</a>
                     <a href="/privacy" className='text-white px-4 py-2 text-sm'>Privacy Policy</a>
+                    {pages && pages.map((custpage , idx)=>  <a key={idx} href={`/page/${slugify(custpage.title)}`} className='text-white px-4 py-2 text-sm'>{custpage.title}</a>)}
+                    {/* <a href="/terms" className='text-white px-4 py-2 text-sm'>Terms & Conditions</a>
+                    <a href="/privacy" className='text-white px-4 py-2 text-sm'>Privacy Policy</a> */}
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
@@ -70,3 +90,14 @@ export const Footer = () => {
     </section>
   )
 }
+
+
+const slugify = (text) => {
+    return text
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '-') // Replace spaces with dashes
+      .replace(/[^\w-]+/g, '') // Remove non-word characters except dashes
+      .replace(/--+/g, '-') // Replace multiple dashes with a single dash
+      .replace(/^-+|-+$/g, ''); // Trim dashes from the beginning and end
+  };
