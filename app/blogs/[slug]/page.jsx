@@ -48,7 +48,7 @@ const BlogPage = ({ params }) => {
           {/* <div className="img max-w-[350px] md:max-w-[550px]  mx-auto"> */}
             <img src={blog.feature_img} alt="feature image" width="100%"  />
           </div>
-          <h2 className="md:text-4xl text-center font-bold py-4  text-2xl">{blog.title}</h2>
+          <h1 className="md:text-4xl text-center font-bold py-4  text-2xl">{blog.title}</h1>
 
           <div className="py-5 mb-6" dangerouslySetInnerHTML={{ __html: blog.content }}></div>
         </div>
