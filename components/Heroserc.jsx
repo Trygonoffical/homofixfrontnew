@@ -37,7 +37,7 @@ const Heroserc = ({url}) => {
         subcategory.name.toLowerCase().includes(query.toLowerCase())
       );
 
-
+    
 
   return (
     <>

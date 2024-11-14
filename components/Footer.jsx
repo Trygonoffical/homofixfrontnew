@@ -16,6 +16,9 @@ export const Footer = () => {
                     <a href="/terms" className='text-white px-4 py-2 text-sm'>Terms & Conditions</a>
                     <a href="/privacy" className='text-white px-4 py-2 text-sm'>Privacy Policy</a>
                     {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
+                    {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
+                    {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
+                    {/* <a href="/refund" className='text-white px-4 py-2 text-sm'>Refund Policy</a> */}
                 </div>
                 <hr className='border-dotted' />
                 <div className="w-full pt-6 text-center" >
