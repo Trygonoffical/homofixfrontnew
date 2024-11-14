@@ -240,7 +240,7 @@ const handleVerificationCoupon = async () => {
 
     
     <div className="bg-gradient-to-r from-bgleft to-Orange text-center py-8" >
-        <h2 className="text-3xl font-bold text-white">{subCat.name}</h2>
+        <h1 className="text-3xl font-bold text-white">{subCat.name}</h1>
         {/* <img src={subCat.subcategory_image} alt={subCat.Category_name} width={250} /> */}
     </div>
     <div className="grid md:grid-cols-3 gap-3 py-12">
