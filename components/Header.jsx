@@ -116,7 +116,7 @@ export default function Example() {
         //   setMessage('Failed to send OTP. Please try again.');
         // }
       } catch (error) {
-        // //console.log(error);
+        console.log(error);
         setMessage('catch Failed to send OTP. Please try again.');
       }
     }else{

@@ -27,13 +27,13 @@ export const Footer = () => {
                 <div className="locations p-4  sm:py-8 max-w-[1200px] mx-auto" >
                     <h3 className='text-white text-lg mb-3  '>Serving in</h3>
                     <div className="flex justify-start flex-wrap">
-                    {locations.map((location , idx) => <h1 key={idx} className='text-white p-2 text-sm'>{location}</h1>)}
+                    {locations.map((location , idx) => <h2 key={idx} className='text-white p-2 text-sm'>{location}</h2>)}
                     </div>
                 </div>
                 <div className="locations p-4  sm:py-8 max-w-[1200px] mx-auto">
                     <h3 className='text-white text-lg mb-3  '>Coming soon cities</h3>
                     <div className="flex justify-start flex-wrap">
-                    {ComingSoons.map((location , idx) => <h1 key={idx} className='text-white p-2 text-sm'>{location}</h1>)}
+                    {ComingSoons.map((location , idx) => <h2 key={idx} className='text-white p-2 text-sm'>{location}</h2>)}
                     </div>
                 </div>
                 <div className="social ">

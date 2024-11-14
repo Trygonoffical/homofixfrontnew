@@ -4,7 +4,7 @@ const Partner = () => {
     <section className="container mx-auto mt-10">
         <div className="grid grid-cols-2 ">
             <div className="columns-1 flex flex-col md:justify-center align-middle text-center">
-                <h1 className="text-xl mb-3 md:text-3xl font-semibold " >REGISTER AS A PROFESSIONAL</h1>
+                <h2 className="text-xl mb-3 md:text-3xl font-semibold " >REGISTER AS A PROFESSIONAL</h2>
                 <div className="btn">
                   < RegisterExp />
                 </div>
