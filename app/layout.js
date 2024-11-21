@@ -14,6 +14,10 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Book Professional Home Services at Your Doorstep',
   description: 'HomOfix Company provides a range of Professional Home Services by our Highly Skilled and Trusted Service Expert, Book Now for all your Home Service needs',
+  alternates: {
+    canonical: 'https://www.homofixcompany.com/',
+  },
+
 }
 
 

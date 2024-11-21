@@ -1,19 +1,24 @@
 
 import DataPage from './data';
-
+import { useRouter } from 'next/navigation';
 
 
 // Use async to fetch data dynamically or manipulate the params
 export async function generateMetadata({ params }) {
+  const baseUrl = 'https://homofixcompany.com';
+  const decodedSlug = decodeURIComponent(params.slug);
+  const encodedSlug = encodeURIComponent(decodedSlug.replace(/&/g, 'and'));
+  const canonicalUrl = `${baseUrl}/category/${encodedSlug}`;
   // Extract params to create a dynamic title and description
   const { slug } = params; // Assuming the param is called 'slug', adjust based on your URL structure
-
+  // const router = useRouter()
+  // const currentUrl = `${window.location.href}`;
   let dynamicTitle = `${slug}`; // Fallback title
   let dynamicDescription = ``; // Fallback description
 
   // Customize the title and description based on the category or params
-  switch (slug) {
-    case 'AC-Repair-%26-Service':
+  switch (decodedSlug) {
+    case 'AC-Repair-&-Service':
       dynamicTitle = 'Book AC Repair & Service in Delhi NCR, Kanpur';
       dynamicDescription = 'Book AC Service, AC Repair, AC Installation and Gas Leakage Repair & Refill services by our Highly Skilled and Trusted Service Expert in Delhi NCR and Kanpur. Book Now!';
       break;
@@ -75,6 +80,9 @@ export async function generateMetadata({ params }) {
   return {
     title: dynamicTitle,
     description: dynamicDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
   };
 }
 
