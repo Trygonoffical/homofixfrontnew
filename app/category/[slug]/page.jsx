@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 // Use async to fetch data dynamically or manipulate the params
 export async function generateMetadata({ params }) {
-  const baseUrl = 'https://homofixcompany.com';
+  const baseUrl = 'https://www.homofixcompany.com';
   const decodedSlug = decodeURIComponent(params.slug);
   const encodedSlug = encodeURIComponent(decodedSlug.replace(/&/g, 'and'));
   const canonicalUrl = `${baseUrl}/category/${encodedSlug}`;
