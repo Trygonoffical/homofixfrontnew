@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
 
   // Customize the title and description based on the category or params
   switch (decodedSlug) {
-    case 'AC-Repair-&-Service':
+    case 'AC-Repair-and-Service':
       dynamicTitle = 'Book AC Repair & Service in Delhi NCR, Kanpur';
       dynamicDescription = 'Book AC Service, AC Repair, AC Installation and Gas Leakage Repair & Refill services by our Highly Skilled and Trusted Service Expert in Delhi NCR and Kanpur. Book Now!';
       break;
