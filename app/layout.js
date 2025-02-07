@@ -10,6 +10,7 @@ import { Footer } from '@/components/Footer'
 import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
 import Scripthead from '@/components/Scripthead'
+import  FooterNew  from '@/components/Footer2'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Book Professional Home Services at Your Doorstep',
@@ -34,7 +35,8 @@ export default function RootLayout({ children }) {
             <body className={inter.className}>
               <Header />
               {children}
-              <Footer />
+              {/* <Footer /> */}
+              <FooterNew />
             </body>
             <GoogleTagManager gtmId="GTM-MVVP33ZX" />
             {/* <GoogleAnalytics gaId="AW-16494970140" /> */}
