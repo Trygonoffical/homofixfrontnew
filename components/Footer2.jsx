@@ -158,11 +158,11 @@ const Footer = () => {
           <div>
             <h3 className="text-gray-800 font-semibold mb-4">COMPANY</h3>
             <div className="flex ">
-              <Link href="/about" className="text-gray-600 hover:text-blue-600 px-2">About Us</Link> | 
-              <Link href="/contactus" className="text-gray-600 hover:text-blue-600 px-2">Contact Us</Link> |
-              <Link href="/career" className="text-gray-600 hover:text-blue-600 px-2">Career</Link> |
-              <Link href="/terms" className="text-gray-600 hover:text-blue-600 px-2">Terms & Conditions</Link> |
-              <Link href="/privacy" className="text-gray-600 hover:text-blue-600 px-2">Privacy Policy</Link> 
+              <Link href="/about" className="text-gray-600 text-xs hover:text-blue-600 px-2">About Us</Link> | 
+              <Link href="/contactus" className="text-gray-600 text-xs hover:text-blue-600 px-2">Contact Us</Link> |
+              <Link href="/career" className="text-gray-600 text-xs hover:text-blue-600 px-2">Career</Link> |
+              <Link href="/terms" className="text-gray-600 text-xs hover:text-blue-600 px-2">Terms & Conditions</Link> |
+              <Link href="/privacy" className="text-gray-600 text-xs hover:text-blue-600 px-2">Privacy Policy</Link> 
             </div>
           </div>
 
@@ -171,11 +171,11 @@ const Footer = () => {
             <h3 className="text-gray-800 font-semibold mb-4">FOR CUSTOMERS</h3>
             <div className="flex ">
               {/* <Link href="/services" className="text-gray-600 hover:text-blue-600">Services Near You</Link> */}
-              <Link href="/addons" className="text-gray-600 hover:text-blue-600 px-2">Addon Services</Link> | 
-              <Link href="/blogs" className="text-gray-600 hover:text-blue-600 px-2">Blogs</Link> |
+              <Link href="/addons" className="text-gray-600 hover:text-blue-600 text-xs px-2">Addon Services</Link> | 
+              <Link href="/blogs" className="text-gray-600 hover:text-blue-600 text-xs px-2">Blogs</Link> |
               {/* <Link href="/locations" className="text-gray-600 hover:text-blue-600">Serving Locations</Link> */}
               {pages.length>0 && pages.map((custpage , idx)=>  
-                <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-600 hover:text-blue-600 px-2">
+                <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-600 hover:text-blue-600 text-xs px-2">
                     {custpage.title}
                 </Link> 
                 )} 
@@ -183,8 +183,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="text-center mt-8 pt-8 border-t border-gray-200">
-          <p className="text-gray-600 text-sm">
+        <div className="text-center mt-8 py-8 border-t border-gray-200">
+          <p className="text-gray-600 text-xs">
             © {new Date().getFullYear()} HomOfix Technologies Pvt. Ltd. All Rights Reserved.
           </p>
         </div>
