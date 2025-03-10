@@ -148,7 +148,7 @@ const handleVerificationCoupon = async () => {
             // const res = await fetch(`https://support.homofixcompany.com/api/Subcategory-Get/${slugify(params.slug)}/`);
             const res = await fetch(suburl);
             const subcat = await res.json();
-            // console.log( 'subcat', subcat)
+            console.log( 'subcat', subcat)
             setSubCat(subcat)
         }
         fetchData()
@@ -507,6 +507,17 @@ const handleVerificationCoupon = async () => {
             </div>
             </Dialog>
     </Transition.Root>
+
+
+    {subCat.legal_pages.length>0 && (
+      <>
+      <div className='py-2 w-full p-2'>
+        {/* <h2 className='text-2xl font-bold'>{subCat.legal_pages[0].title}</h2> */}
+        <div className='productpoints'  dangerouslySetInnerHTML={{ __html: subCat.legal_pages[0].content }} style={{ fontSize: '12px' }}></div>
+      </div>
+     
+      </>
+    )}
   </section>
   )
 }

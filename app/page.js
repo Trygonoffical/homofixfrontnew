@@ -8,6 +8,7 @@ import Ourservice from '@/components/Ourservice'
 import Issuesec from '@/components/Issuesec'
 import Homeservice from '@/components/Homeservice'
 import Sidebar from '@/components/Sidebar'
+import ContentSec from '@/components/ContentSec'
 
 
 export default function Home() {
@@ -25,7 +26,9 @@ export default function Home() {
 
       < Homeservice url='https://support.homofixcompany.com/api/HomePageService/7/' bgImg="w-full bg-[url('/ad2bg.webp')]" icenter="justify-center" />
       <Partner />
+      <ContentSec />
       <Sidebar />
+
     </main>
   )
 }
