@@ -297,7 +297,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       <>
                       <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
 
-                      <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button>
+                      <button className='text-white text-sm rounded bg-red px-2 py-0.5 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button>
                       </>
                       
                     )}
