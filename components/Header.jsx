@@ -89,14 +89,6 @@ export default function Example() {
       try {
         // const url = "https://support.homofixcompany.com/api/Send/Otp/";
         const url = `/api/otp/?phone=${phone}`;
-        // const response = await fetch(url , {
-        //   // method: 'POST',
-        //   method: 'GET',
-        //   headers: {
-        //     'Content-Type': 'application/json',
-        //   },
-        //   body: JSON.stringify({phone_number : phone}),
-        // });
         const response = await fetch (url , {cache : 'no-store'})
         const result = await response.json();
         let otpSession = result.otp_session;

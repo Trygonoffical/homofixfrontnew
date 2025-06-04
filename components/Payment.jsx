@@ -169,7 +169,8 @@ const Payment = ({amount , name , mobile , bookingID }) => {
             {/* <script src="https://ebz-static.s3.ap-south-1.amazonaws.com/easecheckout/easebuzz-checkout.js"></script> */}
             <button className=' bg-basecolor text-white rounded text-sm py-2 px-3'
                 onClick={() => {
-                handleOnlinePayment2()
+                // handleOnlinePayment2()
+                handleOnlinePayment()
                 }}
             >
                 Pay: ₹ {amount}

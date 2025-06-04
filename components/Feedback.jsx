@@ -34,7 +34,7 @@ const Feedback = ({bookingID}) => {
               description: review,
             };
             // //console.log('feedback', feedData);
-            const URL = 'https://support.homofixcompany.com/api/Feedback/'
+        const URL = 'https://support.homofixcompany.com/api/Feedback/'
         const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;  
         const postProfile = async () => {
             try {
@@ -46,7 +46,6 @@ const Feedback = ({bookingID}) => {
                 },
                 body: JSON.stringify(feedData),
               });
-          
               if (response.ok) {
                 const FeedbackData = await response.json();
                 // console.log(FeedbackData);

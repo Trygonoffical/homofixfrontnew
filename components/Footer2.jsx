@@ -4,15 +4,22 @@ import React from 'react';
 import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { useRouter } from 'next/navigation';
 
 const Footer = () => {
+  
+
+
     const locations = ['Delhi' , 'Noida' , 'Gurgaon' , 'Ghaziabad' ,'Kanpur' ];
         const ComingSoons = ['Mumbai', 'Pune', 'Hyderabad', 'Bangalore', 'Kolkata', 'Jaipur', 'Chandigarh', 'Lucknow', 'Gorakhpur', 'Patna' , 'Chapra', 'Siwan'];
         const [pages , setPages] = useState([]);
         const url = 'https://support.homofixcompany.com/api/Legal-Page-Get/';
         const [isExpanded, setIsExpanded] = useState(false);
-
+        const router = useRouter();
         useEffect(()=>{
+          
+          console.log('router of the footer - ', router)
+          console.log('router of the window.location.pathname - ', window.location.pathname)
             const featch = async() =>{
                 const res = await fetch( url,{cache : 'no-store'});
                 const data = await res.json()
@@ -120,7 +127,7 @@ const Footer = () => {
             {/* Keep in Touch */}
             <div>
               {/* <img width={150} className="ml-0" src="/logodark.png" alt="" /> */}
-              <h3 className="text-gray-800 font-semibold mb-4">KEEP IN TOUCH</h3>
+              <h3 className="text-gray-800 text-sm font-semibold mb-4">KEEP IN TOUCH</h3>
               <div className="flex gap-4 mb-6">
                 <a href="https://www.facebook.com/Homerepairingandservices" target="_blank" rel="noopener noreferrer">
                   <img src="/assets/imgs/fb.png" alt="Facebook" width={28} height={28} />
@@ -136,7 +143,7 @@ const Footer = () => {
                 </a> */}
               </div>
               <div className="mb-6">
-                <h4 className="text-gray-800 font-semibold mb-2">DOWNLOAD OUR APP</h4>
+                <h4 className="text-gray-800 text-sm font-semibold mb-2">DOWNLOAD OUR APP</h4>
                 <a href="https://play.google.com/store/apps/details?id=com.homofix.homo_fix" 
                   target="_blank" 
                   rel="noopener noreferrer">
@@ -156,7 +163,7 @@ const Footer = () => {
           
           {/* Company */}
           <div>
-            <h3 className="text-gray-800 font-semibold mb-4">COMPANY</h3>
+            <h3 className="text-gray-800 text-sm font-semibold mb-4">COMPANY</h3>
             <div className="flex ">
               <Link href="/about" className="text-gray-600 text-xs hover:text-blue-600 px-2">About Us</Link> | 
               <Link href="/contactus" className="text-gray-600 text-xs hover:text-blue-600 px-2">Contact Us</Link> |
@@ -168,7 +175,7 @@ const Footer = () => {
 
           {/* For Customers */}
           <div>
-            <h3 className="text-gray-800 font-semibold mb-4">FOR CUSTOMERS</h3>
+            <h3 className="text-gray-800 text-sm font-semibold mb-4">FOR CUSTOMERS</h3>
             <div className="flex ">
               {/* <Link href="/services" className="text-gray-600 hover:text-blue-600">Services Near You</Link> */}
               <Link href="/addons" className="text-gray-600 hover:text-blue-600 text-xs px-2">Addon Services</Link> | 

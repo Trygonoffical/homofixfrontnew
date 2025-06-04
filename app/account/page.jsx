@@ -62,6 +62,7 @@ useEffect(() => {
         }
 
         const bookingData = await responseBooking.json();
+       
         setBookings(bookingData.reverse());
         console.log('bookingData 121', bookingData)
       }

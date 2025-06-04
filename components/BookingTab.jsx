@@ -19,6 +19,8 @@ const BookingTab = ({bookings , userProfileInfo}) => {
     const [originalCity, setOriginalCity] = useState('');
     const [zip , setZip] = useState('')
     const [mno , setMno] = useState(userProfileInfo.mobile)
+    const [gstNo, setGstNo] = useState(userProfileInfo.gst_no || '')
+    const [gstError, setGstError] = useState('')
     let [isOpen, setIsOpen] = useState(false)
     const [loading, setLoading] = useState(false);
     const [fetchedBookings, setFetchedBookings] = useState([]);
@@ -74,6 +76,16 @@ const BookingTab = ({bookings , userProfileInfo}) => {
       const handleMnoChange = useCallback(() => {
         // //console.log('zip - ', zip) 
       }, []);
+      const handleGstChange = useCallback((event) => {
+        const gstValue = event.target.value.toUpperCase();
+        if (gstValue === '' || /^[0-9A-Z]{15}$/.test(gstValue)) {
+          setGstError('');
+          setGstNo(gstValue);
+        } else {
+          setGstError('Please enter a valid 15-digit GST number');
+          setGstNo(gstValue);
+        }
+      }, []);
       const statesWithCities = {
         "Delhi": ["New Delhi", "Delhi"],
         "Uttar Pradesh": ["Noida", "Kanpur", "Ghaziabad"],
@@ -102,6 +114,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
             'city': city,
             'state': state,
             'zipcode': zip,
+            'gst_no': gstNo
         }
         // console.log('pData', pData)
         const URL = 'https://support.homofixcompany.com/api/customer/profile/update/'
@@ -148,6 +161,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
         setZip(userProfileInfo.zipcode || '');
         setName(userProfileInfo.first_name || '');
         setMno(userProfileInfo.mobile || '');
+        setGstNo(userProfileInfo.gst_no || '');
     } 
     // console.log(bookings);
     // console.log('fetchedBookings',fetchedBookings);
@@ -283,7 +297,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       <>
                       <span className='rounded-full border border-Blue-100 bg-Blue-500 text-white px-2 py-0.5 text-sm '>Booked</span>
 
-                      {/* <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button> */}
+                      <button className='text-white text-sm rounded bg-red px-4 py-2 ml-2' onClick= {() => cancelbooking(booking.id)}>Cancel Now</button>
                       </>
                       
                     )}
@@ -361,8 +375,6 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                       <li className='flex justify-between '> <span className='p-2 text-sm'>Tax</span><span className='p-2 text-sm'>₹ {booking.tax_amount} </span></li>
                       <hr />
                       <li className='flex justify-between '> <span className='p-2 text-sm'>Amount</span><span className='p-2 text-sm'>₹ {booking.final_amount} </span></li>
-                      
-                      
                   </ul>
                   </div>
                   
@@ -488,6 +500,24 @@ const BookingTab = ({bookings , userProfileInfo}) => {
 
                 {/* <label htmlFor="city">City</label> */}
                 
+                </div>
+
+                <div className="md:flex justify-between pb-5 ">
+                    <div className="lable">
+                        <h4>GST Number (Optional)</h4>
+                        <p className='text-sm text-gray-400'>Your business GST number for invoicing</p>
+                    </div>
+                    <div className="lable py-3">
+                        <input 
+                            type="text" 
+                            className='w-screen-full border-gray-600 text-gray-800 w-full' 
+                            value={gstNo} 
+                            onChange={handleGstChange}
+                            placeholder="Enter 15-digit GST number"
+                            maxLength={15}
+                        />
+                        {gstError && <p className='text-[red] text-sm'>{gstError}</p>}
+                    </div>
                 </div>
 
                 <div className="md:flex justify-between pb-5 ">

@@ -1,7 +1,7 @@
 'use client'
 import { Dialog } from '@headlessui/react';
 // import crypto from 'crypto';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import CongBooking from './CongBooking';
 // import Razorpay  from 'react-razorpay';
 // import Razorpay from 'react-razorpay';
@@ -29,6 +29,9 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [city , setCity] = useState('')
   const [state , setState] = useState('')
   const [zip , setZip] = useState('')
+  const [gstNo, setGstNo] = useState('')
+  const [gstError, setGstError] = useState('')
+
   const [paymentMethod , setPaymentMethod] = useState('Online')
   const [userProfileInfo , setUserProfileInfo] = useState({})
   const [bookingID , setBookingID] = useState(null)
@@ -63,6 +66,8 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
         setSelectedCity(''); // Reset city when state changes
         setCity('');
         setOriginalCity('');
+        setGstNo('');
+        setGstError('');
     };
 
     const handleCitynewChange = (e) => {
@@ -233,6 +238,16 @@ const handlePaymentChange = (val) => {
     setState(event.target.value);
     // //console.log('state - ', state) 
   };
+  const handleGstChange = useCallback((event) => {
+        const gstValue = event.target.value.toUpperCase();
+        if (gstValue === '' || /^[0-9A-Z]{15}$/.test(gstValue)) {
+          setGstError('');
+          setGstNo(gstValue);
+        } else {
+          setGstError('Please enter a valid 15-digit GST number');
+          setGstNo(gstValue);
+        }
+      }, []);
   const handleZipChange = (event) => {
     setZip(event.target.value);
     // //console.log('zip - ', zip) 
@@ -291,6 +306,7 @@ const handleProfileDataUpdate = () =>{
         'first_name' : name,
         'state': state,
         'zipcode': zip,
+        'gst_no': gstNo,
     }
     // console.log('profiledata', profiledata)
     const postProfile = async () =>{
@@ -389,7 +405,7 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
         "booking_customer": name,
         "mobile":  userProfileInfo.mobile,
         "zipcode": zip,
-     
+        "gst_no": gstNo,
   }
   console.log('payload', payload)
   // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
@@ -546,7 +562,7 @@ const handleOfflinePayment = () => {
         "booking_customer": name,
         "mobile":  userProfileInfo.mobile,
         "zipcode": zip,
-
+        "gst_no": gstNo,
     }
     console.log('payload', payload)
     // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
@@ -642,7 +658,8 @@ const handleOfflinePayment = () => {
         setOriginalCity(userProfileInfo.city || '');
         setState(userProfileInfo.state || '');
         setZip(userProfileInfo.zipcode || '');
-        setName(userProfileInfo.first_name || '');
+        setName(userProfileInfo.first_name || '');  
+        setGstNo(userProfileInfo.gst_no || ''); 
     } else {
       setAdd(address.residential || '');
       setName(name || '');
@@ -651,6 +668,7 @@ const handleOfflinePayment = () => {
       setOriginalCity(address.city || '');
       setState(address.state || '');
       setZip(address.postcode || '');
+      setGstNo('');
     }
   }, [userProfileInfo]);
 
@@ -807,7 +825,7 @@ const handleOnlinePayment2 = async () => {
 
               <input type="text" value={name }  className="w-full py-2 my-2 border-indigo-800" onChange={handleNameChange} required />
               <p className='text-[red] text-sm'>{errormsgName}</p> 
-             {/*   <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />*/}
+               {/* <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br /> */}
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Full Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
@@ -844,7 +862,23 @@ const handleOnlinePayment2 = async () => {
                 <label htmlFor="Pincode">Pincode </label>
                 <input type="text" value={zip} onChange={handleZipChange} className="w-full py-2 my-2 border-indigo-800"  />
               
-                {/* <p className='text-[red] text-sm'>{errormsgadd}</p>  */}
+                <div className=" pb-5 ">
+                    <div className="lable">
+                        <h4>GST Number (Optional)</h4>
+                        <p className='text-sm text-gray-400'>Your business GST number for invoicing</p>
+                    </div>
+                    <div className="lable py-3">
+                        <input 
+                            type="text" 
+                            className='w-screen-full border-gray-600 text-gray-800 w-full' 
+                            value={gstNo} 
+                            onChange={handleGstChange}
+                            placeholder="Enter 15-digit GST number"
+                            maxLength={15}
+                        />
+                        {gstError && <p className='text-[red] text-sm'>{gstError}</p>}
+                    </div>
+                </div>
                </>
             }
               <div className="mt-2">
