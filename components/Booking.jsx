@@ -55,7 +55,7 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const statesWithCities = {
     "Delhi": ["New Delhi", "Delhi"],
     "Uttar Pradesh": ["Noida", "Kanpur", "Ghaziabad"],
-    "Haryana": ["Gurugram"]
+    "Haryana": ["Gurugram" , "Faridabad"]
 };
 
     const [selectedState, setSelectedState] = useState('');
