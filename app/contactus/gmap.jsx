@@ -15,7 +15,7 @@ Kanpur, Uttar Pradesh - 208017
             <div className="column-1 pb-9">
                 <h2 className="text-xl font-semibold">Phone No : </h2>
                 <p className="py-3">
-                    <a href="tel:+918130105760" >+91-813-0105-760</a>
+                    <a href="tel:+918800855760" >+91-88-00-855-760</a>
                 </p>
             </div>
             <div className="column-1 pb-9">
