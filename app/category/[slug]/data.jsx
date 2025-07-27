@@ -403,8 +403,9 @@ const handleVerificationCoupon = async () => {
           <Booking cnames={'text-white bg-gradient-to-r from-bgleft to-bgleft font-bold w-full py-2 px-4 mt-9'} title='Book Now' cartItems={cartItems.map(item => ({
             product: item.id,
             productName: item.name,
-            quantity: item.quantity
-          }))} customer={userInfo.id} couponID={couponId} PaymentAmount={getNetAmount() + Number(getGSTAmount().toFixed(2))} />
+            quantity: item.quantity,
+            // subcategory: subCat.Category_id
+          }))} subcategoryID={subCat} customer={userInfo.id} couponID={couponId} PaymentAmount={getNetAmount() + Number(getGSTAmount().toFixed(2))} />
          ):(
           <>
        

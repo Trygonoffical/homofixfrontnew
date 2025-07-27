@@ -316,7 +316,7 @@ const BookingTab = ({bookings , userProfileInfo}) => {
                   <hr />
                   <div className='pt-2'>
                     <ul  style={{paddingLeft: 'initial'}}>
-                        <li className='flex justify-between '> <span className='p-2 text-sm'>Order ID </span><span className='p-2 text-sm'>{booking.order_id}</span></li>
+                        <li className='flex justify-between '> <span className='p-2 text-sm'>Booking ID </span><span className='p-2 text-sm'>{booking.order_id}</span></li>
                         <li className='flex justify-between '> <span className='p-2 text-sm'>Scheduled </span><span className='p-2 text-sm'>{formatDateTime(booking.booking_date)} </span></li>
                         <hr />
                         <li className='flex justify-between '> <span className='p-2 text-sm'>Payment Mode </span>{booking.online == true ? ( <>

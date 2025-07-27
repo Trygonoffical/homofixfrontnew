@@ -11,10 +11,11 @@ import { XMarkIcon} from '@heroicons/react/24/outline'
 import Link from 'next/link';
 import Loading from './Loading';
 import { useRouter } from 'next/navigation';
+import { ArrowLeftIcon } from '@heroicons/react/20/solid';
 
 // import Easebuzz from "./Easebuzz";
 
-const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmount}) => {
+const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmount , subcategoryID}) => {
   const [minDateTime, setMinDateTime] = useState('');
   const [bookingShow, setBookingShow] = useState(false);
   const [latitude, setLatitude] = useState(null);
@@ -31,7 +32,12 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [zip , setZip] = useState('')
   const [gstNo, setGstNo] = useState('')
   const [gstError, setGstError] = useState('')
-
+  const [slotBookingShow, setSlotBookingShow] = useState(false);
+  const [slotBookingData, setSlotBookingData] = useState([]);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [slotLoading, setSlotLoading] = useState(false);
+  const [bookingProcessing, setBookingProcessing] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [paymentMethod , setPaymentMethod] = useState('Online')
   const [userProfileInfo , setUserProfileInfo] = useState({})
   const [bookingID , setBookingID] = useState(null)
@@ -57,7 +63,6 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     "Uttar Pradesh": ["Noida", "Kanpur", "Ghaziabad"],
     "Haryana": ["Gurugram" , "Faridabad"],
     "Telangana"  : ["Hyderabad"]
-
 };
 
     const [selectedState, setSelectedState] = useState('');
@@ -166,12 +171,13 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
-    setBookingDate(e.target.value);
+    setBookingDate(selectedDate);
+    CheckSlotAvailability(selectedDate);
     // setBookingTime
-    if(bookingTime != ''){
-      const bookingDateTimeString = `${selectedDate}T${bookingTime}:00+05:30`; 
-      setBookingDateTime(bookingDateTimeString);
-    }
+    // if(bookingTime != ''){
+    //   const bookingDateTimeString = `${selectedDate}T${bookingTime}:00+05:30`; 
+    //   setBookingDateTime(bookingDateTimeString);
+    // }
   };
   const handleTimeChange = (e) => {
     const timeset = e.target.value ;
@@ -257,7 +263,8 @@ const handlePaymentChange = (val) => {
 useEffect(() => {
   const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
     const fetchUserProfile = async () => {
-        const URL = 'https://support.homofixcompany.com/api/Customer/'
+        // const URL = 'https://support.homofixcompany.com/api/Customer/'
+        const URL = `${process.env.NEXT_PUBLIC_API_URL}/Customer/`
       try {
         // Make the API call to fetch the user profile data
         const response = await fetch(URL, {
@@ -299,7 +306,8 @@ useEffect(() => {
 
 const handleProfileDataUpdate = () =>{
     const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; // Replace with your actual authentication token
-    const Burl = `https://support.homofixcompany.com/api/customer/profile/update/`;
+    // const Burl = `https://support.homofixcompany.com/api/customer/profile/update/`;
+    const Burl = `${process.env.NEXT_PUBLIC_API_URL}/customer/profile/update/`;
 
     let profiledata = {
         'address': add,
@@ -411,7 +419,8 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
   }
   console.log('payload', payload)
   // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
-  const url = "https://support.homofixcompany.com/api/create_booking/";
+  // const url = "https://support.homofixcompany.com/api/create_booking/";
+  const url =`${process.env.NEXT_PUBLIC_API_URL}/create_booking/`;
 
   const postData = async () => {
     try {
@@ -457,7 +466,7 @@ const handlePaymentRep = (paymentID ,localbookindID )=>{
   }
   const postResp = async () => {
       try {
-        const response = await fetch('https://support.homofixcompany.com/api/customer/payments/', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/customer/payments/`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -497,9 +506,9 @@ const handleOfflinePayment = () => {
     alert(cityerrormsg);
     return;
   }
-  if(bookingDateTime == '') {
+  if(selectedSlot == null) {
     // Display an alert or handle the error in your UI
-    setErrorMsg('Please Select Date and Time');
+    setErrorMsg('Please Select Slot');
     return;
   }
   if(bookingDate == '') {
@@ -507,11 +516,11 @@ const handleOfflinePayment = () => {
     setErrorMsg('Please Select Date');
     return;
   }
-  if(bookingTime == '') {
-    // Display an alert or handle the error in your UI
-    setErrorMsg('Please Select Time');
-    return;
-  }
+  // if(bookingTime == '') {
+  //   // Display an alert or handle the error in your UI
+  //   setErrorMsg('Please Select Time');
+  //   return;
+  // }
   if(state == ''){
     setErrorMsg('Please Select State');
   }
@@ -530,7 +539,7 @@ const handleOfflinePayment = () => {
   
   console.log('state - ', state)
   console.log('city - ', originalCity)
-  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
+  if(selectedSlot != null && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');
@@ -551,7 +560,8 @@ const handleOfflinePayment = () => {
     // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
     // setBookingDateTime(bookingDateTimeString);
     let payload = {
-        "booking_date": bookingDateTime,
+        "booking_date": bookingDate,
+        "slot":selectedSlot.slot,
         "customer": customer,
         "coupon": couponID,
         "cash_on_service": COS,
@@ -568,7 +578,9 @@ const handleOfflinePayment = () => {
     }
     console.log('payload', payload)
     // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
-    const url = "https://support.homofixcompany.com/api/create_booking/";
+    // const url = "https://support.homofixcompany.com/api/create_booking/";
+    // const url =`${process.env.NEXT_PUBLIC_API_URL}/create_booking/`;
+    const url =`http://3.110.153.69/api/create_booking/`;
 
     const postData = async () => {
       try {
@@ -794,6 +806,125 @@ const handleOnlinePayment2 = async () => {
 //   const inputField = document.getElementById('bookingDateTime');
 //   inputField.click();
 // };
+const filterSlotsForToday = (slots, selectedDate) => {
+  const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  
+  // If selected date is not today, return all slots
+  if (selectedDate !== today) {
+    return slots;
+  }
+  
+  // If selected date is today, filter out past time slots
+  const currentTime = new Date();
+  
+  return slots.filter(slot => {
+    // Extract start time from slot time (e.g., "09:00 AM - 10:00 AM" -> "09:00 AM")
+    const startTime = slot.time.split(' - ')[0];
+    const slotDateTime = parseTimeToDate(startTime);
+    
+    // Compare with current time
+    return slotDateTime > currentTime;
+  });
+}
+
+const parseTimeToDate = (timeString) => {
+  // Parse time string like "09:00 AM" to a Date object for today
+  const [time, period] = timeString.split(' ');
+  const [hours, minutes] = time.split(':');
+  
+  let hour24 = parseInt(hours);
+  if (period === 'PM' && hour24 !== 12) {
+    hour24 += 12;
+  } else if (period === 'AM' && hour24 === 12) {
+    hour24 = 0;
+  }
+  
+  const today = new Date();
+  today.setHours(hour24, parseInt(minutes), 0, 0);
+  return today;
+}
+
+const CheckSlotAvailability = async (selectedDate) => {
+  const authToken = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null; 
+  setSlotLoading(true);
+  setSlotBookingData([]);
+  setSelectedSlot(null);
+
+  // const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/SlotCheck/`;
+  const baseUrl = `http://3.110.153.69/api/SlotCheck/`;
+ 
+  const payload = {
+    "date": selectedDate,
+    "zipcode": zip,
+    "subcategory_ids": [subcategoryID.id]
+  }
+  console.log('Slotpayload:', payload);
+  try {
+    
+    const response = await fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Slot availability data:', data);
+      
+      // Filter slots based on current time if selected date is today
+      const filteredSlots = filterSlotsForToday(data.slots || [], selectedDate);
+      setSlotBookingData(filteredSlots);
+    } else {
+      console.error('Failed to check slot availability:', response.status);
+      setSlotBookingData([]);
+    }
+  } catch (error) {
+    console.error('Error checking slot availability:', error);
+    setSlotBookingData([]);
+  } finally {
+    setSlotLoading(false);
+  }
+}
+
+const handleSlotSelection = (slot) => {
+  if (slot.status === 'available' && slot.remaining_slots > 0) {
+    setSelectedSlot(slot);
+    // Store the selected slot time as is
+    setBookingTime(slot.time);
+    
+    if (bookingDate) {
+      const bookingDateTimeString = `${bookingDate}T${slot.time}:00+05:30`; 
+      setBookingDateTime(bookingDateTimeString);
+    }
+  }
+};
+
+const handleOnlinePaymentWithProcessing = () => {
+  if (!selectedSlot) {
+    setErrorMsg('Please select a time slot');
+    return;
+  }
+  
+  setBookingProcessing(true);
+  handleOnlinePayment2().finally(() => {
+    setBookingProcessing(false);
+  });
+};
+
+const handleOfflinePaymentWithProcessing = () => {
+  if (!selectedSlot) {
+    setErrorMsg('Please select a time slot');
+    return;
+  }
+  
+  setBookingProcessing(true);
+  Promise.resolve(handleOfflinePayment()).finally(() => {
+    setBookingProcessing(false);
+  });
+};
   return (
     <>
       <button className={cnames} onClick={() => setBookingShow(true)}>
@@ -821,19 +952,19 @@ const handleOnlinePayment2 = async () => {
             </button>
           </div>
           <div className="my-6 flow-root">
-            <div className=" divide-gray-500/10">
+            <div className="my-6  divide-gray-500/10">
               {/* <h2>Name</h2> */}
               <label htmlFor="State">Name</label>
 
               <input type="text" value={name }  className="w-full py-2 my-2 border-indigo-800" onChange={handleNameChange} required />
               <p className='text-[red] text-sm'>{errormsgName}</p> 
-               {/* <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br /> */}
+               <button className='my-2 text-basecolor' onClick={handleLocation}>Get Location</button> <br /> <br />
               {loading ? <Loading /> :   <>
                <label htmlFor="Address">Full Address</label>
                 <input type="text" value={add} onChange={handleAddChange} className="w-full py-2 my-2 border-indigo-800"  />
                 <p className='text-[red] text-sm'>{errormsgadd}</p> 
-                <label htmlFor="Area">Near By</label>
-                <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  />
+                {/* <label htmlFor="Area">Near By</label>
+                <input type="text" value={area} onChange={handleAreaChange}  className="w-full py-2 my-2 border-indigo-800"  /> */}
                 {/* <label htmlFor="city">City</label>
                 <input type="text" value={city} onChange={handleCityChange} className="w-full py-2 my-2 border-indigo-800"  /> */}
                 <p className='text-[red] text-sm' >{errormsgadrea}</p>
@@ -883,21 +1014,22 @@ const handleOnlinePayment2 = async () => {
                 </div>
                </>
             }
-              <div className="mt-2">
+            <div className="mt-2">
+            <button className='w-full bg-basecolor text-white py-2 px-9 mx-auto '
+                      onClick={() => {
+                        setBookingShow(false)
+                        setSlotBookingShow(true)
+                      }}
+                      >
+                      Book Slot
+                    </button>
+            </div>
+             {/* <div className="mt-2">
                 
-              <label htmlFor="bookingDateTime" className="block font-medium text-gray-700 text-sm mb-2">
+               <label htmlFor="bookingDateTime" className="block font-medium text-gray-700 text-sm mb-2">
                   Select Date & Time 
                 </label>
-                {/* <input
-                  type="datetime-local"
-                  id="bookingDateTime"
-                  name="bookingDateTime"
-                  min={new Date().toISOString().split('T')[0]}
-                  value={bookingDateTime}
-                  onChange={(e)=>setBookingDateTime(e.target.value)}
-                  className="w-full py-2 my-2 border-indigo-800"
-                  
-                /> */}
+                
 
                 <input
                   type="date"
@@ -919,8 +1051,8 @@ const handleOnlinePayment2 = async () => {
                 /> 
                 
                 
-              </div>
-             <p className='text-[red] text-sm'>{errormsg}</p> 
+              </div> */}
+             {/* <p className='text-[red] text-sm'>{errormsg}</p> 
               <div className='py-3'>
                 <h3 >Payment Method</h3>
                 <div className='mt-2'>
@@ -961,7 +1093,7 @@ const handleOnlinePayment2 = async () => {
                 ):(
                     <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto ' onClick={handleOfflinePayment} >Book Now</button>
 
-                )}
+                )} */}
                 {/* <div className='flex justify-between'>
                 <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto '
                       onClick={() => {
@@ -973,11 +1105,350 @@ const handleOnlinePayment2 = async () => {
                     <button className='mt-5 bg-basecolor text-white py-2 px-9 mx-auto ' onClick={handleOfflinePayment} >Cash on Service</button>
                 </div> */}
                 
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </Dialog.Panel>
       </Dialog>
+
+      {/* SlotBooking Dialog */}
+      <Dialog as="div" open={slotBookingShow} onClose={() => setSlotBookingShow(false)}>
+        {/* Dialog content */}
+        <div className="fixed inset-0 z-[1300]" />
+
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-[1300] w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-md sm:ring-1 sm:ring-gray-900/10">
+          <div className="flex items-center justify-start border-b-2 pb-3">
+            
+            <button
+              type="button"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 flex justify-start"
+              onClick={() => {
+                console.log('Back button clicked');
+                setBookingShow(true)
+                setSlotBookingShow(false)
+              }}
+            >
+              <span className="sr-only">Back menu</span>
+              <ArrowLeftIcon className="h-6 w-6" aria-hidden="true"  />
+            
+            <div  className="ml-2">
+              <span className="sr-only">Homofix Company</span>
+              <h2 className="text-xl font-semibold">Slot Booking</h2>
+            </div>
+            </button>
+          </div>
+                    <div className="my-6 flow-root">
+            <div className=" divide-gray-500/10">
+              
+              {/* Date Selection Cards */}
+              <div className="mt-2">
+                <h3 className="block font-medium text-gray-700 text-lg mb-4">Select Date</h3>
+                
+                <div className="grid grid-cols-4 gap-3 mb-6">
+                  {/* Today Card */}
+                  <button 
+                    className={`border-3 rounded-lg p-4 text-center cursor-pointer transition-all focus:outline-none ring-1 ${
+                      bookingDate === new Date().toISOString().split('T')[0]
+                        ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
+                        : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const today = new Date().toISOString().split('T')[0];
+                      console.log('Today clicked:', today);
+                      setBookingDate(today);
+                      CheckSlotAvailability(today);
+                    }}
+                    type="button"
+                  >
+                    <div className="text-2xl font-bold text-teal-600 pointer-events-none">{new Date().getDate()}</div>
+                    <div className="text-sm text-gray-600 pointer-events-none">Today</div>
+                  </button>
+
+                  {/* Tomorrow Card */}
+                  <button 
+                    className={`border-3 rounded-lg p-4 text-center cursor-pointer transition-all focus:outline-none ring-1 ${
+                      bookingDate === new Date(Date.now() + 86400000).toISOString().split('T')[0]
+                        ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
+                        : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+                      console.log('Tomorrow clicked:', tomorrow);
+                      setBookingDate(tomorrow);
+                      CheckSlotAvailability(tomorrow);
+                    }}
+                    type="button"
+                  >
+                    <div className="text-2xl font-bold text-gray-700 pointer-events-none">{new Date(Date.now() + 86400000).getDate()}</div>
+                    <div className="text-sm text-gray-600 pointer-events-none">Tomorrow</div>
+                  </button>
+
+                  {/* Day After Tomorrow Card */}
+                  <button 
+                    className={`border-3 rounded-lg p-4 text-center cursor-pointer transition-all focus:outline-none ring-1 ${
+                      bookingDate === new Date(Date.now() + 172800000).toISOString().split('T')[0]
+                        ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
+                        : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
+                    }`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      const dayAfter = new Date(Date.now() + 172800000).toISOString().split('T')[0];
+                      console.log('Day after clicked:', dayAfter);
+                      setBookingDate(dayAfter);
+                      CheckSlotAvailability(dayAfter);
+                    }}
+                    type="button"
+                  >
+                    <div className="text-2xl font-bold text-gray-700 pointer-events-none">{new Date(Date.now() + 172800000).getDate()}</div>
+                    <div className="text-sm text-gray-600 pointer-events-none">
+                      {new Date(Date.now() + 172800000).toLocaleDateString('en-US', { weekday: 'short' })}
+                    </div>
+                  </button>
+
+                  {/* Pick Date Card */}
+                  {!showDatePicker ? (
+                    <div 
+                      className={`border-3 ring-1 rounded-lg p-4 text-center cursor-pointer transition-all relative ${
+                        bookingDate && 
+                        bookingDate !== new Date().toISOString().split('T')[0] && 
+                        bookingDate !== new Date(Date.now() + 86400000).toISOString().split('T')[0] && 
+                        bookingDate !== new Date(Date.now() + 172800000).toISOString().split('T')[0]
+                          ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
+                          : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
+                      }`}
+                      onClick={() => {
+                        console.log('Pick Date clicked - showing date picker');
+                        setShowDatePicker(true);
+                      }}
+                    >
+                      {bookingDate && 
+                       bookingDate !== new Date().toISOString().split('T')[0] && 
+                       bookingDate !== new Date(Date.now() + 86400000).toISOString().split('T')[0] && 
+                       bookingDate !== new Date(Date.now() + 172800000).toISOString().split('T')[0] ? (
+                        <>
+                          <div className="text-2xl font-bold text-teal-600">
+                            {new Date(bookingDate).getDate()}
+                          </div>
+                          <div className="text-sm text-gray-600">
+                            {new Date(bookingDate).toLocaleDateString('en-US', { weekday: 'short' })}
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="text-2xl mb-1">📅</div>
+                          <div className="text-sm text-gray-600">Pick Date</div>
+                        </>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="border-3 border-teal-600 bg-teal-100 rounded-lg p-4 text-center">
+                      <input
+                        type="date"
+                        className="w-full text-center bg-transparent border-none text-teal-700 font-semibold focus:outline-none"
+                        value={bookingDate || ''}
+                        onChange={(e) => {
+                          console.log('Date picker changed:', e.target.value);
+                          if (e.target.value) {
+                            setBookingDate(e.target.value);
+                            CheckSlotAvailability(e.target.value);
+                            setShowDatePicker(false);
+                          }
+                        }}
+                        onBlur={() => {
+                          console.log('Date picker blurred');
+                          setShowDatePicker(false);
+                        }}
+                        autoFocus
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+             <p className='text-[red] text-sm'>{errormsg}</p> 
+
+              {/* Slot Loading State */}
+              {slotLoading && (
+                <div className="py-3 text-center">
+                  <Loading />
+                  <p className="text-gray-500 mt-2">Loading available slots...</p>
+                </div>
+              )}
+
+              {/* Available Slots Display */}
+              {!slotLoading && slotBookingData.length > 0 && (
+                <div className='py-3'>
+                  <h3 className="font-semibold text-gray-700 text-lg mb-4">Select Start Time</h3>
+                  <div className='mt-2 grid grid-cols-2 gap-3'>
+                    {slotBookingData.map((slot) => (
+                      <div 
+                        key={slot.slot} 
+                        className={`border rounded-lg p-3 cursor-pointer transition-all ${
+                          slot.status === 'available' && slot.remaining_slots > 0
+                            ? selectedSlot?.slot === slot.slot
+                              ? 'border-blue-500 bg-blue-50 '
+                              : 'border-gray-300 hover:border-blue-300'
+                            : 'border-red-300 bg-red-50 cursor-not-allowed opacity-60'
+                        }`}
+                        onClick={() => handleSlotSelection(slot)}
+                      >
+                        <div className="flex items-center mb-2">
+                          <input 
+                            type="radio" 
+                            name="slot" 
+                            id={`slot-${slot.slot}`}
+                            checked={selectedSlot?.slot === slot.slot}
+                            disabled={slot.status !== 'available' || slot.remaining_slots === 0}
+                            onChange={() => handleSlotSelection(slot)}
+                            className="mr-2"
+                          />
+                          <label 
+                            htmlFor={`slot-${slot.slot}`} 
+                            className={`font-medium text-sm ${
+                              slot.status === 'available' && slot.remaining_slots > 0
+                                ? 'text-gray-800'
+                                : 'text-red-500'
+                            }`}
+                          >
+                            {slot.time}
+                          </label>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <p className="text-xs text-gray-500">
+                            {slot.remaining_slots} of {slot.limit} available
+                          </p>
+                          {slot.status === 'available' && slot.remaining_slots > 0 ? (
+                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                              Available
+                            </span>
+                          ) : (
+                            <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
+                              {slot.remaining_slots === 0 ? 'Full' : 'N/A'}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* No Slots Available Message */}
+              {!slotLoading && slotBookingData.length === 0 && bookingDate && (
+                <div className="py-6">
+                  <h3 className="font-semibold text-gray-700 text-lg mb-4">Select Start Time</h3>
+                  <div className="border-2 border-gray-200 rounded-lg p-8 text-center bg-gray-50">
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      Fully booked for the day due to high demand. Please choose another date.
+                    </p>
+                    <p className="text-gray-500 mt-2">Thank you!</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Payment Method Section - Only show when slots are available and selected */}
+              {!slotLoading && slotBookingData.length > 0 && selectedSlot && (
+                <div className='py-3 border-t mt-4 pt-4' data-payment-section>
+                  <h3 className="font-semibold mb-3">Payment Method</h3>
+                  <div className='space-y-3'>
+                    <div className="flex items-center">
+                      <input 
+                        type="radio" 
+                        name="PAYMENT" 
+                        id="payment-online" 
+                        value='Online' 
+                        onChange={() => handlePaymentChange('Online')}
+                        checked={paymentMethod === 'Online'}
+                        className="mr-3"
+                      />
+                      <label htmlFor="payment-online" className="text-gray-700">Make Payment Online</label>
+                    </div>
+                    
+                    <div className="flex items-center">
+                      <input 
+                        type="radio" 
+                        name="PAYMENT" 
+                        id="payment-cash"
+                        value='Cash'
+                        onChange={() => handlePaymentChange('Cash')}
+                        checked={paymentMethod === 'Cash'}
+                        className="mr-3"
+                      />
+                      <label htmlFor="payment-cash" className="text-gray-700">Cash on Service</label>
+                    </div>
+                  </div>
+
+                  {/* Booking Buttons */}
+                  <div className="mt-6">
+                    {paymentMethod === 'Online' ? (
+                      <button 
+                        className={`w-full py-3 px-6 rounded-lg font-medium transition-all  bg-basecolor text-white ${
+                          bookingProcessing 
+                            ? 'bg-gray-400 cursor-not-allowed' 
+                            : 'bg-blue-600 hover:bg-blue-700'
+                        } text-white`}
+                        onClick={handleOnlinePaymentWithProcessing}
+                        disabled={bookingProcessing}
+                      >
+                        {bookingProcessing ? (
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                            Processing...
+                          </div>
+                        ) : (
+                          'Pay Now'
+                        )}
+                      </button>
+                    ) : (
+                      <button 
+                        className={`w-full py-3 px-6 rounded-lg font-medium transition-all  bg-basecolor text-white ${
+                          bookingProcessing 
+                            ? 'bg-gray-400 cursor-not-allowed' 
+                            : 'bg-green-600 hover:bg-green-700'
+                        } text-white`}
+                        onClick={handleOfflinePaymentWithProcessing}
+                        disabled={bookingProcessing}
+                      >
+                        {bookingProcessing ? (
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                            Processing...
+                          </div>
+                        ) : (
+                          'Book Now (Cash on Service)'
+                        )}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Book Slot Button - Only show when slot is selected */}
+              {selectedSlot && (
+                <div className="mt-6 border-t pt-6">
+                  <button 
+                    className="w-full py-4 bg-teal-500 text-white text-lg font-medium rounded-lg hover:bg-teal-600 transition-all"
+                    onClick={() => {
+                      console.log('Book Slot clicked, selected slot:', selectedSlot);
+                      // Show payment method section or proceed with booking
+                      // You can scroll to payment section or open payment modal here
+                      document.querySelector('[data-payment-section]')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    Book Slot
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </Dialog.Panel>
+      </Dialog>
+      {/* Congratulation Dialog */}
 
       <Dialog as="div" open={congBookingShow} onClose={() => setCongBookingShow(false)}>
         {/* Dialog content */}
