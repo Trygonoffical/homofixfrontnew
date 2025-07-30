@@ -341,24 +341,12 @@ const ProductDetailPage = ({ params }) => {
 
           
         </div>
-        {cartItems.length > 0 && (
-        <div>
-          {cartVisible && (
-            <div className='fixed bottom-0 left-0 w-full bg-white z-50 px-4 shadow-sm py-6 flex justify-between md:hidden'>
-          <span>
-          ₹  {getNetAmount() + Number(getGSTAmount().toFixed(2)) } 
-          </span>
-          <a href='#cart' className='bg-basecolor px-4 py-2 text-white text-xs'>View Cart</a>
-        </div>
-          )}
-        
-        </div>
-      )}
+       
         {/* Cart and Booking Section */}
         <div className="space-y-6 ">
           {/* Order Summary */}
           {cartItems.length > 0 ? (
-            <div className="bg-gray-50 p-6 rounded-lg" ref={cartRef} id='cart'>
+            <div className="bg-gray-50 p-6 rounded-lg" ref={cartRef} id='cart'  >
               <h3 className="font-bold text-xl py-3 text-basecolor">Order Summary</h3>
               <hr className="mb-4" />
 
@@ -469,6 +457,19 @@ const ProductDetailPage = ({ params }) => {
         <Faq ProID={product.id} />
       </div>
 
+      {cartItems.length > 0 && (
+        <div>
+          {cartVisible && (
+            <div className='fixed bottom-0 left-0 w-full bg-white z-50 px-4 shadow-sm py-6 flex justify-between md:hidden'>
+          <span>
+          ₹  {getNetAmount() + Number(getGSTAmount().toFixed(2)) } 
+          </span>
+          <a href='#cart' className='bg-basecolor px-4 py-2 text-white text-xs'>View Cart</a>
+        </div>
+          )}
+        
+        </div>
+      )}
       {/* Legal Pages */}
       {subCat.legal_pages && subCat.legal_pages.length > 0 && (
         <div className="py-6 w-full p-2 mt-8 border-t">
