@@ -13,8 +13,8 @@ import Scripthead from '@/components/Scripthead'
 import  FooterNew  from '@/components/Footer2'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
-  title: 'Book Professional Home Services at Your Doorstep',
-  description: 'HomOfix Company provides a range of Professional Home Services by our Highly Skilled and Trusted Service Expert, Book Now for all your Home Service needs',
+  title: 'Book Top-Rated Home Services. Fast,Affordable & At Your Door!',
+  description: 'Fix it with HomOfix Company! Get skilled professionals for AC Service, cleaning and more–delivered to your doorstep.Book & experience hassle-free Home care!',
   alternates: {
     canonical: 'https://www.homofixcompany.com/',
   },

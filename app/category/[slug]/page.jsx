@@ -19,60 +19,60 @@ export async function generateMetadata({ params }) {
   // Customize the title and description based on the category or params
   switch (decodedSlug) {
     case 'AC-Repair-and-Service':
-      dynamicTitle = 'Book AC Repair & Service in Delhi NCR, Kanpur';
-      dynamicDescription = 'Book AC Service, AC Repair, AC Installation and Gas Leakage Repair & Refill services by our Highly Skilled and Trusted Service Expert in Delhi NCR and Kanpur. Book Now!';
+      dynamicTitle = 'Fast & Affordable AC Service from Industry Experts. Book Now!';
+      dynamicDescription = 'Facing AC issues? Book expert repair, servicing, and gas refill with HomOfix Company now! Quick, affordable, and professional solutions—just a tap away.';
       break;
     case 'Washing-Machine-Repair':
-      dynamicTitle = 'Get Best Washing Machine Repair at your Doorstep';
-      dynamicDescription = 'Book Washing Machine Repair service by our Highly Skilled and Trusted Service Expert in Delhi NCR and Kanpur';
+      dynamicTitle = 'Book Expert Washing Machine Repair Services Right at Your Doorstep.';
+      dynamicDescription = 'Washing machine not working? Book reliable technicians for quick doorstep repair with HomOfix Company. Affordable, expert service—tap to schedule now!';
       break;
     case 'Refrigerator-Repair':
-      dynamicTitle = 'Repair your Refrigerator by our Highly Skilled Expert';
-      dynamicDescription = 'Book Single Door Fridge and Double Door Fridge Repair Service by our Highly Skilled and 100% Verified Service Expert in Delhi NCR and Kanpur';
+      dynamicTitle = 'Quick Fridge Repair by Skilled Experts with HomOfix Company';
+      dynamicDescription = 'Facing fridge issues? HomOfix Company’s trusted experts are Ready to solve your problem. Book reliable single & double door fridge repair today!';
       break;
     case 'Geyser-Repair':
-      dynamicTitle = 'Get Best Geyser Repair Service by our Experienced Expert';
-      dynamicDescription = 'Book Geyser Repair, Geyser Service, Geyser Installation Service by our Highly Skilled and Verified Service Expert in Delhi NCR and Kanpur. Book Now';
+      dynamicTitle = 'trusted geyser repair at home. Quick service, experienced pros—Tap now to book your repair!';
+      dynamicDescription = 'HomOfix Company offers expert geyser service—repair, maintenance & installation. 100% verified pro technicians. Book now for fast support!';
       break;
     case 'Television-Repair':
-      dynamicTitle = 'Book Best Television Repair Service in Delhi NCR';
-      dynamicDescription = 'Book best LCD, LED, TV, Smart TV repair Service by our Highly Skilled and Verified Service Expert in Delhi NCR and Kanpur. Book Now';
+      dynamicTitle = 'Trusted Television Repair Service–Book with HomOfix Company!';
+      dynamicDescription = 'HomOfix Company offers expert LCD, LED & Smart TV repair. With Skilled professionals, doorstep service & easy booking. Tap now to schedule!';
       break;
     case 'Microwave-Repair':
-      dynamicTitle = 'Best Microwave Repair Service in Delhi NCR.';
-      dynamicDescription = 'Looking for Expert Microwave Repair in Delhi NCR or Kanpur? We offer Best Microwave Repair services at your doorstep by our Highly skilled Technical Expert.';
+      dynamicTitle = 'Book Best Microwave Repair by Verified Experts at HomOfix.';
+      dynamicDescription = 'Don’t let a faulty microwave disrupt your day, get it repaired with Experts of HomOfix Company offer expert repair at home—Book your service now!';
       break;
     case 'Chimney-Repair':
-      dynamicTitle = 'Expert Chimney Repair Services in Delhi NCR & Kanpur | Fast & Reliable';
-      dynamicDescription = 'Need Professional Chimney Repair Service in Delhi NCR or Kanpur? We Deliver quality Chimney Repair Service at your Home by our Highly skilled Chimney Expert.';
+      dynamicTitle = 'Expert Chimney Repair service at Your Doorstep – Book Now!';
+      dynamicDescription = 'Need expert chimney repair? HomOfix Company brings skilled professionals to your doorstep. Reliable, fast & affordable service—Book now';
       break;
     case 'Water-Purifier-Repair':
-      dynamicTitle = 'Professional Water Purifier Service in Delhi NCR & Kanpur';
-      dynamicDescription = 'Ensure Clean and Safe Drinking Water with Our Water Purifier Service Expert in Delhi NCR and Kanpur. We provide High Quality Spare Parts to maintain the purity.';
+      dynamicTitle = 'Book chimney repair from trusted experts with HomOfix!';
+      dynamicDescription = 'Ensure 100% pure drinking water with Homofix Company’s expert water purifier service. Trusted technicians & quality parts. Book your service now!';
       break;
     case 'Bathroom-Cleaning':
-      dynamicTitle = 'Premium Bathroom Cleaning by Highly Skilled Cleaning Expert';
-      dynamicDescription = 'Keep your Bathroom spotless & stainless with our Deep Bathroom Cleaning Service in Delhi NCR and Kanpur, by our Highly Skilled and 100% Verified Cleaning Expert';
+      dynamicTitle = 'Professional Bathroom Cleaning & Deep Cleaning Service';
+      dynamicDescription = 'Book bathroom cleaning service near me with deep cleaning, classic cleaning, and professional bathroom cleaning by experts. Sparkling washrooms guaranteed.';
       break;
     case 'Kitchen-Cleaning':
-      dynamicTitle = 'Professional Kitchen Cleaning Service in Delhi NCR & Kanpur';
-      dynamicDescription = 'Remove Oil & Grease Stain with our Deep Kitchen Cleaning Service by our Highly Skilled and 100% Verified Cleaning Expert in Delhi NCR and Kanpur. Book Now!';
+      dynamicTitle = 'Top Kitchen Cleaning Service for Your Home by Experts';
+      dynamicDescription = 'Experience the Top Kitchen Cleaning Service for Your Home by Experts. Get deep cleaning, stain removal, and a hygienic kitchen with trained professionals.';
       break;
     case 'Sofa-Cleaning':
-      dynamicTitle = 'Best & Premium Sofa Cleaning Service in Delhi NCR & Kanpur';
-      dynamicDescription = 'Refresh your sofa with Professional Sofa Cleaning Services in Delhi NCR and Kanpur. We offer Premium Sofa Cleaning, Carpet Cleaning, Mattress Cleaning and more';
+      dynamicTitle = 'Top Sofa Cleaning Service Near Me | Book Online Now';
+      dynamicDescription = 'Experience the Top Sofa Cleaning Service Near Me | Book Online Now for expert deep cleaning of sofas, cushions, and upholstery by trained professionals.';
       break;
     case 'Full-Home-Cleaning':
-      dynamicTitle = 'Get Best Professional Home Cleaning Service at your Doorstep';
-      dynamicDescription = 'Get your Home Spotless & stainless with our Premium Home Cleaning Service by our Highly Skilled and Experienced Cleaning Expert in Delhi NCR and Kanpur';
+      dynamicTitle = 'Affordable Home Cleaning Services at your doorstep';
+      dynamicDescription = 'Get Affordable Home Cleaning Services at your doorstep for deep, professional, and hassle-free cleaning. Book online now and enjoy a sparkling clean home.';
       break;
     case 'Bungalow-Cleaning':
       dynamicTitle = 'Professional Bungalow Cleaning Service at your Doorstep';
       dynamicDescription = 'Ensure your Villa stays Spotless & Stainless with our Professional Villa Cleaning Services in Delhi NCR and Kanpur. We offer Bungalow cleaning & villa cleaning';
       break;
     default:
-      dynamicTitle = `HomOfix Company `;
-      dynamicDescription = 'HomOfix Company provides AC & Appliances Repair | Cleaning | Home Painting | Plumber | Electrician | Carpenter Services';
+      dynamicTitle = `Book Top-Rated Home Services. Fast,Affordable & At Your Door! `;
+      dynamicDescription = 'Fix it with HomOfix Company! Get skilled professionals for AC Service, cleaning and more–delivered to your doorstep.Book & experience hassle-free Home care!';
       break;
   }
   

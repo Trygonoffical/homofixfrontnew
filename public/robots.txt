@@ -1,0 +1,47 @@
+#  ----------------------------------------
+# Robots.txt for https://www.homofixcompany.com/
+# Site type: Custom coded
+# Created on: 28 July 2025
+# ----------------------------------------
+
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /thank-you/
+Disallow: /booking-success/
+Disallow: /payment-success/
+Disallow: /api/
+Disallow: /backend/
+Disallow: /cgi-bin/
+Disallow: /search/
+Allow: /about/
+Allow: /contactus/
+Allow: /blog/
+Allow: /terms/
+Allow: /privacy/
+Allow: /career/
+Allow: /services-near-me/
+Allow: /addons/
+Allow: /category/AC-Repair-and-Service/
+Allow: /category/Refrigerator-Repair/
+Allow: /category/Microwave-Repair/
+Allow: /category/Washing-Machine-Repair/
+Allow: /category/Geyser-Repair/
+Allow: /category/Chimney-Repair/
+Allow: /category/Television-Repair/
+Allow: /category/Water-Purifier-Repair/
+Allow: /category/Full-Home-Cleaning/
+Allow: /category/Kitchen-Cleaning/
+Allow: /category/Sofa-Cleaning/
+Allow: /category/Bathroom-Cleaning/
+Allow: /category/Home-Painting-Service/
+Allow: /category/Electrician-Quick-Services/
+Allow: /category/Lighting-and-Decoration/
+Allow: /category/Plumber-Service/
+Allow: /category/Carpenter-Quick-Service/
+Allow: /blogs/homofix-company-expert/
+Allow: /blogs/homofix-company-heroes-are-our-service-professionals/
+Sitemap: https://www.homofixcompany.com/sitemap.xml

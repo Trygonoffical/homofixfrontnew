@@ -27,8 +27,8 @@ const Faq = ({ProID}) => {
             {faqData.length > 0  && faqData.map((faq, idx)=>(
 
                 <Disclosure as="div" className="mb-2" key={idx}>
-                    <Disclosure.Button className="flex w-full justify-between rounded-lg bg-lightbasecolor px-4 py-2 text-left text-sm font-medium text-white hover:bg-basecolor focus:outline-none focus-visible:ring focus-visible:ring-basecolor focus-visible:ring-opacity-75">
-                        <span className="text-xs">{faq.question}</span>
+                    <Disclosure.Button className="flex w-full justify-between rounded-lg bg-lightbasecolor px-4 py-2 text-left text-md font-medium text-white hover:bg-basecolor focus:outline-none focus-visible:ring focus-visible:ring-basecolor focus-visible:ring-opacity-75">
+                        <span className="text-sm">{faq.question}</span>
                         <ChevronUpIcon
                         className={`${
                             open ? 'rotate-180 transform' : ''
@@ -43,8 +43,8 @@ const Faq = ({ProID}) => {
                             leaveFrom="transform scale-100 opacity-100"
                             leaveTo="transform scale-95 opacity-0"
                         >
-                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-800 bg-gray-100 ">
-                       <p  className="text-xs" dangerouslySetInnerHTML={{ __html: faq.answer }}></p> 
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-md text-gray-800 bg-gray-100 ">
+                       <p  className="text-sm" dangerouslySetInnerHTML={{ __html: faq.answer }}></p> 
                     </Disclosure.Panel>
                     </Transition>
                 </Disclosure>

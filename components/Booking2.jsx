@@ -38,6 +38,9 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
   const [slotLoading, setSlotLoading] = useState(false);
   const [bookingProcessing, setBookingProcessing] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(new Date());
+  const [showMonthPicker, setShowMonthPicker] = useState(false);
+  const [isManualDateClick, setIsManualDateClick] = useState(false);
   const [paymentMethod , setPaymentMethod] = useState('Online')
   const [userProfileInfo , setUserProfileInfo] = useState({})
   const [bookingID , setBookingID] = useState(null)
@@ -168,6 +171,8 @@ const Booking = ({ cnames, title , cartItems , customer , couponID , PaymentAmou
     // Set the minimum date and time for the input
     setMinDateTime(formattedMinDateTime);
   }, []);
+
+  // No auto-loading of slots - user must select a date manually
   
   const handleDateChange = (e) => {
     const selectedDate = e.target.value;
@@ -927,7 +932,19 @@ const handleOfflinePaymentWithProcessing = () => {
 };
   return (
     <>
-      <button className={cnames} onClick={() => setBookingShow(true)}>
+      <button className={cnames} onClick={() => {
+        // Reset selections when opening booking dialog
+        setSelectedSlot(null);
+        setSlotBookingData([]);
+        setBookingProcessing(false);
+        setErrorMsg('');
+        
+        // Reset date selection - no default date
+        setBookingDate('');
+        setSelectedMonth(new Date());
+        
+        setBookingShow(true);
+      }}>
         {title}
         
       </button>
@@ -1015,10 +1032,16 @@ const handleOfflinePaymentWithProcessing = () => {
                </>
             }
             <div className="mt-2">
-            <button className='w-full bg-basecolor text-white py-2 px-9 mx-auto '
+                                <button className='w-full bg-basecolor text-white py-2 px-9 mx-auto '
                       onClick={() => {
                         setBookingShow(false)
                         setSlotBookingShow(true)
+                        
+                        // Reset slot selections when entering slot booking
+                        setSelectedSlot(null);
+                        setSlotBookingData([]);
+                        setBookingProcessing(false);
+                        setErrorMsg('');
                       }}
                       >
                       Book Slot
@@ -1116,9 +1139,9 @@ const handleOfflinePaymentWithProcessing = () => {
         {/* Dialog content */}
         <div className="fixed inset-0 z-[1300]" />
 
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-[1300] w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-md sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-start border-b-2 pb-3">
-            
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-[1300] w-full bg-white sm:max-w-md sm:ring-1 sm:ring-gray-900/10 flex flex-col">
+          {/* Header - Fixed */}
+          <div className="flex items-center justify-start border-b-2 pb-3 px-6 py-6 flex-shrink-0">
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700 flex justify-start"
@@ -1137,140 +1160,188 @@ const handleOfflinePaymentWithProcessing = () => {
             </div>
             </button>
           </div>
-                    <div className="my-6 flow-root">
+          
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto px-6">
+            <div className="my-6 flow-root">
             <div className=" divide-gray-500/10">
               
-              {/* Date Selection Cards */}
-              <div className="mt-2">
-                <h3 className="block font-medium text-gray-700 text-lg mb-4">Select Date</h3>
+              {/* Month/Year Header */}
+              <div className="mt-2 mb-4">
+                <div className="flex items-center justify-between">
+                  <button 
+                    className="text-lg font-medium text-gray-800 cursor-pointer hover:text-blue-600 flex items-center"
+                    onClick={() => setShowMonthPicker(!showMonthPicker)}
+                  >
+                    {selectedMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} ▼
+                  </button>
+                </div>
                 
-                <div className="grid grid-cols-4 gap-3 mb-6">
-                  {/* Today Card */}
-                  <button 
-                    className={`border-3 rounded-lg p-4 text-center cursor-pointer transition-all focus:outline-none ring-1 ${
-                      bookingDate === new Date().toISOString().split('T')[0]
-                        ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
-                        : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
-                    }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      const today = new Date().toISOString().split('T')[0];
-                      console.log('Today clicked:', today);
-                      setBookingDate(today);
-                      CheckSlotAvailability(today);
-                    }}
-                    type="button"
-                  >
-                    <div className="text-2xl font-bold text-teal-600 pointer-events-none">{new Date().getDate()}</div>
-                    <div className="text-sm text-gray-600 pointer-events-none">Today</div>
-                  </button>
-
-                  {/* Tomorrow Card */}
-                  <button 
-                    className={`border-3 rounded-lg p-4 text-center cursor-pointer transition-all focus:outline-none ring-1 ${
-                      bookingDate === new Date(Date.now() + 86400000).toISOString().split('T')[0]
-                        ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
-                        : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
-                    }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
-                      console.log('Tomorrow clicked:', tomorrow);
-                      setBookingDate(tomorrow);
-                      CheckSlotAvailability(tomorrow);
-                    }}
-                    type="button"
-                  >
-                    <div className="text-2xl font-bold text-gray-700 pointer-events-none">{new Date(Date.now() + 86400000).getDate()}</div>
-                    <div className="text-sm text-gray-600 pointer-events-none">Tomorrow</div>
-                  </button>
-
-                  {/* Day After Tomorrow Card */}
-                  <button 
-                    className={`border-3 rounded-lg p-4 text-center cursor-pointer transition-all focus:outline-none ring-1 ${
-                      bookingDate === new Date(Date.now() + 172800000).toISOString().split('T')[0]
-                        ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
-                        : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
-                    }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      const dayAfter = new Date(Date.now() + 172800000).toISOString().split('T')[0];
-                      console.log('Day after clicked:', dayAfter);
-                      setBookingDate(dayAfter);
-                      CheckSlotAvailability(dayAfter);
-                    }}
-                    type="button"
-                  >
-                    <div className="text-2xl font-bold text-gray-700 pointer-events-none">{new Date(Date.now() + 172800000).getDate()}</div>
-                    <div className="text-sm text-gray-600 pointer-events-none">
-                      {new Date(Date.now() + 172800000).toLocaleDateString('en-US', { weekday: 'short' })}
+                {/* Month/Year Picker Dropdown */}
+                {showMonthPicker && (
+                  <div className="mt-2 bg-white border rounded-lg shadow-lg p-4 z-10 absolute">
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      {Array.from({ length: 12 }, (_, i) => {
+                        const month = new Date(selectedMonth.getFullYear(), i, 1);
+                        const isCurrentMonth = month.getMonth() === selectedMonth.getMonth();
+                        return (
+                          <button
+                            key={i}
+                            className={`p-2 text-sm rounded ${
+                              isCurrentMonth 
+                                ? 'bg-basecolor text-white' 
+                                : 'bg-gray-100 hover:bg-gray-200'
+                            }`}
+                                                         onClick={() => {
+                               const newMonth = new Date(selectedMonth.getFullYear(), i, 1);
+                               setSelectedMonth(newMonth);
+                               setShowMonthPicker(false);
+                               
+                               // Clear previous date selection when changing months
+                               const currentBookingDate = new Date(bookingDate);
+                               if (currentBookingDate.getMonth() !== i || currentBookingDate.getFullYear() !== selectedMonth.getFullYear()) {
+                                 setBookingDate('');
+                                 setSelectedSlot(null);
+                                 setSlotBookingData([]);
+                               }
+                             }}
+                          >
+                            {month.toLocaleDateString('en-US', { month: 'short' })}
+                          </button>
+                        );
+                      })}
                     </div>
-                  </button>
-
-                  {/* Pick Date Card */}
-                  {!showDatePicker ? (
-                    <div 
-                      className={`border-3 ring-1 rounded-lg p-4 text-center cursor-pointer transition-all relative ${
-                        bookingDate && 
-                        bookingDate !== new Date().toISOString().split('T')[0] && 
-                        bookingDate !== new Date(Date.now() + 86400000).toISOString().split('T')[0] && 
-                        bookingDate !== new Date(Date.now() + 172800000).toISOString().split('T')[0]
-                          ? 'border-teal-600 bg-teal-100 shadow-lg ring-2 ring-teal-200'
-                          : 'border-gray-300 hover:border-teal-400 hover:shadow-md'
-                      }`}
-                      onClick={() => {
-                        console.log('Pick Date clicked - showing date picker');
-                        setShowDatePicker(true);
-                      }}
-                    >
-                      {bookingDate && 
-                       bookingDate !== new Date().toISOString().split('T')[0] && 
-                       bookingDate !== new Date(Date.now() + 86400000).toISOString().split('T')[0] && 
-                       bookingDate !== new Date(Date.now() + 172800000).toISOString().split('T')[0] ? (
-                        <>
-                          <div className="text-2xl font-bold text-teal-600">
-                            {new Date(bookingDate).getDate()}
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            {new Date(bookingDate).toLocaleDateString('en-US', { weekday: 'short' })}
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="text-2xl mb-1">📅</div>
-                          <div className="text-sm text-gray-600">Pick Date</div>
-                        </>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="border-3 border-teal-600 bg-teal-100 rounded-lg p-4 text-center">
-                      <input
-                        type="date"
-                        className="w-full text-center bg-transparent border-none text-teal-700 font-semibold focus:outline-none"
-                        value={bookingDate || ''}
-                        onChange={(e) => {
-                          console.log('Date picker changed:', e.target.value);
-                          if (e.target.value) {
-                            setBookingDate(e.target.value);
-                            CheckSlotAvailability(e.target.value);
-                            setShowDatePicker(false);
-                          }
+                    <div className="flex gap-2">
+                      <button
+                        className="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                        onClick={() => {
+                          setSelectedMonth(new Date(selectedMonth.getFullYear() - 1, selectedMonth.getMonth(), 1));
+                          // Clear date selection when changing year
+                          setBookingDate('');
+                          setSelectedSlot(null);
+                          setSlotBookingData([]);
                         }}
-                        onBlur={() => {
-                          console.log('Date picker blurred');
-                          setShowDatePicker(false);
+                      >
+                        {selectedMonth.getFullYear() - 1}
+                      </button>
+                      <button
+                        className="px-3 py-1 text-sm bg-blue-500 text-white rounded"
+                      >
+                        {selectedMonth.getFullYear()}
+                      </button>
+                      <button
+                        className="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                        onClick={() => {
+                          setSelectedMonth(new Date(selectedMonth.getFullYear() + 1, selectedMonth.getMonth(), 1));
+                          // Clear date selection when changing year
+                          setBookingDate('');
+                          setSelectedSlot(null);
+                          setSlotBookingData([]);
                         }}
-                        autoFocus
-                        min={new Date().toISOString().split('T')[0]}
-                      />
+                      >
+                        {selectedMonth.getFullYear() + 1}
+                      </button>
                     </div>
-                  )}
+                  </div>
+                )}
+              </div>
+
+              {/* Slideable Calendar-style Date Selection */}
+              <div className="mb-6">
+                <div 
+                  className="flex gap-3 overflow-x-scroll overflow-y-hidden pb-2 scroll-smooth w-full"
+                  style={{ 
+                    scrollbarWidth: 'none', 
+                    msOverflowStyle: 'none',
+                    WebkitOverflowScrolling: 'touch',
+                    scrollBehavior: 'smooth'
+                  }}
+                  onTouchStart={(e) => e.currentTarget.style.scrollBehavior = 'auto'}
+                  onTouchEnd={(e) => e.currentTarget.style.scrollBehavior = 'smooth'}
+                >
+                  <style jsx>{`
+                    .flex::-webkit-scrollbar {
+                      display: none;
+                    }
+                  `}</style>
+                  {(() => {
+                    const year = selectedMonth.getFullYear();
+                    const month = selectedMonth.getMonth();
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); // Reset time to start of day
+                    
+                    return Array.from({ length: daysInMonth }, (_, i) => {
+                      const date = new Date(year, month, i + 1);
+                      // Format date properly without timezone conversion
+                      const dateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`;
+                      const isSelected = bookingDate === dateString;
+                      const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+                      const dayNumber = date.getDate();
+                      const isPastDate = date < today;
+                      
+                      // Don't render past dates at all
+                      if (isPastDate) {
+                        return null;
+                      }
+                      
+                      return (
+                        <button
+                          key={`${year}-${month}-${i}`}
+                          className={`min-w-[70px] p-3 rounded-lg text-center transition-all flex-shrink-0 ${
+                            isSelected
+                              ? 'bg-basecolor text-white shadow-lg'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                          onClick={() => {
+                            // Ensure we're using the correct date from the selected month
+                            const clickedDate = new Date(year, month, i + 1);
+                            
+                            // Format date properly without timezone conversion
+                            const clickedDateString = `${year}-${String(month + 1).padStart(2, '0')}-${String(i + 1).padStart(2, '0')}`;
+                            
+                            console.log(`${dayName} ${dayNumber} clicked:`, clickedDateString);
+                            console.log('Full date object:', clickedDate);
+                            console.log('Previous bookingDate state:', bookingDate);
+                            
+                            // Set flag to prevent useEffect interference
+                            setIsManualDateClick(true);
+                            
+                            // Clear previous slot data immediately
+                            setSelectedSlot(null);
+                            setSlotBookingData([]);
+                            
+                            // Update state and call API with the same date value
+                            setBookingDate(clickedDateString);
+                            
+                            // Call API immediately with the correct date
+                            if (zip) {
+                              console.log('Calling CheckSlotAvailability with:', clickedDateString);
+                              CheckSlotAvailability(clickedDateString);
+                            }
+                            
+                            // Reset flag after a short delay
+                            setTimeout(() => setIsManualDateClick(false), 100);
+                          }}
+                        >
+                          <div className="text-xs font-medium">{dayName}</div>
+                          <div className="text-lg font-bold">{dayNumber}</div>
+                        </button>
+                      );
+                    }).filter(Boolean); // Remove null values
+                  })()}
                 </div>
               </div>
              <p className='text-[red] text-sm'>{errormsg}</p> 
+
+              {/* No Date Selected Message */}
+              {!bookingDate && !slotLoading && (
+                <div className="py-8 text-center">
+                  <div className="text-6xl mb-4">📅</div>
+                  <h3 className="text-lg font-semibold text-gray-700 mb-2">Select a Date</h3>
+                  <p className="text-gray-500">Please choose a date above to see available time slots</p>
+                </div>
+              )}
 
               {/* Slot Loading State */}
               {slotLoading && (
@@ -1283,56 +1354,33 @@ const handleOfflinePaymentWithProcessing = () => {
               {/* Available Slots Display */}
               {!slotLoading && slotBookingData.length > 0 && (
                 <div className='py-3'>
-                  <h3 className="font-semibold text-gray-700 text-lg mb-4">Select Start Time</h3>
-                  <div className='mt-2 grid grid-cols-2 gap-3'>
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Available Time Slots</h3>
+                  <div className='grid grid-cols-2 gap-3'>
                     {slotBookingData.map((slot) => (
-                      <div 
-                        key={slot.slot} 
-                        className={`border rounded-lg p-3 cursor-pointer transition-all ${
+                      <button
+                        key={slot.slot}
+                        className={`p-1 rounded-lg text-center transition-all border ${
                           slot.status === 'available' && slot.remaining_slots > 0
                             ? selectedSlot?.slot === slot.slot
-                              ? 'border-blue-500 bg-blue-50 '
-                              : 'border-gray-300 hover:border-blue-300'
-                            : 'border-red-300 bg-red-50 cursor-not-allowed opacity-60'
+                              ? 'bg-basecolor text-white border-basecolor shadow-lg'
+                              : 'bg-white text-gray-700 border-gray-300 hover:border-basecolor hover:text-white hover:bg-basecolor'
+                            : 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
                         }`}
-                        onClick={() => handleSlotSelection(slot)}
+                        onClick={() => {
+                          if (slot.status === 'available' && slot.remaining_slots > 0) {
+                            handleSlotSelection(slot);
+                          }
+                        }}
+                        disabled={slot.status !== 'available' || slot.remaining_slots === 0}
                       >
-                        <div className="flex items-center mb-2">
-                          <input 
-                            type="radio" 
-                            name="slot" 
-                            id={`slot-${slot.slot}`}
-                            checked={selectedSlot?.slot === slot.slot}
-                            disabled={slot.status !== 'available' || slot.remaining_slots === 0}
-                            onChange={() => handleSlotSelection(slot)}
-                            className="mr-2"
-                          />
-                          <label 
-                            htmlFor={`slot-${slot.slot}`} 
-                            className={`font-medium text-sm ${
-                              slot.status === 'available' && slot.remaining_slots > 0
-                                ? 'text-gray-800'
-                                : 'text-red-500'
-                            }`}
-                          >
-                            {slot.time}
-                          </label>
+                        <div className="flex items-center justify-center">
+                          <span className="mr-1">🕐</span>
+                          <span className="font-medium text-sm">{slot.time}</span>
                         </div>
-                        <div className="flex justify-between items-center">
-                          <p className="text-xs text-gray-500">
-                            {slot.remaining_slots} of {slot.limit} available
-                          </p>
-                          {slot.status === 'available' && slot.remaining_slots > 0 ? (
-                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                              Available
-                            </span>
-                          ) : (
-                            <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">
-                              {slot.remaining_slots === 0 ? 'Full' : 'N/A'}
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                        {/* <div className="text-xs text-gray-500 mt-1">
+                          {slot.remaining_slots} slots left
+                        </div> */}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -1351,101 +1399,86 @@ const handleOfflinePaymentWithProcessing = () => {
                 </div>
               )}
 
-              {/* Payment Method Section - Only show when slots are available and selected */}
-              {!slotLoading && slotBookingData.length > 0 && selectedSlot && (
-                <div className='py-3 border-t mt-4 pt-4' data-payment-section>
-                  <h3 className="font-semibold mb-3">Payment Method</h3>
-                  <div className='space-y-3'>
-                    <div className="flex items-center">
-                      <input 
-                        type="radio" 
-                        name="PAYMENT" 
-                        id="payment-online" 
-                        value='Online' 
-                        onChange={() => handlePaymentChange('Online')}
-                        checked={paymentMethod === 'Online'}
-                        className="mr-3"
-                      />
-                      <label htmlFor="payment-online" className="text-gray-700">Make Payment Online</label>
-                    </div>
-                    
-                    <div className="flex items-center">
-                      <input 
-                        type="radio" 
-                        name="PAYMENT" 
-                        id="payment-cash"
-                        value='Cash'
-                        onChange={() => handlePaymentChange('Cash')}
-                        checked={paymentMethod === 'Cash'}
-                        className="mr-3"
-                      />
-                      <label htmlFor="payment-cash" className="text-gray-700">Cash on Service</label>
-                    </div>
-                  </div>
-
-                  {/* Booking Buttons */}
-                  <div className="mt-6">
-                    {paymentMethod === 'Online' ? (
-                      <button 
-                        className={`w-full py-3 px-6 rounded-lg font-medium transition-all  bg-basecolor text-white ${
-                          bookingProcessing 
-                            ? 'bg-gray-400 cursor-not-allowed' 
-                            : 'bg-blue-600 hover:bg-blue-700'
-                        } text-white`}
-                        onClick={handleOnlinePaymentWithProcessing}
-                        disabled={bookingProcessing}
-                      >
-                        {bookingProcessing ? (
-                          <div className="flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                            Processing...
-                          </div>
-                        ) : (
-                          'Pay Now'
-                        )}
-                      </button>
-                    ) : (
-                      <button 
-                        className={`w-full py-3 px-6 rounded-lg font-medium transition-all  bg-basecolor text-white ${
-                          bookingProcessing 
-                            ? 'bg-gray-400 cursor-not-allowed' 
-                            : 'bg-green-600 hover:bg-green-700'
-                        } text-white`}
-                        onClick={handleOfflinePaymentWithProcessing}
-                        disabled={bookingProcessing}
-                      >
-                        {bookingProcessing ? (
-                          <div className="flex items-center justify-center">
-                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                            Processing...
-                          </div>
-                        ) : (
-                          'Book Now (Cash on Service)'
-                        )}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              )}
-
-              {/* Book Slot Button - Only show when slot is selected */}
-              {selectedSlot && (
-                <div className="mt-6 border-t pt-6">
-                  <button 
-                    className="w-full py-4 bg-teal-500 text-white text-lg font-medium rounded-lg hover:bg-teal-600 transition-all"
-                    onClick={() => {
-                      console.log('Book Slot clicked, selected slot:', selectedSlot);
-                      // Show payment method section or proceed with booking
-                      // You can scroll to payment section or open payment modal here
-                      document.querySelector('[data-payment-section]')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  >
-                    Book Slot
-                  </button>
-                </div>
-              )}
+            </div>
             </div>
           </div>
+          
+          {/* Fixed Payment Section at Bottom */}
+          {!slotLoading && slotBookingData.length > 0 && selectedSlot && (
+            <div className='border-t bg-white p-6 flex-shrink-0 shadow-lg' data-payment-section>
+              <h3 className="font-semibold mb-3">Payment Method</h3>
+              <div className='flex justify-between space-y-3 mb-4'>
+                <div className="flex items-center">
+                  <input 
+                    type="radio" 
+                    name="PAYMENT" 
+                    id="payment-online" 
+                    value='Online' 
+                    onChange={() => handlePaymentChange('Online')}
+                    checked={paymentMethod === 'Online'}
+                    className="mr-3"
+                  />
+                  <label htmlFor="payment-online" className="text-gray-700">Make Payment Online</label>
+                </div>
+                
+                <div className="flex items-center" style={{marginTop:'0px'}}>
+                  <input 
+                    type="radio" 
+                    name="PAYMENT" 
+                    id="payment-cash"
+                    value='Cash'
+                    onChange={() => handlePaymentChange('Cash')}
+                    checked={paymentMethod === 'Cash'}
+                    className="mr-3"
+                  />
+                  <label htmlFor="payment-cash" className="text-gray-700">Cash on Service</label>
+                </div>
+              </div>
+
+              {/* Booking Buttons */}
+              <div>
+                {paymentMethod === 'Online' ? (
+                  <button 
+                    className={`w-full py-3 px-6 rounded-lg font-medium transition-all bg-basecolor ${
+                      bookingProcessing 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-blue-600 hover:bg-blue-700'
+                    } text-white`}
+                    onClick={handleOnlinePaymentWithProcessing}
+                    disabled={bookingProcessing}
+                  >
+                    {bookingProcessing ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Processing...
+                      </div>
+                    ) : (
+                      'Pay Now'
+                    )}
+                  </button>
+                ) : (
+                  <button 
+                    className={`w-full py-3 px-6 rounded-lg font-medium transition-all bg-basecolor ${
+                      bookingProcessing 
+                        ? 'bg-gray-400 cursor-not-allowed' 
+                        : 'bg-green-600 hover:bg-green-700'
+                    } text-white`}
+                    onClick={handleOfflinePaymentWithProcessing}
+                    disabled={bookingProcessing}
+                  >
+                    {bookingProcessing ? (
+                      <div className="flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Processing...
+                      </div>
+                    ) : (
+                      'Book Now (Cash on Service)'
+                    )}
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
         </Dialog.Panel>
       </Dialog>
       {/* Congratulation Dialog */}

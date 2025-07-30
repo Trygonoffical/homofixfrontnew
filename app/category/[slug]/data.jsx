@@ -2,10 +2,8 @@
 // import Styles from '../../../styles/Product.module.css';
 // import Link from "next/link"
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState,  Fragment , useContext, useRef } from "react";
-// import { useEffect , useState , Fragment , useContext, useRef} from "react"
-import { Dialog, Transition } from '@headlessui/react'
-import { TagIcon,   XMarkIcon} from '@heroicons/react/20/solid'
+import React, { useEffect, useState, useContext, useRef } from "react";
+import { TagIcon } from '@heroicons/react/20/solid'
 // import { AuthContext } from './AuthContext'
 import { AuthContext } from '@/components/AuthContext'
 import { CheckIcon } from '@heroicons/react/20/solid'
@@ -13,14 +11,12 @@ import {AuthServices} from '@/components/AuthServices'
 import {Booking} from '@/components/Booking'
 import Faq from '@/components/Faq'
 import Loading from '@/components/Loading'
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 
 const DataPage = ({params}) => {
-
-
-  let [isOpenVDetails, setIsOpenVDetails] = useState(false)
+const router = useRouter();
 const [subCat , setSubCat] = useState({})
-const [userInfo , setUserInfo] = useState(null)
-const [selectedProduct, setSelectedProduct] = useState(null);
+const [userInfo , setUserInfo] = useState(null);
 const [cartItems, setCartItems] = useState([]);
 const [gstCustShare, setCustShare] = useState('');
 const [coupon , setCoupon] = useState('')
@@ -230,15 +226,24 @@ const handleVerificationCoupon = async () => {
         return gst;
       };
       function handleView(product) {
-        // ...
-        setSelectedProduct(product)
-        setIsOpenVDetails(true)
+        // Navigate to product detail page
+        const slugifiedCategory = params.slug;
+        router.push(`/category/${slugifiedCategory}/product/${product.id}`);
       }
-      // //console.log( 'selected pros',selectedProduct)
-  return (
-    <section className="container mx-auto py-10 max-w-[1200px]">
 
-    
+  return (
+    <section className="container mx-auto py-10 max-w-[1200px] px-4 md:px-4">
+
+    {/* Back button */}
+    <div className="mb-6">
+        <button
+          onClick={() => router.push('/')}
+          className="flex items-center text-basecolor hover:text-bgleft transition-colors"
+        >
+          <ArrowLeftIcon className="w-5 h-5 mr-2" />
+          Back to home Page
+        </button>
+      </div>
     <div className="bg-gradient-to-r from-bgleft to-Orange text-center py-8" >
         <h1 className="text-3xl font-bold text-white">{subCat.name}</h1>
         {/* <img src={subCat.subcategory_image} alt={subCat.Category_name} width={250} /> */}
@@ -436,78 +441,7 @@ const handleVerificationCoupon = async () => {
   
   </div>
     </div>
-    <Transition.Root show={isOpenVDetails} as={Fragment} enter="ease-out duration-300"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="ease-in duration-200"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0">
-        <Dialog
-            open={isOpenVDetails}
-            onClose={() => setIsOpenVDetails(false)}
-            className="relative z-[1500]"
-            >
-            {/* The backdrop, rendered as a fixed sibling to the panel container */}
-            <div className="fixed inset-0 bg-black/80" aria-hidden="true" />
 
-            {/* Full-screen scrollable container */}
-            <div className="fixed inset-0 overflow-y-auto">
-                {/* Container to center the panel */}
-                <div className="flex min-h-full items-center justify-center p-4">
-                {/* The actual dialog panel  */}
-                <Dialog.Panel className="mx-auto max-w-5xl rounded bg-white p-2 md:p-6">
-                    <div className="flex justify-between mb-9">
-                    <Dialog.Title></Dialog.Title>
-                    <XMarkIcon onClick={() => setIsOpenVDetails(false)} className='w-9 cursor-pointer' />
-                    </div>
-                <Dialog.Description>
-                {selectedProduct && (
-                    <>
-                    <div className="title flex justify-around">
-                        <div className="">
-                        {/* <h3 className="text-lg font-semibold mb-2 pr-10">{selectedProduct.name}</h3> */}
-                        {selectedProduct.warranty > 0 ? (
-                          <h5 className='text-basecolor font-bold text-sm'>{selectedProduct.warranty} DAYS WARRANTY</h5>
-                        ):(
-                          <h5></h5>
-                        )}
-                        
-                        <h2 className="font-bold md:text-xl w-full">{selectedProduct.name}</h2> 
-                        <div className="py-2">
-                            <span className='pr-2 font-bold text-basecolor'> ₹{selectedProduct.selling_price}</span>
-                            {/* <span className='line-through'> ₹{selectedProduct.price}</span> */}
-                            {selectedProduct.price !== selectedProduct.selling_price && (
-                                <span className="line-through"> ₹{selectedProduct.price}</span>
-                        )}
-                        </div>
-                        {selectedProduct.dis_amt !== 0 && (
-                        <div className=" flex font-bold">
-                            <TagIcon className='w-[20px] text-red' /> ₹{selectedProduct.dis_amt} OFF
-                        </div>
-                        )}
-                        </div>
-                    <img src={selectedProduct.product_pic} className='min-w-[170px] ' width={170} alt="" />
-                    </div>
-                    {/* <div dangerouslySetInnerHTML={{ __html: selectedProduct.description }}></div> */}
-                    <div dangerouslySetInnerHTML={{ __html: selectedProduct.warranty_desc }} className='py-9 moredetailsviews text-sm'></div>
-
-                    <Faq  ProID={selectedProduct.id} />
-                    {/* Other details */}
-                    </>
-                )}
-                  
-                </Dialog.Description>
-                {/*
-                You can render additional buttons to dismiss your dialog by setting
-                `isOpen` to `false`.
-                */}
-                {/* <button onClick={() => setIsOpenVDetails(false)}>Cancel</button>
-                <button onClick={handleDeactivate}>Deactivate</button> */}
-            </Dialog.Panel>
-                </div>
-            </div>
-            </Dialog>
-    </Transition.Root>
 
 
     {subCat.legal_pages.length>0 && (
