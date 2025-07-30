@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import { TagIcon, ArrowLeftIcon } from '@heroicons/react/20/solid'
 import { AuthContext } from '@/components/AuthContext'
@@ -22,6 +22,8 @@ const ProductDetailPage = ({ params }) => {
   const [couponmsg, setCouponMsg] = useState('');
   const [discount, setDiscount] = useState('');
   const [loading, setLoading] = useState(false);
+  const [cartVisible, setCartVisible] = useState(true);
+  const cartRef = useRef(null);
 
   const authContext = useContext(AuthContext);
 
@@ -30,6 +32,36 @@ const ProductDetailPage = ({ params }) => {
       setUserInfo(authContext.userInfo);
     }
   }, [authContext]);
+
+  useEffect(() => {
+    const options = {
+      rootMargin: '0px',
+      threshold: 0,
+    };
+  
+  //console.log('trigger in the useeffect')
+    const observer = new IntersectionObserver(([entry]) => {
+      setCartVisible(!entry.isIntersecting);
+      //console.log('Intersection Observer Triggered');
+    }, options);
+  
+    const target = cartRef.current;
+  
+    //console.log(target);
+    if (target) {
+      observer.observe(target);
+    }
+  
+    // Cleanup the observer
+    return () => {
+      //console.log("in return fun = ". target);
+      if (target) {
+        observer.unobserve(target); 
+      //console.log('in Return fun');
+  
+      }
+    };
+  }, [cartItems]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -189,11 +221,7 @@ const ProductDetailPage = ({ params }) => {
           {/* Product Image */}
           <div className=" flex justify-between">
             <div>
-            {product.warranty > 0 && (
-              <h5 className="text-basecolor font-bold text-sm">
-                {product.warranty} DAYS WARRANTY
-              </h5>
-            )}
+            
 
             <h1 className="font-bold text-xl md:text-3xl">{product.name}</h1>
 
@@ -202,7 +230,7 @@ const ProductDetailPage = ({ params }) => {
                 ₹{product.selling_price}
               </span>
               {product.price !== product.selling_price && (
-                <span className="line-through text-gray-500">
+                <span className="line-through text-gray-500 ">
                   ₹{product.price}
                 </span>
               )}
@@ -210,10 +238,17 @@ const ProductDetailPage = ({ params }) => {
 
             {product.dis_amt !== 0 && (
               <div className="flex font-bold text-red-600">
-                <TagIcon className="w-[20px] text-red-600" />
+                <TagIcon className="w-[20px] text-red" />
                 ₹{product.dis_amt} OFF
               </div>
             )}
+            {product.warranty > 0 && (
+              <h5 className="text-basecolor font-bold my-2 text-sm">
+                {product.warranty} DAYS WARRANTY
+              </h5>
+            )}
+
+
 
             {/* Add to Cart Button */}
           <div className="border-t pt-6">
@@ -306,12 +341,24 @@ const ProductDetailPage = ({ params }) => {
 
           
         </div>
-
+        {cartItems.length > 0 && (
+        <div>
+          {cartVisible && (
+            <div className='fixed bottom-0 left-0 w-full bg-white z-50 px-4 shadow-sm py-6 flex justify-between md:hidden'>
+          <span>
+          ₹  {getNetAmount() + Number(getGSTAmount().toFixed(2)) } 
+          </span>
+          <a href='#cart' className='bg-basecolor px-4 py-2 text-white text-xs'>View Cart</a>
+        </div>
+          )}
+        
+        </div>
+      )}
         {/* Cart and Booking Section */}
         <div className="space-y-6 ">
           {/* Order Summary */}
           {cartItems.length > 0 ? (
-            <div className="bg-gray-50 p-6 rounded-lg">
+            <div className="bg-gray-50 p-6 rounded-lg" ref={cartRef} id='cart'>
               <h3 className="font-bold text-xl py-3 text-basecolor">Order Summary</h3>
               <hr className="mb-4" />
 
