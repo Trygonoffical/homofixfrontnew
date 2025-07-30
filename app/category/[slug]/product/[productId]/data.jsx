@@ -195,7 +195,7 @@ const ProductDetailPage = ({ params }) => {
               </h5>
             )}
 
-            <h1 className="font-bold text-2xl md:text-3xl">{product.name}</h1>
+            <h1 className="font-bold text-xl md:text-3xl">{product.name}</h1>
 
             <div className="py-2">
               <span className="pr-2 font-bold text-basecolor text-xl">
@@ -284,18 +284,18 @@ const ProductDetailPage = ({ params }) => {
             )} */}
 
             {/* Product Description */}
-            <div className="border-t pt-4">
+            {/* <div className="border-t pt-4">
               <h3 className="font-semibold text-lg mb-3">Description</h3>
               <div
                 className="productpoints text-md text-gray-700"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
-            </div>
+            </div> */}
 
             {/* Warranty Description */}
             {product.warranty_desc && (
               <div className="border-t pt-4">
-                <h3 className="font-semibold text-lg mb-3">Warranty Details</h3>
+                {/* <h3 className="font-semibold text-lg mb-3">Warranty Details</h3> */}
                 <div
                   className="moredetailsviews text-md text-gray-700"
                   dangerouslySetInnerHTML={{ __html: product.warranty_desc }}
