@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Loading from "./Loading";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import Image from "next/image";
 
 const ExclusiveOffer = (props) => {
   const [offer, setOffer] = useState([]);
@@ -111,11 +112,13 @@ const ExclusiveOffer = (props) => {
                 {offer.map((cat, idx) => (
                   <div key={idx} className="outline-none">
                     <Link href={cat.url} className="outline-none">
-                      <img
+                      <Image
                         src={cat.offer_pic}
                         alt="Ac"
                         width={285}
+                        height={285}
                         className="mx-auto w-11/12 md:w-11/12 outline-none"
+                        loading="lazy"	
                       />
                     </Link>
                   </div>
@@ -160,12 +163,13 @@ const ExclusiveOffer = (props) => {
               <div className="className='flex justify-center p-1 " key={idx} >
                 <Link href={cat.url} className=" p-0 " >
                 
-                <img src={cat.offer_pic}
+                <Image src={cat.offer_pic}
                  width={0}
                  height={0}
                  sizes="100vw"
                  style={{ width: '100%', height: 'auto' }} 
                 //  className="w-full"
+                loading="lazy"	
                  alt='offers' />                 
                 </Link>
                 {/* </a> */}

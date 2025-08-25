@@ -5,6 +5,7 @@ import 'react-multi-carousel/lib/styles.css';
 import Link from 'next/link';
 import '../styles/Hservice.module.css';
 import { useEffect , useState } from 'react';
+import Image from 'next/image';
 
 const Mostbooked =  ({url}) => {
   const [book, setBook] = useState([]);
@@ -58,9 +59,10 @@ const Mostbooked =  ({url}) => {
             {book.map((cat , idx) => 
              <div className='flex justify-center p-1 md:p-10' key={idx}>
              <Link href={`/category/${slugify(cat.subcategory_name)}`} className=" p-0 " >
-             <img src={cat.img}
-                 width={0}
-                 height={0}
+             <Image src={cat.img}
+                loading="lazy"	
+                 width={285}
+                 height={285}
                  sizes="100vw"
                  style={{ width: '100%', height: 'auto' }} alt='mostviewd' />
              <h2 className='text-center p-2'>{cat.subcategory_name}</h2>

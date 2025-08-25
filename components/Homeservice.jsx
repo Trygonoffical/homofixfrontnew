@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Didact_Gothic } from "next/font/google";
+import Image from "next/image";
 
 
 const Homeservice = ({url , bgImg=null, icenter=null}) => {
@@ -99,7 +100,10 @@ const slugify = (text) => {
               <div className="className='flex justify-center p-1 " key={idx} >
                 <Link href={`/category/${slugify(cat.name)}`} className=" p-0 " >
                 {/* <a href={`/category/${slugify(cat.name)}`} className=" p-0 "> */}
-                <img src={cat.subcategory_image}
+                <Image src={cat.subcategory_image}
+                loading="lazy"
+                width={285}
+                height={285}
                 //  width={0}
                 //  height={0}
                 //  sizes="100vw"

@@ -3,6 +3,7 @@
 import Sidebar from '@/components/Sidebar';
 import { useState, useEffect } from 'react';
 import Loading from './Loading';
+import Image from 'next/image';
 
 const Service = ({url}) => {
   const[category , setCategory] = useState([])
@@ -43,7 +44,7 @@ const Service = ({url}) => {
         {loading ? <Loading /> : category.map((cat, idx) => (
         <div className='text-center' key={idx}>
           <button onClick={() => handleCategoryClick(cat)}>
-            <img src={cat.icon} alt="Ac" width={45} className='mx-auto w-10 md:w-15' />
+            <Image src={cat.icon} alt="Ac" width={45} height={45} loading="lazy" className='mx-auto w-10 md:w-15' />
             <h2 className='py-4 text-[10px] md:text-sm'>{cat.category_name}</h2>
           </button>
         </div>

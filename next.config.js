@@ -4,6 +4,9 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ['support.homofixcompany.com'],
+  },
   async rewrites() {
     return [
       {
