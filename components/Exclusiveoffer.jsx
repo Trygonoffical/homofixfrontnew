@@ -103,7 +103,7 @@ const ExclusiveOffer = (props) => {
 
   return (
     <section className="container mx-auto py-10 md:mt-10 ">
-      <h2 className="hidden md:block text-2xl text-center font-semibold">
+      <h2 className="block text-2xl text-center font-semibold">
         {props.title}
       </h2>
       <div className="md:mt-9  md:hidden">
