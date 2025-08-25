@@ -5,7 +5,14 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['support.homofixcompany.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'support.homofixcompany.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
   async rewrites() {
     return [
