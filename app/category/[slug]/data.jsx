@@ -232,6 +232,7 @@ const handleVerificationCoupon = async () => {
       }
 
   return (
+    <>
     <section className="container mx-auto py-10 max-w-[1200px] px-4 md:px-4">
 
     {/* Back button */}
@@ -444,25 +445,27 @@ const handleVerificationCoupon = async () => {
 
 
 
-    {subCat.legal_pages.length>0 && (
-      <>
-      <div className=" md:hidden w-full border-t border-gray-200">
-                <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="w-full p-4 flex items-center justify-between text-gray-600 hover:bg-gray-100"
-                >
-                    <span className="font-medium">More about HomOfix Company</span>
-                    <ChevronDownIcon className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
-                </button>
-          </div>
-      <div className={`${isExpanded ? 'block' : 'hidden'}  py-2 w-full p-2`}>
-        {/* <h2 className='text-2xl font-bold'>{subCat.legal_pages[0].title}</h2> */}
-        <div className='productpoints'  dangerouslySetInnerHTML={{ __html: subCat.legal_pages[0].content }} style={{ fontSize: '12px' }}></div>
-      </div>
-     
-      </>
-    )}
+    
   </section>
+  {subCat.legal_pages.length>0 && (
+    <>
+    <div className="block md:hidden w-full border-t border-gray-200">
+              <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="w-full p-4 flex items-center justify-between text-gray-600 hover:bg-gray-100"
+              >
+                  <span className="font-medium">More about HomOfix Company</span>
+                  <ChevronDownIcon className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+              </button>
+        </div>
+    <div className={`${isExpanded ? 'block' : 'hidden'}  py-2 w-full p-2`}>
+      {/* <h2 className='text-2xl font-bold'>{subCat.legal_pages[0].title}</h2> */}
+      <div className='productpoints'  dangerouslySetInnerHTML={{ __html: subCat.legal_pages[0].content }} style={{ fontSize: '12px' }}></div>
+    </div>
+   
+    </>
+  )}
+  </>
   )
 }
 const slugify = (text) => {

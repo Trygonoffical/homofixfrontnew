@@ -36,6 +36,7 @@ const Footer = () => {
             featch()
         } , [url])
   return (
+    <>
     <footer className="bg-gray-100 md:py-12 ">
         {/* <div className=" md:hidden w-full border-t border-gray-200">
                 <button
@@ -93,7 +94,7 @@ const Footer = () => {
               <Link href="/career" className="text-gray-600 hover:text-blue-600">Career</Link>
               <Link href="/terms" className="text-gray-600 hover:text-blue-600">Terms & Conditions</Link>
               <Link href="/privacy" className="text-gray-600 hover:text-blue-600">Privacy Policy</Link>
-              <Link href="/partner" className="text-gray-600 hover:text-blue-600">Become a Partner</Link>
+              {/* <Link href="/partner" className="text-gray-600 hover:text-blue-600">Register as a Professional</Link> */}
             </div>
           </div>
 
@@ -105,11 +106,11 @@ const Footer = () => {
               <Link href="/addons" className="text-gray-600 hover:text-blue-600">Addon Services</Link>
               <Link href="/blogs" className="text-gray-600 hover:text-blue-600">Blogs</Link>
               {/* <Link href="/locations" className="text-gray-600 hover:text-blue-600">Serving Locations</Link> */}
-              {pages.length>0 && pages.map((custpage , idx)=>  
+              {/* {pages.length>0 && pages.map((custpage , idx)=>  
                 <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-600 hover:text-blue-600">
                     {custpage.title}
                 </Link>
-                )}
+                )} */}
             </div>
           </div>
         </div>
@@ -172,7 +173,7 @@ const Footer = () => {
               <Link href="/career" className="text-gray-600 text-xs hover:text-blue-600 px-2">Career</Link> <span className="text-gray-600 text-xs ">|</span>
               <Link href="/terms" className="text-gray-600 text-xs hover:text-blue-600 px-2">Terms & Conditions</Link> <span className="text-gray-600 text-xs ">|</span>
               <Link href="/privacy" className="text-gray-600 text-xs hover:text-blue-600 px-2">Privacy Policy</Link> <span className="text-gray-600 text-xs ">|</span>
-              <Link href="/partner" className="text-gray-600 text-xs hover:text-blue-600 px-2">Become a Partner</Link> 
+              {/* <Link href="/partner" className="text-gray-600 text-xs hover:text-blue-600 px-2">Register as a Professional</Link>  */}
             </div>
           </div>
 
@@ -182,16 +183,17 @@ const Footer = () => {
             <div className="flex flex-wrap">
               {/* <Link href="/services" className="text-gray-600 hover:text-blue-600">Services Near You</Link> */}
               <Link href="/addons" className="text-gray-600 hover:text-blue-600 text-xs px-2">Addon Services</Link> <span className="text-gray-600 text-xs ">|</span> 
-              <Link href="/blogs" className="text-gray-600 hover:text-blue-600 text-xs px-2">Blogs</Link><span className="text-gray-600 text-xs ">|</span>
-              {/* <Link href="/locations" className="text-gray-600 hover:text-blue-600">Serving Locations</Link> */}
-              {pages.length>0 && pages.map((custpage , idx)=>  
+              <Link href="/blogs" className="text-gray-600 hover:text-blue-600 text-xs px-2">Blogs</Link>
+              {/* <Link href="/locations" className="text-gray-600 hover:text-blue-600">Serving Locations</Link> */} 
+              {/* <span className="text-gray-600 text-xs ">|</span> */}
+              {/* {pages.length>0 && pages.map((custpage , idx)=>   
               <>
               <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-600 hover:text-blue-600 text-xs ">
                     {custpage.title} 
                 </Link> 
                 {idx !== pages.length - 1 && <span className="text-gray-600 text-xs px-2">|</span>}
               </>
-                )} 
+                )}  */}
             </div>
           </div>
         </div>
@@ -203,8 +205,25 @@ const Footer = () => {
         </div>
       </div>
 
+      
 
     </footer>
+    <div className="  px-4 w-full  py-8 border-t bg-gray-900 text-white">
+    <div className='container mx-auto px-4'>
+    <h2 className=' md:text-2xl mb-3 text-left flex flex-wrap font-semibold'>Locations</h2>
+
+    {pages.length>0 && pages.map((custpage , idx)=>  
+            <>
+            <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-50 hover:text-gray-200 text-xs ">
+                  {custpage.title} 
+              </Link> 
+              {idx !== pages.length - 1 && <span className="text-gray-50 text-xs px-2">|</span>}
+            </>
+              )} 
+    </div>
+    
+    </div>
+    </>
   );
 };
 

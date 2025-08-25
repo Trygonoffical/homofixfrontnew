@@ -103,21 +103,22 @@ const ExclusiveOffer = (props) => {
 
   return (
     <section className="container mx-auto py-10 md:mt-10 ">
-      <h2 className="block text-2xl text-center font-semibold">
+      <h2 className="hidden md:block text-2xl text-center font-semibold">
         {props.title}
       </h2>
       <div className="md:mt-9  md:hidden">
            {offer.length > 0 && (
               <Slider {...settings} >
                 {offer.map((cat, idx) => (
-                  <div key={idx} className="outline-none">
+                  <div key={idx} className="outline-none p-2">
                     <Link href={cat.url} className="outline-none">
                       <Image
                         src={cat.offer_pic}
                         alt="Ac"
-                        width={285}
-                        height={285}
-                        className="mx-auto w-11/12 md:w-11/12 outline-none"
+                        width={307}
+                        height={172}
+                        // className="mx-auto w-11/12 md:w-11/12 outline-none"
+                        className="mx-auto w-full"
                         loading="lazy"	
                       />
                     </Link>
@@ -164,8 +165,8 @@ const ExclusiveOffer = (props) => {
                 <Link href={cat.url} className=" p-0 " >
                 
                 <Image src={cat.offer_pic}
-                 width={0}
-                 height={0}
+                 width={285}
+                 height={285}
                  sizes="100vw"
                  style={{ width: '100%', height: 'auto' }} 
                 //  className="w-full"
