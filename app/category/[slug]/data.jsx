@@ -3,7 +3,7 @@
 // import Link from "next/link"
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState, useContext, useRef } from "react";
-import { TagIcon } from '@heroicons/react/20/solid'
+import { ChevronDownIcon, TagIcon } from '@heroicons/react/20/solid'
 // import { AuthContext } from './AuthContext'
 import { AuthContext } from '@/components/AuthContext'
 import { CheckIcon } from '@heroicons/react/20/solid'
@@ -26,7 +26,7 @@ const [discount , setDiscount] = useState('')
 const [loading, setLoading] = useState(false);
 const [cartVisible, setCartVisible] = useState(true);
 const cartRef = useRef(null);
-
+const [isExpanded, setIsExpanded] = useState(false);
 
 useEffect(() => {
   const options = {
@@ -446,7 +446,16 @@ const handleVerificationCoupon = async () => {
 
     {subCat.legal_pages.length>0 && (
       <>
-      <div className='py-2 w-full p-2'>
+      <div className=" md:hidden w-full border-t border-gray-200">
+                <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="w-full p-4 flex items-center justify-between text-gray-600 hover:bg-gray-100"
+                >
+                    <span className="font-medium">More about HomOfix Company</span>
+                    <ChevronDownIcon className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                </button>
+          </div>
+      <div className={`${isExpanded ? 'block' : 'hidden'}  py-2 w-full p-2`}>
         {/* <h2 className='text-2xl font-bold'>{subCat.legal_pages[0].title}</h2> */}
         <div className='productpoints'  dangerouslySetInnerHTML={{ __html: subCat.legal_pages[0].content }} style={{ fontSize: '12px' }}></div>
       </div>

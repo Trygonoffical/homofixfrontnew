@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useRouter } from 'next/navigation';
-import { TagIcon, ArrowLeftIcon } from '@heroicons/react/20/solid'
+import { TagIcon, ArrowLeftIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { AuthContext } from '@/components/AuthContext'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { AuthServices } from '@/components/AuthServices'
@@ -26,6 +26,7 @@ const ProductDetailPage = ({ params }) => {
   const cartRef = useRef(null);
 
   const authContext = useContext(AuthContext);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     if (authContext && authContext.userInfo) {
@@ -472,12 +473,25 @@ const ProductDetailPage = ({ params }) => {
       )}
       {/* Legal Pages */}
       {subCat.legal_pages && subCat.legal_pages.length > 0 && (
-        <div className="py-6 w-full p-2 mt-8 border-t">
+        <>
+        <div className=" md:hidden w-full border-t border-gray-200">
+                <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="w-full p-4 flex items-center justify-between text-gray-600 hover:bg-gray-100"
+                >
+                    <span className="font-medium">More about HomOfix Company</span>
+                    <ChevronDownIcon className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                </button>
+          </div>
+
+          <div className={`${isExpanded ? 'block' : 'hidden'} py-6 w-full p-2 mt-8 border-t`}>
           <div
             className="productpoints text-md"
             dangerouslySetInnerHTML={{ __html: subCat.legal_pages[0].content }}
           />
         </div>
+        </>
+        
       )}
     </section>
   );

@@ -407,25 +407,28 @@ const handleBookingDetailsinner = ({COS='False' , OL='True' , PaymentID}) =>{
   // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
   // setBookingDateTime(bookingDateTimeString);
   let payload = {
-      "booking_date": bookingDateTime,
+      "booking_date": bookingDate,
+      "slot":selectedSlot.slot,
       "customer": customer,
       "coupon": couponID,
       "cash_on_service": COS,
       "online": OL,
       "booking_product": cartItems,
       "booking_address": add,
-        "area": area,
-        "city": originalCity,
-        "state": state,
-        "booking_customer": name,
-        "mobile":  userProfileInfo.mobile,
-        "zipcode": zip,
-        "gst_no": gstNo,
+      "area": area,
+      "city": originalCity,
+      "state": state,
+      "booking_customer": name,
+      "mobile":  userProfileInfo.mobile,
+      "zipcode": zip,
+      "gst_no": gstNo,
   }
   console.log('payload', payload)
   // const token = typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null;
   // const url = "https://support.homofixcompany.com/api/create_booking/";
-  const url =`${process.env.NEXT_PUBLIC_API_URL}/create_booking/`;
+  // const url =`${process.env.NEXT_PUBLIC_API_URL}/create_booking/`;
+  const url =`http://3.110.153.69/api/create_booking/`;
+
 
   const postData = async () => {
     try {
@@ -738,9 +741,14 @@ const handleOnlinePayment2 = async () => {
     setErrorMsg('Please Select Date');
     return;
   }
-  if(bookingTime == '') {
+  // if(bookingTime == '') {
+  //   // Display an alert or handle the error in your UI
+  //   setErrorMsg('Please Select Time');
+  //   return;
+  // }
+  if(selectedSlot == null) {
     // Display an alert or handle the error in your UI
-    setErrorMsg('Please Select Time');
+    setErrorMsg('Please Select Slot');
     return;
   }
   if (cityerrormsg) {
@@ -758,7 +766,7 @@ const handleOnlinePayment2 = async () => {
   }
   // const bookingDateTimeString = `${bookingDate}T${bookingTime}:00+05:30`; 
   // setBookingDateTime(bookingDateTimeString);
-  if(bookingDateTime != '' && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
+  if(bookingDate != '' && selectedSlot != null && add != '' && area != '' || originalCity != '' ||  state !='' || zip!='' && name != ''){
     setErrorMsg('');
     setErrorMsgName('');
     setErrorMsgAdd('');

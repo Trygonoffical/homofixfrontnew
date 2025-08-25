@@ -30,13 +30,14 @@ const Footer = () => {
                 item.home === false && 
                 item.contact === false
             );
+            console.log("filteredData - ", filteredData )
                 setPages(filteredData)
             }
             featch()
         } , [url])
   return (
     <footer className="bg-gray-100 md:py-12 ">
-        <div className=" md:hidden w-full border-t border-gray-200">
+        {/* <div className=" md:hidden w-full border-t border-gray-200">
                 <button
                     onClick={() => setIsExpanded(!isExpanded)}
                     className="w-full p-4 flex items-center justify-between text-gray-600 hover:bg-gray-100"
@@ -44,7 +45,7 @@ const Footer = () => {
                     <span className="font-medium">More about HomOfix Company</span>
                     <ChevronDownIcon className={`w-5 h-5 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
                 </button>
-            </div>
+            </div> */}
         {/* className="hidden md:block container mx-auto px-4" */}
       <div  className={`hidden md:block container mx-auto px-4 max-w-7xl`}>
         <div className='px-0 mb-5'>
@@ -92,6 +93,7 @@ const Footer = () => {
               <Link href="/career" className="text-gray-600 hover:text-blue-600">Career</Link>
               <Link href="/terms" className="text-gray-600 hover:text-blue-600">Terms & Conditions</Link>
               <Link href="/privacy" className="text-gray-600 hover:text-blue-600">Privacy Policy</Link>
+              <Link href="/partner" className="text-gray-600 hover:text-blue-600">Become a Partner</Link>
             </div>
           </div>
 
@@ -119,7 +121,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div  className={`${isExpanded ? 'block' : 'hidden'}  container mx-auto px-4 max-w-7xl`}>
+      <div  className={`block md:hidden container mx-auto px-4 max-w-7xl`}>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -164,27 +166,31 @@ const Footer = () => {
           {/* Company */}
           <div>
             <h3 className="text-gray-800 text-sm font-semibold mb-4">COMPANY</h3>
-            <div className="flex ">
-              <Link href="/about" className="text-gray-600 text-xs hover:text-blue-600 px-2">About Us</Link> | 
-              <Link href="/contactus" className="text-gray-600 text-xs hover:text-blue-600 px-2">Contact Us</Link> |
-              <Link href="/career" className="text-gray-600 text-xs hover:text-blue-600 px-2">Career</Link> |
-              <Link href="/terms" className="text-gray-600 text-xs hover:text-blue-600 px-2">Terms & Conditions</Link> |
-              <Link href="/privacy" className="text-gray-600 text-xs hover:text-blue-600 px-2">Privacy Policy</Link> 
+            <div className="flex flex-wrap  ">
+              <Link href="/about" className="text-gray-600 text-xs hover:text-blue-600 px-2">About Us</Link> <span className="text-gray-600 text-xs">|</span> 
+              <Link href="/contactus" className="text-gray-600 text-xs hover:text-blue-600 px-2">Contact Us</Link> <span className="text-gray-600 text-xs ">|</span>
+              <Link href="/career" className="text-gray-600 text-xs hover:text-blue-600 px-2">Career</Link> <span className="text-gray-600 text-xs ">|</span>
+              <Link href="/terms" className="text-gray-600 text-xs hover:text-blue-600 px-2">Terms & Conditions</Link> <span className="text-gray-600 text-xs ">|</span>
+              <Link href="/privacy" className="text-gray-600 text-xs hover:text-blue-600 px-2">Privacy Policy</Link> <span className="text-gray-600 text-xs ">|</span>
+              <Link href="/partner" className="text-gray-600 text-xs hover:text-blue-600 px-2">Become a Partner</Link> 
             </div>
           </div>
 
           {/* For Customers */}
           <div>
             <h3 className="text-gray-800 text-sm font-semibold mb-4">FOR CUSTOMERS</h3>
-            <div className="flex ">
+            <div className="flex flex-wrap">
               {/* <Link href="/services" className="text-gray-600 hover:text-blue-600">Services Near You</Link> */}
-              <Link href="/addons" className="text-gray-600 hover:text-blue-600 text-xs px-2">Addon Services</Link> | 
-              <Link href="/blogs" className="text-gray-600 hover:text-blue-600 text-xs px-2">Blogs</Link> |
+              <Link href="/addons" className="text-gray-600 hover:text-blue-600 text-xs px-2">Addon Services</Link> <span className="text-gray-600 text-xs ">|</span> 
+              <Link href="/blogs" className="text-gray-600 hover:text-blue-600 text-xs px-2">Blogs</Link><span className="text-gray-600 text-xs ">|</span>
               {/* <Link href="/locations" className="text-gray-600 hover:text-blue-600">Serving Locations</Link> */}
               {pages.length>0 && pages.map((custpage , idx)=>  
-                <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-600 hover:text-blue-600 text-xs px-2">
-                    {custpage.title}
+              <>
+              <Link key={idx} href={`/page/${slugify(custpage.title)}`} className="text-gray-600 hover:text-blue-600 text-xs ">
+                    {custpage.title} 
                 </Link> 
+                {idx !== pages.length - 1 && <span className="text-gray-600 text-xs px-2">|</span>}
+              </>
                 )} 
             </div>
           </div>
