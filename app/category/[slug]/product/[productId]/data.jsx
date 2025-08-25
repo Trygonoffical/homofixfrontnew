@@ -472,7 +472,7 @@ const ProductDetailPage = ({ params }) => {
         </div>
       )}
       {/* Legal Pages */}
-      {subCat.legal_pages && subCat.legal_pages.length > 0 && (
+      {/* {subCat.legal_pages && subCat.legal_pages.length > 0 && (
         <>
         <div className=" md:hidden w-full border-t border-gray-200">
                 <button
@@ -492,7 +492,7 @@ const ProductDetailPage = ({ params }) => {
         </div>
         </>
         
-      )}
+      )} */}
     </section>
   );
 };
